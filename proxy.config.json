@@ -1,8 +1,11 @@
 {
   "/api/*": {
-    "target": "http://localhost:8000",
-    "secure": false,
+    "target": "https://a.4cdn.org",
+    "secure": true,
     "logLevel": "debug",
+    "pathRewrite": {
+      "^/api": ""
+    },
     "changeOrigin": true
   }
 }
