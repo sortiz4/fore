@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { GetBoards, GetCatalog, GetIndices, GetPosts, GetThreads } from '../../models';
 
 @Injectable({
   providedIn: 'root',
@@ -15,54 +16,54 @@ export class Api {
     };
   }
 
-  getUrl(...args: string[]): string {
+  getApiUrl(...args: string[]): string {
     return [environment.api, ...args].join('/');
   }
 
-  getBoards(): Promise<unknown> {
+  getBoards(): Promise<GetBoards> {
     return (
       this.http
-        .get(this.getUrl('boards.json'))
+        .get<GetBoards>(this.getApiUrl('boards.json'))
         .toPromise()
     );
   }
 
-  getThreads(board: string): Promise<unknown> {
+  getThreads(board: string): Promise<GetThreads> {
     return (
       this.http
-        .get(this.getUrl(board, 'threads.json'))
+        .get<GetThreads>(this.getApiUrl(board, 'threads.json'))
         .toPromise()
     );
   }
 
-  getCatalog(board: string): Promise<unknown> {
+  getCatalog(board: string): Promise<GetCatalog> {
     return (
       this.http
-        .get(this.getUrl(board, 'catalog.json'))
+        .get<GetCatalog>(this.getApiUrl(board, 'catalog.json'))
         .toPromise()
     );
   }
 
-  getArchive(board: string): Promise<unknown> {
+  getArchive(board: string): Promise<number[]> {
     return (
       this.http
-        .get(this.getUrl(board, 'archive.json'))
+        .get<number[]>(this.getApiUrl(board, 'archive.json'))
         .toPromise()
     );
   }
 
-  getIndices(board: string, page: number): Promise<unknown> {
+  getIndices(board: string, page: number): Promise<GetIndices> {
     return (
       this.http
-        .get(this.getUrl(board, `${page}.json`))
+        .get<GetIndices>(this.getApiUrl(board, `${page}.json`))
         .toPromise()
     );
   }
 
-  getPosts(board: string, thread: number): Promise<unknown> {
+  getPosts(board: string, thread: number): Promise<GetPosts> {
     return (
       this.http
-        .get(this.getUrl(board, 'thread', `${thread}.json`))
+        .get<GetPosts>(this.getApiUrl(board, 'thread', `${thread}.json`))
         .toPromise()
     );
   }
