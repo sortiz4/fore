@@ -1,0 +1,21 @@
+<ion-header class="app-header-border ion-no-border">
+  <ion-toolbar>
+    <ion-title>
+      Title
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/b/search">
+        <ion-icon name="search-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/b/notifications">
+        <ion-icon name="notifications-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list class="app-profile-hold" lines="full">
+    <app-post *ngFor="let _ of posts"></app-post>
+  </ion-list>
+  <app-infinite-load (load)="onNextPage()"></app-infinite-load>
+</ion-content>

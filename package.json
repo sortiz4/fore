@@ -1,0 +1,76 @@
+{
+  "name": "fore",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~11.2.3",
+    "@angular/common": "~11.2.4",
+    "@angular/core": "~11.2.6",
+    "@angular/elements": "~11.2.5",
+    "@angular/forms": "~11.2.6",
+    "@angular/platform-browser": "~11.2.3",
+    "@angular/platform-browser-dynamic": "~11.2.6",
+    "@angular/router": "~11.2.6",
+    "@ionic-native/core": "~5.31.1",
+    "@ionic-native/splash-screen": "~5.31.1",
+    "@ionic-native/status-bar": "~5.31.1",
+    "@ionic/angular": "~5.6.2",
+    "cordova-android": "~9.0.0",
+    "cordova-plugin-device": "~2.0.3",
+    "cordova-plugin-ionic-keyboard": "~2.2.0",
+    "cordova-plugin-ionic-webview": "~5.0.0",
+    "cordova-plugin-splashscreen": "~6.0.0",
+    "cordova-plugin-statusbar": "~2.4.3",
+    "cordova-plugin-whitelist": "~1.3.4",
+    "core-js": "~3.9.1",
+    "rxjs": "~6.6.6",
+    "timeago.js": "~4.0.2",
+    "tslib": "~2.1.0",
+    "zone.js": "~0.11.1"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.1102.5",
+    "@angular/cli": "~11.2.5",
+    "@angular/compiler": "~11.2.6",
+    "@angular/compiler-cli": "~11.2.6",
+    "@angular/language-service": "~11.2.6",
+    "@ionic/angular-toolkit": "~3.1.1",
+    "@types/jasmine": "~2.8.7",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~12.12.2",
+    "codelyzer": "~6.0.1",
+    "jasmine-core": "~3.7.1",
+    "jasmine-spec-reporter": "~6.0.0",
+    "karma": "~6.3.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage-istanbul-reporter": "~3.0.3",
+    "karma-jasmine": "~4.0.1",
+    "karma-jasmine-html-reporter": "~1.5.4",
+    "protractor": "~7.0.0",
+    "ts-node": "~9.1.1",
+    "tslint": "~6.1.3",
+    "typescript": "~4.0.6"
+  },
+  "cordova": {
+    "platforms": [
+      "android"
+    ],
+    "plugins": {
+      "cordova-plugin-device": {},
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-whitelist": {}
+    }
+  },
+  "scripts": {
+    "ng": "ng",
+    "clean": "rm -rf node_modules platforms plugins www *-lock.json",
+    "start": "ng serve --hmr --proxyConfig proxy.config.json",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  }
+}

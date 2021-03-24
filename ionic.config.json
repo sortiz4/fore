@@ -1,0 +1,12 @@
+{
+  "name": "fore",
+  "type": "angular",
+  "hooks": {
+    "build:before": [
+      "./hooks/splash-screen-patch.js"
+    ]
+  },
+  "integrations": {
+    "cordova": {}
+  }
+}
