@@ -20,6 +20,14 @@ export class Api {
     return [environment.api, ...args].join('/');
   }
 
+  getArchive(board: string): Promise<number[]> {
+    return (
+      this.http
+        .get<number[]>(this.getApiUrl(board, 'archive.json'))
+        .toPromise()
+    );
+  }
+
   getBoards(): Promise<GetBoards> {
     return (
       this.http
@@ -28,26 +36,10 @@ export class Api {
     );
   }
 
-  getThreads(board: string): Promise<GetThreads> {
-    return (
-      this.http
-        .get<GetThreads>(this.getApiUrl(board, 'threads.json'))
-        .toPromise()
-    );
-  }
-
   getCatalog(board: string): Promise<GetCatalog> {
     return (
       this.http
         .get<GetCatalog>(this.getApiUrl(board, 'catalog.json'))
-        .toPromise()
-    );
-  }
-
-  getArchive(board: string): Promise<number[]> {
-    return (
-      this.http
-        .get<number[]>(this.getApiUrl(board, 'archive.json'))
         .toPromise()
     );
   }
@@ -64,6 +56,14 @@ export class Api {
     return (
       this.http
         .get<GetPosts>(this.getApiUrl(board, 'thread', `${thread}.json`))
+        .toPromise()
+    );
+  }
+
+  getThreads(board: string): Promise<GetThreads> {
+    return (
+      this.http
+        .get<GetThreads>(this.getApiUrl(board, 'threads.json'))
         .toPromise()
     );
   }
