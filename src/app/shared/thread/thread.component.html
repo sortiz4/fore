@@ -1,12 +1,24 @@
-<ion-item [button]="true" (click)="onClick($event)">
-  <ion-card>
-    <img loading="lazy" [src]="image" (click)="onClick($event)"/>
+<ion-item>
+  <ion-card [button]="true" (click)="onClick($event)">
+    <img
+      *ngIf="isImage"
+      loading="lazy"
+      [src]="image"
+      (click)="onClick($event)"/>
+    <video
+      *ngIf="isVideo"
+      preload="none"
+      [autoplay]="true"
+      [loop]="true"
+      [muted]="true"
+      [src]="image"
+      (click)="onClick($event)"></video>
     <ion-card-header>
       <ion-card-subtitle>
         {{ name }} · {{ time | timeAgo }}
       </ion-card-subtitle>
       <ion-card-title [innerHTML]="title"></ion-card-title>
     </ion-card-header>
-    <ion-card-content [innerHTML]="text"></ion-card-content>
+    <ion-card-content *ngIf="text" [innerHTML]="text"></ion-card-content>
   </ion-card>
 </ion-item>

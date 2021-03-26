@@ -22,7 +22,7 @@
       <ion-icon name="chevron-up"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <ion-list class="app-profile-hold" lines="full">
+  <ion-list class="app-profile-hold" lines="none">
     <app-thread *ngFor="let thread of catalog$ | async" [board]="board" [thread]="thread"></app-thread>
   </ion-list>
 </ion-content>

@@ -10,6 +10,27 @@ export class ThreadComponent {
   @Input() board: string;
   @Input() thread: Thread;
 
+  get isImage(): boolean {
+    switch (this.thread.ext) {
+      case '.gif':
+      case '.jpeg':
+      case '.jpg':
+      case '.png':
+      case '.webp':
+        return true;
+    }
+    return false;
+  }
+
+  get isVideo(): boolean {
+    switch (this.thread.ext) {
+      case '.mp4':
+      case '.webm':
+        return true;
+    }
+    return false;
+  }
+
   get image(): string {
     return `${this.url}/${this.board}/${this.thread.tim}${this.thread.ext}`;
   }
