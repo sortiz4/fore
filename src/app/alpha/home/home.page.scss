@@ -1,0 +1,7 @@
+ion-list {
+  padding: 0;
+
+  &::ng-deep app-thread:last-child ion-item {
+    --border-width: 0 !important;
+  }
+}

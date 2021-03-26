@@ -1,10 +1,14 @@
-<ion-item [button]="true">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="2">
-        <img loading="lazy" [src]="thumbnail"/>
-      </ion-col>
-      <ion-col [innerHTML]="thread.com"></ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-item [button]="true" (click)="onClick($event)">
+  <ion-card>
+    <img loading="lazy" [src]="image" (click)="onClick($event)"/>
+    <ion-card-header>
+      <ion-card-subtitle>
+        {{ name }} · {{ time | timeAgo }}
+      </ion-card-subtitle>
+      <ion-card-title>
+        {{ title }}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content [innerHTML]="text"></ion-card-content>
+  </ion-card>
 </ion-item>

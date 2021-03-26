@@ -1,3 +1,25 @@
 :host {
   display: contents;
 }
+
+img {
+  object-fit: cover;
+  width: 100vw;
+  max-height: 150px;
+}
+
+ion-card {
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+
+ion-item {
+  --padding-start: 0;
+  --padding-end: 0;
+
+  &::part(native) {
+    padding: 0;
+  }
+}
