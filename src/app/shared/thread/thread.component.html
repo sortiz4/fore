@@ -5,9 +5,7 @@
       <ion-card-subtitle>
         {{ name }} · {{ time | timeAgo }}
       </ion-card-subtitle>
-      <ion-card-title>
-        {{ title }}
-      </ion-card-title>
+      <ion-card-title [innerHTML]="title"></ion-card-title>
     </ion-card-header>
     <ion-card-content [innerHTML]="text"></ion-card-content>
   </ion-card>
