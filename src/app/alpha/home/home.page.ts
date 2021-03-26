@@ -1,25 +1,31 @@
 import { Component, ViewChild } from '@angular/core';
-import { timer } from 'rxjs';
-import { InfiniteLoadComponent } from '../../shared/infinite-load/infinite-load.component';
+import { IonContent, ViewWillEnter } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { Api } from '../../services/api.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
-  @ViewChild(InfiniteLoadComponent) infinite: InfiniteLoadComponent;
-  posts = this.createPosts();
+export class HomePage implements ViewWillEnter {
+  @ViewChild(IonContent) content: IonContent;
+  board: string;
+  catalog$: Observable<unknown>;
 
-  createPosts(): boolean[] {
-    return Array(5).fill(0).map(Boolean);
+  constructor(private api: Api) {
   }
 
-  onNextPage(): Promise<void> {
-    return (
-      timer(1000).toPromise()
-        .then(() => this.posts.push(...this.createPosts()))
-        .then(() => this.infinite.stop())
-    )
+  ionViewWillEnter(): void {
+    if (!this.board) {
+      this.board = 'tv';
+    }
+    if (!this.catalog$) {
+      this.catalog$ = this.api.getCatalog(this.board);
+    }
+  }
+
+  onScrollToTop(): Promise<void> {
+    return this.content.scrollToTop(250);
   }
 }

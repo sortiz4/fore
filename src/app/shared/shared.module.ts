@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { NoRippleDirective } from './no-ripple.directive';
+import { ThreadComponent } from './thread/thread.component';
 import { TimeAgoPipe } from './time-ago.pipe';
 import { InfiniteLoadComponent } from './infinite-load/infinite-load.component';
 import { NotificationComponent } from './notification/notification.component';
@@ -16,6 +17,7 @@ import { PostComponent } from './post/post.component';
     NotificationComponent,
     PageComponent,
     PostComponent,
+    ThreadComponent,
     TimeAgoPipe,
   ],
   imports: [
@@ -29,6 +31,7 @@ import { PostComponent } from './post/post.component';
     NotificationComponent,
     PageComponent,
     PostComponent,
+    ThreadComponent,
     TimeAgoPipe,
   ],
 })

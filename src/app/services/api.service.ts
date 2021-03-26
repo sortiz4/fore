@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { GetBoards, GetCatalog, GetIndices, GetPosts, GetThreads } from '../../models';
+import { GetBoards, GetCatalog, GetIndices, GetPosts, GetThreads, Thread } from '../../models';
 
 @Injectable({
   providedIn: 'root',
@@ -20,51 +22,46 @@ export class Api {
     return [environment.api, ...args].join('/');
   }
 
-  getArchive(board: string): Promise<number[]> {
+  getArchive(board: string): Observable<number[]> {
     return (
       this.http
         .get<number[]>(this.getApiUrl(board, 'archive.json'))
-        .toPromise()
     );
   }
 
-  getBoards(): Promise<GetBoards> {
+  getBoards(): Observable<GetBoards> {
     return (
       this.http
         .get<GetBoards>(this.getApiUrl('boards.json'))
-        .toPromise()
     );
   }
 
-  getCatalog(board: string): Promise<GetCatalog> {
+  getCatalog(board: string): Observable<Thread[]> {
     return (
       this.http
-        .get<GetCatalog>(this.getApiUrl(board, 'catalog.json'))
-        .toPromise()
+        .get<GetCatalog[]>(this.getApiUrl(board, 'catalog.json'))
+        .pipe(map(r => r.map(a => a.threads).reduce((a, b) => b.concat(a), [])))
     );
   }
 
-  getIndices(board: string, page: number): Promise<GetIndices> {
+  getIndices(board: string, page: number): Observable<GetIndices> {
     return (
       this.http
         .get<GetIndices>(this.getApiUrl(board, `${page}.json`))
-        .toPromise()
     );
   }
 
-  getPosts(board: string, thread: number): Promise<GetPosts> {
+  getPosts(board: string, thread: number): Observable<GetPosts> {
     return (
       this.http
         .get<GetPosts>(this.getApiUrl(board, 'thread', `${thread}.json`))
-        .toPromise()
     );
   }
 
-  getThreads(board: string): Promise<GetThreads> {
+  getThreads(board: string): Observable<GetThreads> {
     return (
       this.http
         .get<GetThreads>(this.getApiUrl(board, 'threads.json'))
-        .toPromise()
     );
   }
 }
