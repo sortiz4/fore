@@ -5,6 +5,10 @@ import { IonicModule } from '@ionic/angular';
 
 const routes: Routes = [
   {
+    path: 'boards',
+    loadChildren: () => import('./boards/boards.module').then(m => m.BoardsPageModule),
+  },
+  {
     path: 'notifications',
     loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsPageModule),
   },

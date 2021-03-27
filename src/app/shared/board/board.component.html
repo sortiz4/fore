@@ -1,0 +1,13 @@
+<ion-item>
+  <ion-card [button]="true" (click)="onClick($event)">
+    <ion-card-header>
+      <ion-card-subtitle>
+        /{{ path }}/
+      </ion-card-subtitle>
+      <ion-card-title>
+        {{ title }}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content [innerHTML]="description"></ion-card-content>
+  </ion-card>
+</ion-item>

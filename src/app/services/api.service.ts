@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { GetBoards, GetCatalog, GetIndices, GetPosts, GetThreads, Thread } from '../../models';
+import { Board, GetBoards, GetCatalog, GetIndices, GetPosts, GetThreads, Thread } from '../../models';
 
 @Injectable({
   providedIn: 'root',
@@ -29,10 +29,11 @@ export class Api {
     );
   }
 
-  getBoards(): Observable<GetBoards> {
+  getBoards(): Observable<Board[]> {
     return (
       this.http
         .get<GetBoards>(this.getApiUrl('boards.json'))
+        .pipe(map(r => r.boards))
     );
   }
 

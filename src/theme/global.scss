@@ -74,87 +74,22 @@ ion-toolbar ion-avatar {
   border-radius: $app-border-radius;
 }
 
-.app-profile {
-  &-avatar {
-    border: $app-profile-avatar-border;
-    border-radius: 100%;
-    box-sizing: border-box;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: $app-profile-avatar-size;
-    height: $app-profile-avatar-size;
-  }
+.app-list {
+  padding: $app-space-2 0;
 
-  &-banner {
-    width: 100%;
-    height: $app-profile-banner-size;
-    object-fit: cover;
-  }
-
-  &-description {
-    font-size: $app-small-font-size;
-  }
-
-  &-details {
-    @include inline-space($app-space-4);
-    display: flex;
-    justify-content: center;
-    font-size: $app-small-font-size;
-
-    & span {
-      margin-left: $app-space-1;
+  & > * {
+    & > ion-item {
+      --inner-padding-start: 0;
+      --inner-padding-end: 0;
+      --padding-top: 0;
+      --padding-bottom: #{$app-space-1};
+      --padding-start: #{$app-space-1};
+      --padding-end: #{$app-space-1};
     }
-  }
 
-  &-hold {
-    padding: $app-space-2 0;
-
-    & > * {
-      & > ion-item {
-        --inner-padding-start: 0;
-        --inner-padding-end: 0;
-        --padding-top: 0;
-        --padding-bottom: #{$app-space-1};
-        --padding-start: #{$app-space-1};
-        --padding-end: #{$app-space-1};
-      }
-
-      &:not(:first-child) > ion-item {
-        --padding-top: #{$app-space-1};
-      }
+    &:not(:first-child) > ion-item {
+      --padding-top: #{$app-space-1};
     }
-  }
-
-  &-mast {
-    padding: 0 $app-space-2 $app-space-2 $app-space-2;
-  }
-
-  &-options {
-    @include inline-space();
-    display: flex;
-    justify-content: flex-end;
-
-    & > * {
-      margin: 0;
-    }
-  }
-
-  &-sail {
-    height: $app-profile-banner-size;
-    margin-bottom: $app-profile-sail-margin;
-    position: relative;
-  }
-
-  &-subtitle {
-    color: var(--ion-color-medium);
-  }
-
-  &-title {
-    @include inline-space();
-    display: flex;
-    margin-bottom: $app-space-2;
   }
 }
 

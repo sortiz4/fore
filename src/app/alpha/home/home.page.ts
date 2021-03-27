@@ -3,6 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonContent, ViewWillEnter } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { Api } from '../../services/api.service';
+import { Thread } from '../../../models';
 
 @Component({
   selector: 'app-home',
@@ -22,11 +23,10 @@ import { Api } from '../../services/api.service';
 export class HomePage implements ViewWillEnter {
   @ViewChild(IonContent) content: IonContent;
   board: string;
-  catalog$: Observable<unknown>;
+  catalog$: Observable<Thread[]>;
   isFabHidden = true;
 
   constructor(private api: Api) {
-    globalThis.temp1 = this;
   }
 
   ionViewWillEnter(): void {

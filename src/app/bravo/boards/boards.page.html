@@ -1,0 +1,5 @@
+<app-page title="Boards" [showBack]="true">
+  <ion-list class="app-list" lines="none">
+    <app-board *ngFor="let board of boards$ | async" [board]="board"></app-board>
+  </ion-list>
+</app-page>
