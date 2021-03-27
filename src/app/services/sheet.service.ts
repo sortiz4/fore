@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActionSheetController, PickerController } from '@ionic/angular';
+import { PickerOptions } from '@ionic/core';
 
 @Injectable({
   providedIn: 'root',
@@ -15,18 +16,18 @@ export class Sheet {
         {
           icon: 'share',
           text: 'Share',
-          handler: () => null,
+          handler: () => void 0,
         },
         {
           icon: 'flag',
           text: 'Report',
-          handler: () => null,
+          handler: () => void 0,
         },
         {
           icon: 'close',
           role: 'cancel',
           text: 'Cancel',
-          handler: () => null,
+          handler: () => void 0,
         },
       ],
     };
@@ -39,5 +40,17 @@ export class Sheet {
 
   closeActions(): Promise<boolean> {
     return this.action.dismiss();
+  }
+
+  openPicker(options: PickerOptions): Promise<HTMLIonPickerElement> {
+    return (
+      this.picker
+        .create(options)
+        .then(h => h.present().then(() => h))
+    );
+  }
+
+  closePicker(): Promise<boolean> {
+    return this.picker.dismiss();
   }
 }

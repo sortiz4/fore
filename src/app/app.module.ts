@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PreloadAllModules, RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 import { AngularDelegate, IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { IonicStorageModule } from '@ionic/storage-angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
@@ -38,6 +39,7 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
   providers: [

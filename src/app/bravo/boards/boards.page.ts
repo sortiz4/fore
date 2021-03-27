@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Api } from '../../services/api.service';
+import { State } from '../../services/state.service';
 import { Board } from '../../../models';
 
 @Component({
@@ -9,14 +8,12 @@ import { Board } from '../../../models';
   styleUrls: ['boards.page.scss'],
 })
 export class BoardsPage {
-  boards$: Observable<Board[]>;
+  boards: Board[];
 
-  constructor(private api: Api) {
+  constructor(private state: State) {
   }
 
   ionViewWillEnter(): void {
-    if (!this.boards$) {
-      this.boards$ = this.api.getBoards();
-    }
+    this.boards = this.state.get().boards;
   }
 }

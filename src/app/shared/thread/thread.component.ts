@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Thread } from '../../../models';
+import { Board, Thread } from '../../../models';
 
 @Component({
   selector: 'app-thread',
@@ -7,7 +7,7 @@ import { Thread } from '../../../models';
   styleUrls: ['./thread.component.scss'],
 })
 export class ThreadComponent {
-  @Input() board: string;
+  @Input() board: Board;
   @Input() thread: Thread;
 
   get isImage(): boolean {
@@ -32,11 +32,15 @@ export class ThreadComponent {
   }
 
   get image(): string {
-    return `${this.url}/${this.board}/${this.thread.tim}${this.thread.ext}`;
+    return `${this.url}/${this.board.board}/${this.thread.tim}${this.thread.ext}`;
   }
 
   get name(): string {
     return this.thread.name;
+  }
+
+  get replies(): string {
+    return `${this.thread.replies} ${this.thread.replies === 1 ? 'reply' : 'replies'}`;
   }
 
   get text(): string {
@@ -44,7 +48,7 @@ export class ThreadComponent {
   }
 
   get thumbnail(): string {
-    return `${this.url}/${this.board}/${this.thread.tim}s.jpg`;
+    return `${this.url}/${this.board.board}/${this.thread.tim}s.jpg`;
   }
 
   get time(): number {
