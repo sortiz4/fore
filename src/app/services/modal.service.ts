@@ -20,7 +20,7 @@ export class Modal {
   constructor(private alert: AlertController, private loading: LoadingController, private window: ModalController) {
   }
 
-  createAlert(options?: AlertOptions): Observable<HTMLIonAlertElement> {
+  openAlert(options?: AlertOptions): Observable<HTMLIonAlertElement> {
     const defaultOptions = {
       title: 'Alert',
       buttons: ['Okay'],
@@ -29,31 +29,31 @@ export class Modal {
       return (
         this.alert
           .create({ ...defaultOptions, ...options ?? {} })
-          .then(modal => modal.present().then(() => modal))
+          .then(m => m.present().then(() => m))
       );
     };
 
     return defer(onSubscribe);
   }
 
-  createErrorAlert(error: Error, options?: AlertOptions): Observable<HTMLIonAlertElement> {
+  openErrorAlert(error: Error, options?: AlertOptions): Observable<HTMLIonAlertElement> {
     const defaultOptions = {
       header: 'Something went wrong.',
       message: 'Please try again.',
     };
-    return this.createAlert({ ...defaultOptions, ...options ?? {} });
+    return this.openAlert({ ...defaultOptions, ...options ?? {} });
   }
 
-  createLoad<T>(callback: LoadingCallback<T>, options?: LoadingOptions): Observable<T> {
+  openLoad<T>(callback: LoadingCallback<T>, options?: LoadingOptions): Observable<T> {
     const defaultOptions = {
       message: 'Loading...',
     };
 
-    const createModal = (): ObservableInput<HTMLIonLoadingElement> => {
+    const openModal = (): ObservableInput<HTMLIonLoadingElement> => {
       return (
         this.loading
           .create({ ...defaultOptions, ...options ?? {} })
-          .then(modal => modal.present().then(() => modal))
+          .then(m => m.present().then(() => m))
       );
     };
 
@@ -62,7 +62,7 @@ export class Modal {
     };
 
     const onSubscribe = (): ObservableInput<[HTMLIonLoadingElement, T]> => {
-      return zip(createModal(), callback().pipe(catchError(onCatch)));
+      return zip(openModal(), callback().pipe(catchError(onCatch)));
     };
 
     const onComplete = ([modal, result]: [HTMLIonLoadingElement, T]): ObservableInput<T> => {
@@ -82,7 +82,7 @@ export class Modal {
       return (
         this.window
           .create(options)
-          .then(modal => modal.present().then(() => modal))
+          .then(m => m.present().then(() => m))
       );
     };
 

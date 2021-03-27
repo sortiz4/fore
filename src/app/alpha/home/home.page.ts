@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Api } from '../../services/api.service';
 import { Modal } from '../../services/modal.service';
 import { State } from '../../services/state.service';
+import { SelectBoardComponent } from '../../shared/select-board/select-board.component';
 import { Board, Thread } from '../../../models';
 
 @Component({
@@ -57,27 +58,25 @@ export class HomePage implements ViewWillEnter {
     }
   }
 
-  onSelectBoard(): Promise<HTMLIonAlertElement> {
-    const options = {
-      header: 'Boards',
-      inputs: (
-        this.state
-          .get()
-          .boards
-          .map(b => ({ label: `/${b.board}/ - ${b.title}`, name: b.board, type: 'radio', value: b }))
-      ),
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-        },
-        {
-          text: 'Confirm',
-          handler: v => this.onChangeBoard(v),
-        },
-      ],
+  onSelectBoard(): Promise<HTMLIonModalElement> {
+    const onOpen = (modal: HTMLIonModalElement): HTMLIonModalElement => {
+      // Change the board
+      modal.onDidDismiss().then(v => v.data ? this.onChangeBoard(v.data) : void 0);
+
+      // Forward the modal
+      return modal;
     };
-    return this.modal.createAlert(options).toPromise();
+
+    const options = {
+      component: SelectBoardComponent,
+    };
+
+    return (
+      this.modal
+        .openWindow(options)
+        .toPromise()
+        .then(onOpen)
+    );
   }
 
   onScroll(event: CustomEvent): void {

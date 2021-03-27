@@ -1,0 +1,10 @@
+<ion-header class="app-header-border ion-no-border">
+  <ion-toolbar>
+    <ion-searchbar showCancelButton="always" [animated]="true" (ionCancel)="onCancel()" (ionChange)="onChange($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list class="app-list" lines="none">
+    <app-board *ngFor="let board of boards | searchBoards: search" [board]="board" (select)="onSelect(board)"></app-board>
+  </ion-list>
+</ion-content>

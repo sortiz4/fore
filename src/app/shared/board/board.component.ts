@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Board } from '../../../models';
 
 @Component({
@@ -8,6 +8,7 @@ import { Board } from '../../../models';
 })
 export class BoardComponent {
   @Input() board: Board;
+  @Output() select = new EventEmitter<void>();
 
   get description(): string {
     return this.board.metaDescription;
@@ -21,7 +22,7 @@ export class BoardComponent {
     return this.board.title;
   }
 
-  onClick(event: MouseEvent): void {
-    event.stopImmediatePropagation();
+  onClick(): void {
+    this.select.emit();
   }
 }

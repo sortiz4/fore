@@ -9,6 +9,8 @@ import { InfiniteLoadComponent } from './infinite-load/infinite-load.component';
 import { NotificationComponent } from './notification/notification.component';
 import { PageComponent } from './page/page.component';
 import { PostComponent } from './post/post.component';
+import { SearchBoardsPipe } from './search-boards.pipe';
+import { SelectBoardComponent } from './select-board/select-board.component';
 import { ThreadComponent } from './thread/thread.component';
 
 @NgModule({
@@ -19,6 +21,8 @@ import { ThreadComponent } from './thread/thread.component';
     NotificationComponent,
     PageComponent,
     PostComponent,
+    SearchBoardsPipe,
+    SelectBoardComponent,
     ThreadComponent,
     TimeAgoPipe,
   ],
@@ -34,6 +38,8 @@ import { ThreadComponent } from './thread/thread.component';
     NotificationComponent,
     PageComponent,
     PostComponent,
+    SearchBoardsPipe,
+    SelectBoardComponent,
     ThreadComponent,
     TimeAgoPipe,
   ],
