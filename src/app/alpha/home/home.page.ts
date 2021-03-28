@@ -58,6 +58,12 @@ export class HomePage implements ViewWillEnter {
     }
   }
 
+  onRefresh(): void {
+    this.board = void 0;
+    this.catalog$ = void 0;
+    this.ionViewWillEnter();
+  }
+
   onSelectBoard(): Promise<HTMLIonModalElement> {
     const onOpen = (modal: HTMLIonModalElement): HTMLIonModalElement => {
       // Change the board

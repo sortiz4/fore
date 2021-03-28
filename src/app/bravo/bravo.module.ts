@@ -16,6 +16,14 @@ const routes: Routes = [
     path: 'search',
     loadChildren: () => import('./search/search.module').then(m => m.SearchPageModule),
   },
+  {
+    path: 'view-media',
+    loadChildren: () => import('./view-media/view-media.module').then(m => m.ViewMediaPageModule),
+  },
+  {
+    path: 'view-thread',
+    loadChildren: () => import('./view-thread/view-thread.module').then(m => m.ViewThreadPageModule),
+  },
 ];
 
 @NgModule({

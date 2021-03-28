@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { Board, Thread } from '../../../models';
 
 @Component({
@@ -63,7 +64,16 @@ export class ThreadComponent {
     return 'https://i.4cdn.org';
   }
 
-  onClick(event: MouseEvent): void {
+  constructor(private navigation: NavController) {
+  }
+
+  onClickMedia(event: MouseEvent): Promise<boolean> {
     event.stopImmediatePropagation();
+    return this.navigation.navigateForward('/b/view-media');
+  }
+
+  onClickThread(event: MouseEvent): Promise<boolean> {
+    event.stopImmediatePropagation();
+    return this.navigation.navigateForward('/b/view-thread');
   }
 }

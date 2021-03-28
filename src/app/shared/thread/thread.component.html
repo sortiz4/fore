@@ -1,10 +1,10 @@
 <ion-item>
-  <ion-card [button]="true" (click)="onClick($event)">
+  <ion-card [button]="true" (click)="onClickThread($event)">
     <img
       *ngIf="isImage"
       loading="lazy"
       [src]="image"
-      (click)="onClick($event)"/>
+      (click)="onClickMedia($event)"/>
     <video
       *ngIf="isVideo"
       preload="none"
@@ -12,7 +12,7 @@
       [loop]="true"
       [muted]="true"
       [src]="image"
-      (click)="onClick($event)"></video>
+      (click)="onClickMedia($event)"></video>
     <ion-card-header>
       <ion-card-subtitle>
         {{ name }} · {{ replies }} · {{ time | timeAgo }}
