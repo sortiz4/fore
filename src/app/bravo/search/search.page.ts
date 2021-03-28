@@ -5,8 +5,8 @@ import { InfiniteLoadComponent } from '../../shared/infinite-load/infinite-load.
 
 @Component({
   selector: 'app-search',
-  templateUrl: 'search.page.html',
-  styleUrls: ['search.page.scss'],
+  templateUrl: './search.page.html',
+  styleUrls: ['./search.page.scss'],
 })
 export class SearchPage {
   @ViewChild(InfiniteLoadComponent) infinite: InfiniteLoadComponent;

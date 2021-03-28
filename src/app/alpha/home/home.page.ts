@@ -7,11 +7,12 @@ import { Modal } from '../../services/modal.service';
 import { State } from '../../services/state.service';
 import { SelectBoardComponent } from '../../shared/select-board/select-board.component';
 import { Board, Thread } from '../../../models';
+import { random } from '../../../utils';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
   animations: [
     trigger(
       'fab',
@@ -39,9 +40,14 @@ export class HomePage implements ViewWillEnter {
   constructor(private api: Api, private modal: Modal, private state: State) {
   }
 
+  getRandomBoard(): Board {
+    const boards = this.state.get().boards;
+    return boards[random(0, boards.length - 1)];
+  }
+
   ionViewWillEnter(): void {
     if (!this.board) {
-      this.board = this.state.get().boards[60];
+      this.board = this.getRandomBoard();
     }
     if (!this.catalog$) {
       this.catalog$ = this.api.getCatalog(this.board.board);
@@ -59,7 +65,6 @@ export class HomePage implements ViewWillEnter {
   }
 
   onRefresh(): void {
-    this.board = void 0;
     this.catalog$ = void 0;
     this.ionViewWillEnter();
   }

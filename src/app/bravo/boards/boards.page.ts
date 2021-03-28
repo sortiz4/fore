@@ -4,8 +4,8 @@ import { Board } from '../../../models';
 
 @Component({
   selector: 'app-boards',
-  templateUrl: 'boards.page.html',
-  styleUrls: ['boards.page.scss'],
+  templateUrl: './boards.page.html',
+  styleUrls: ['./boards.page.scss'],
 })
 export class BoardsPage {
   boards: Board[];
