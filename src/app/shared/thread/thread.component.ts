@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { ViewMediaComponent } from '../view-media/view-media.component';
+import { ViewThreadComponent } from '../view-thread/view-thread.component';
+import { Modal } from '../../services/modal.service';
 import { Board, Thread } from '../../../models';
 
 @Component({
@@ -32,7 +34,7 @@ export class ThreadComponent {
     return false;
   }
 
-  get image(): string {
+  get media(): string {
     return `${this.url}/${this.board.board}/${this.thread.tim}${this.thread.ext}`;
   }
 
@@ -64,16 +66,36 @@ export class ThreadComponent {
     return 'https://i.4cdn.org';
   }
 
-  constructor(private navigation: NavController) {
+  constructor(private modal: Modal) {
   }
 
-  onClickMedia(event: MouseEvent): Promise<boolean> {
+  onClickMedia(event: MouseEvent): Promise<HTMLIonModalElement> {
     event.stopImmediatePropagation();
-    return this.navigation.navigateForward('/b/view-media');
+    const options = {
+      component: ViewMediaComponent,
+      componentProps: {
+        isImage: this.isImage,
+        isVideo: this.isVideo,
+        media: this.media,
+      },
+      cssClass: [
+        'app-modal-fullscreen',
+        'app-modal-lightbox',
+      ],
+    };
+    return this.modal.openWindow(options).toPromise();
   }
 
-  onClickThread(event: MouseEvent): Promise<boolean> {
+  onClickThread(event: MouseEvent): Promise<HTMLIonModalElement> {
     event.stopImmediatePropagation();
-    return this.navigation.navigateForward('/b/view-thread');
+    const options = {
+      component: ViewThreadComponent,
+      componentProps: {
+        board: this.board,
+        thread: this.thread,
+      },
+      cssClass: 'app-modal-fullscreen',
+    };
+    return this.modal.openWindow(options).toPromise();
   }
 }

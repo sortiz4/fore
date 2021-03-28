@@ -12,6 +12,8 @@ import { PostComponent } from './post/post.component';
 import { SearchBoardsPipe } from './search-boards.pipe';
 import { SelectBoardComponent } from './select-board/select-board.component';
 import { ThreadComponent } from './thread/thread.component';
+import { ViewMediaComponent } from './view-media/view-media.component';
+import { ViewThreadComponent } from './view-thread/view-thread.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { ThreadComponent } from './thread/thread.component';
     SelectBoardComponent,
     ThreadComponent,
     TimeAgoPipe,
+    ViewMediaComponent,
+    ViewThreadComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +46,8 @@ import { ThreadComponent } from './thread/thread.component';
     SelectBoardComponent,
     ThreadComponent,
     TimeAgoPipe,
+    ViewMediaComponent,
+    ViewThreadComponent,
   ],
 })
 export class SharedModule {}

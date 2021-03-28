@@ -1,4 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
+import { ViewWillEnter } from '@ionic/angular';
 import Mark from 'mark.js';
 import { State } from '../../services/state.service';
 import { Board } from '../../../models';
@@ -8,7 +9,7 @@ import { Board } from '../../../models';
   templateUrl: './select-board.component.html',
   styleUrls: ['./select-board.component.scss'],
 })
-export class SelectBoardComponent {
+export class SelectBoardComponent implements ViewWillEnter {
   boards: Board[];
   mark: Mark;
   modal: HTMLIonModalElement;

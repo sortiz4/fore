@@ -3,7 +3,7 @@
     <img
       *ngIf="isImage"
       loading="lazy"
-      [src]="image"
+      [src]="media"
       (click)="onClickMedia($event)"/>
     <video
       *ngIf="isVideo"
@@ -11,7 +11,7 @@
       [autoplay]="true"
       [loop]="true"
       [muted]="true"
-      [src]="image"
+      [src]="media"
       (click)="onClickMedia($event)"></video>
     <ion-card-header>
       <ion-card-subtitle>

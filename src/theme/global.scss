@@ -69,6 +69,26 @@ ion-toolbar ion-avatar {
   border-bottom: $app-header-border;
 }
 
+.app-modal-fullscreen {
+  & > .modal-wrapper {
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.app-modal-lightbox {
+  & ion-content,
+  & ion-toolbar {
+    --color: #{$app-lightbox-color};
+    --background: #{$app-lightbox-background};
+  }
+
+  & .modal-wrapper {
+    --background: transparent;
+  }
+}
+
 .app-input-block {
   border: $app-input-border;
   border-radius: $app-border-radius;

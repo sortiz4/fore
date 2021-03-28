@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { ViewThreadPage } from './view-thread.page';
+import { ViewMediaComponent } from './view-media.component';
 
-describe('ViewThreadPage', () => {
-  let component: ViewThreadPage;
-  let fixture: ComponentFixture<ViewThreadPage>;
+describe('ViewMediaComponent', () => {
+  let component: ViewMediaComponent;
+  let fixture: ComponentFixture<ViewMediaComponent>;
 
   beforeEach(waitForAsync(() => {
     const config = {
       declarations: [
-        ViewThreadPage,
+        ViewMediaComponent,
       ],
       imports: [
         IonicModule.forRoot(),
@@ -17,7 +17,7 @@ describe('ViewThreadPage', () => {
     };
     TestBed.configureTestingModule(config).compileComponents();
 
-    fixture = TestBed.createComponent(ViewThreadPage);
+    fixture = TestBed.createComponent(ViewMediaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

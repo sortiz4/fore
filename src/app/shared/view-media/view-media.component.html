@@ -1,0 +1,13 @@
+<app-page title="View Media" (close)="onClose()">
+  <img
+    *ngIf="isImage"
+    loading="lazy"
+    [src]="media"/>
+  <video
+    *ngIf="isVideo"
+    preload="none"
+    [autoplay]="true"
+    [loop]="true"
+    [muted]="true"
+    [src]="media"></video>
+</app-page>
