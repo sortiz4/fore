@@ -3,19 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { Board, GetBoards, GetCatalog, GetIndices, GetPosts, GetThreads, Thread } from '../../models';
+import { Board, GetBoards, GetCatalog, GetIndices, GetPosts, GetThreads, Post, Thread } from '../../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Api {
   constructor(private http: HttpClient) {
-  }
-
-  createHttpOptions(): Pojo {
-    return {
-      withCredentials: true,
-    };
   }
 
   getApiUrl(...args: string[]): string {
@@ -52,10 +46,11 @@ export class Api {
     );
   }
 
-  getPosts(board: string, thread: number): Observable<GetPosts> {
+  getPosts(board: string, thread: number): Observable<Post[]> {
     return (
       this.http
         .get<GetPosts>(this.getApiUrl(board, 'thread', `${thread}.json`))
+        .pipe(map(r => r.posts.slice(1)))
     );
   }
 

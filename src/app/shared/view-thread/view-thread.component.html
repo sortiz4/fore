@@ -1,5 +1,8 @@
-<app-page title="View Thread" (close)="onClose()">
+<app-page [title]="title" (close)="onClose()">
   <ion-list class="app-list" lines="none">
     <app-thread [board]="board" [thread]="thread"></app-thread>
+    <ng-container *ngIf="posts$ | async as posts">
+      <app-post *ngFor="let post of posts" [board]="board" [post]="post" [posts]="posts"></app-post>
+    </ng-container>
   </ion-list>
 </app-page>

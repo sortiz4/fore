@@ -1,8 +1,6 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title *ngIf="title">
-      {{ title }}
-    </ion-title>
+    <ion-title *ngIf="title" [innerHTML]="title"></ion-title>
     <ion-buttons *ngIf="showBack" slot="start">
       <ion-back-button defaultHref=""></ion-back-button>
     </ion-buttons>

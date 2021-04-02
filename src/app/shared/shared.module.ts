@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { PinchZoomModule } from 'ngx-pinch-zoom';
 import { NoRippleDirective } from './no-ripple.directive';
 import { TimeAgoPipe } from './time-ago.pipe';
 import { BoardComponent } from './board/board.component';
@@ -33,6 +34,7 @@ import { ViewThreadComponent } from './view-thread/view-thread.component';
   imports: [
     CommonModule,
     IonicModule,
+    PinchZoomModule,
     RouterModule,
   ],
   exports: [

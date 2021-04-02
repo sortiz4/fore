@@ -1,13 +1,6 @@
-<app-page title="View Media" (close)="onClose()">
-  <img
-    *ngIf="isImage"
-    loading="lazy"
-    [src]="media"/>
-  <video
-    *ngIf="isVideo"
-    preload="none"
-    [autoplay]="true"
-    [loop]="true"
-    [muted]="true"
-    [src]="media"></video>
+<app-page [title]="name" (close)="onClose()">
+  <pinch-zoom *ngIf="isImage" backgroundColor>
+    <img loading="lazy" [src]="media"/>
+  </pinch-zoom>
+  <video *ngIf="isVideo" preload="none" [autoplay]="true" [controls]="true" [loop]="true" [muted]="true" [src]="media"></video>
 </app-page>

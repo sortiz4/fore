@@ -3,6 +3,7 @@ import { ViewMediaComponent } from '../view-media/view-media.component';
 import { ViewThreadComponent } from '../view-thread/view-thread.component';
 import { Modal } from '../../services/modal.service';
 import { Board, Thread } from '../../../models';
+import { getId, getLink, getMedia, getReplies, getThumbnail, getTitle, isImage, isVideo } from '../../../utils';
 
 @Component({
   selector: 'app-thread',
@@ -13,29 +14,24 @@ export class ThreadComponent {
   @Input() board: Board;
   @Input() thread: Thread;
 
+  get id(): string {
+    return getId(this.thread.no);
+  }
+
   get isImage(): boolean {
-    switch (this.thread.ext) {
-      case '.gif':
-      case '.jpeg':
-      case '.jpg':
-      case '.png':
-      case '.webp':
-        return true;
-    }
-    return false;
+    return isImage(this.thread.ext);
   }
 
   get isVideo(): boolean {
-    switch (this.thread.ext) {
-      case '.mp4':
-      case '.webm':
-        return true;
-    }
-    return false;
+    return isVideo(this.thread.ext);
+  }
+
+  get link(): string {
+    return getLink(this.thread.no);
   }
 
   get media(): string {
-    return `${this.url}/${this.board.board}/${this.thread.tim}${this.thread.ext}`;
+    return getMedia(this.thread.tim, this.board.board, this.thread.ext);
   }
 
   get name(): string {
@@ -43,7 +39,7 @@ export class ThreadComponent {
   }
 
   get replies(): string {
-    return `${this.thread.replies} ${this.thread.replies === 1 ? 'reply' : 'replies'}`;
+    return getReplies(this.thread.replies);
   }
 
   get text(): string {
@@ -51,7 +47,7 @@ export class ThreadComponent {
   }
 
   get thumbnail(): string {
-    return `${this.url}/${this.board.board}/${this.thread.tim}s.jpg`;
+    return getThumbnail(this.thread.tim, this.board.board);
   }
 
   get time(): number {
@@ -59,11 +55,7 @@ export class ThreadComponent {
   }
 
   get title(): string {
-    return this.thread.sub ?? `No. ${this.thread.no}`;
-  }
-
-  get url(): string {
-    return 'https://i.4cdn.org';
+    return getTitle(this.thread.sub, this.thread.no);
   }
 
   constructor(private modal: Modal) {
@@ -77,6 +69,7 @@ export class ThreadComponent {
         isImage: this.isImage,
         isVideo: this.isVideo,
         media: this.media,
+        name: `${this.thread.filename}${this.thread.ext}`,
       },
       cssClass: [
         'app-modal-fullscreen',
@@ -93,6 +86,7 @@ export class ThreadComponent {
       componentProps: {
         board: this.board,
         thread: this.thread,
+        title: this.title,
       },
       cssClass: 'app-modal-fullscreen',
     };

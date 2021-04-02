@@ -10,6 +10,7 @@ export class ViewMediaComponent {
   @Input() isVideo: boolean;
   @Input() media: string;
   @Input() modal: HTMLIonModalElement;
+  @Input() name: string;
 
   onClose(): Promise<boolean> {
     return this.modal.dismiss();
