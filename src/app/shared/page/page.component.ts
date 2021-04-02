@@ -38,6 +38,30 @@ export class PageComponent {
   }
 
   onOptions(): Promise<HTMLIonActionSheetElement> {
-    return this.sheet.openActions();
+    const buttons = [
+      this.showDownload ? (
+        {
+          icon: 'download-outline',
+          text: 'Download',
+          handler: () => this.download.emit(),
+        }
+      ) : (
+        null
+      ),
+      {
+        icon: 'share-social-outline',
+        text: 'Share',
+      },
+      {
+        icon: 'close',
+        role: 'cancel',
+        text: 'Cancel',
+      },
+    ];
+    const options = {
+      header: 'Options',
+      buttons: buttons.filter(b => !!b),
+    };
+    return this.sheet.openActions(options);
   }
 }

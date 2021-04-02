@@ -11,6 +11,17 @@ export class NotificationComponent {
   }
 
   onOptions(): Promise<HTMLIonActionSheetElement> {
-    return this.sheet.openActions();
+    const options = {
+      header: 'Options',
+      buttons: [
+        {
+          icon: 'close',
+          role: 'cancel',
+          text: 'Cancel',
+          handler: () => void 0,
+        },
+      ],
+    };
+    return this.sheet.openActions(options);
   }
 }
