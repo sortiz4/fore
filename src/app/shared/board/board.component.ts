@@ -21,8 +21,4 @@ export class BoardComponent {
   get title(): string {
     return this.board.title;
   }
-
-  onClick(): void {
-    this.select.emit();
-  }
 }

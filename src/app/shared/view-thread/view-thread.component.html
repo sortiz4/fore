@@ -1,8 +1,6 @@
 <app-page [title]="title" (close)="onClose()">
   <ion-list class="app-list" lines="none">
     <app-thread [board]="board" [thread]="thread"></app-thread>
-    <ng-container *ngIf="posts$ | async as posts">
-      <app-post *ngFor="let post of posts" [board]="board" [post]="post" [posts]="posts"></app-post>
-    </ng-container>
+    <app-post *ngFor="let post of posts$ | async" [board]="board" [post]="post"></app-post>
   </ion-list>
 </app-page>

@@ -1,4 +1,4 @@
-<app-page [title]="name" (close)="onClose()">
+<app-page [title]="name" (close)="onClose()" (download)="onDownload()">
   <pinch-zoom *ngIf="isImage" backgroundColor>
     <img loading="lazy" [src]="media"/>
   </pinch-zoom>

@@ -47,10 +47,21 @@ export class Api {
   }
 
   getPosts(board: string, thread: number): Observable<Post[]> {
+    const getPostReplies = (posts: Post[], id: number): number => {
+      return posts.filter(p => !!p.com ? p.com.includes(`${id}`) : false).length;
+    };
+
+    const updatePosts = (posts: Post[]): Post[] => {
+      for (const post of posts) {
+        Object.assign(post, { replies: getPostReplies(posts, post.no) });
+      }
+      return posts;
+    };
+
     return (
       this.http
         .get<GetPosts>(this.getApiUrl(board, 'thread', `${thread}.json`))
-        .pipe(map(r => r.posts.slice(1)))
+        .pipe(map(r => updatePosts(r.posts.slice(1))))
     );
   }
 

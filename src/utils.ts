@@ -5,7 +5,6 @@ import { StackController } from '@ionic/angular/directives/navigation/stack-cont
 import { RouteView } from '@ionic/angular/directives/navigation/stack-utils';
 import camelCase from 'lodash/camelCase';
 import snakeCase from 'lodash/snakeCase';
-import { Post } from './models';
 
 function mapKeys(map: (value: string) => string, input: unknown): unknown {
   if (typeof input === 'object' && input !== null) {
@@ -79,10 +78,6 @@ export function getMedia(id: number, board: string, extension: string): string {
 
 export function getReplies(replies: number): string {
   return `${replies} ${replies === 1 ? 'reply' : 'replies'}`;
-}
-
-export function getPostReplies(posts: Post[], id: number): string {
-  return getReplies(posts.filter(p => p.com?.includes?.(`${id}`))?.length);
 }
 
 export function getThumbnail(id: number, board: string): string {

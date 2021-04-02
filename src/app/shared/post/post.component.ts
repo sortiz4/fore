@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ViewMediaComponent } from '../view-media/view-media.component';
 import { Modal } from '../../services/modal.service';
 import { Board, Post } from '../../../models';
-import { getId, getLink, getMedia, getPostReplies, getThumbnail, isImage, isVideo } from '../../../utils';
+import { getId, getLink, getMedia, getReplies, getThumbnail, isImage, isVideo } from '../../../utils';
 
 @Component({
   selector: 'app-post',
@@ -12,7 +12,6 @@ import { getId, getLink, getMedia, getPostReplies, getThumbnail, isImage, isVide
 export class PostComponent {
   @Input() board: Board;
   @Input() post: Post;
-  @Input() posts: Post[];
 
   get id(): string {
     return getId(this.post.no);
@@ -39,7 +38,7 @@ export class PostComponent {
   }
 
   get replies(): string {
-    return getPostReplies(this.posts, this.post.no);
+    return getReplies(this.post.replies);
   }
 
   get text(): string {

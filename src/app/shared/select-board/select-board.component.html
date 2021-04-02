@@ -1,6 +1,11 @@
 <ion-header class="app-header-border ion-no-border">
   <ion-toolbar>
-    <ion-searchbar showCancelButton="always" [animated]="true" (ionCancel)="onCancel()" (ionChange)="onChange($event)"></ion-searchbar>
+    <ion-searchbar
+      cancelButtonIcon="arrow-back-outline"
+      showCancelButton="always"
+      [animated]="true"
+      (ionCancel)="onCancel()"
+      (ionChange)="onChange($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 <ion-content>

@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PreloadAllModules, RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 import { AngularDelegate, IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
@@ -44,6 +45,7 @@ const routes: Routes = [
   ],
   providers: [
     AngularDelegate,
+    FileTransfer,
     SplashScreen,
     StatusBar,
     { provide: HTTP_INTERCEPTORS, useClass: CamelCase, multi: true },
