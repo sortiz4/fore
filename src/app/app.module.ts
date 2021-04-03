@@ -1,13 +1,15 @@
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpBackend, HttpClientModule, HttpXhrBackend } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PreloadAllModules, RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
-import { AngularDelegate, IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { AngularDelegate, IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { File } from '@ionic-native/file/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { NativeHttpBackend, NativeHttpFallback, NativeHttpModule } from 'ionic-native-http-connection-backend';
 import { AppComponent } from './app.component';
 import { CamelCase } from './interceptors/camel-case.service';
 import { SnakeCase } from './interceptors/snake-case.service';
@@ -41,16 +43,19 @@ const routes: Routes = [
     HttpClientModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
+    NativeHttpModule,
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
   providers: [
     AngularDelegate,
+    File,
     FileTransfer,
     SplashScreen,
     StatusBar,
     { provide: HTTP_INTERCEPTORS, useClass: CamelCase, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: SnakeCase, multi: true },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: HttpBackend, useClass: NativeHttpFallback, deps: [Platform, NativeHttpBackend, HttpXhrBackend] }
   ],
 })
 export class AppModule {}
