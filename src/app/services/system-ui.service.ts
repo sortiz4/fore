@@ -9,6 +9,13 @@ export class SystemUi {
   constructor(private navigationBar: NavigationBar, private statusBar: StatusBar) {
   }
 
+  setDark(): void {
+    const color = getComputedStyle(document.body).getPropertyValue('--ion-background-color').trim();
+    this.navigationBar.backgroundColorByHexString(color);
+    this.statusBar.backgroundColorByHexString(color);
+    this.statusBar.styleBlackOpaque();
+  }
+
   setLight(): void {
     const color = '#ffffff';
     this.navigationBar.backgroundColorByHexString(color);
@@ -16,8 +23,15 @@ export class SystemUi {
     this.statusBar.styleDefault();
   }
 
-  setDark(): void {
-    const color = getComputedStyle(document.body).getPropertyValue('--ion-background-color').trim();
+  setMediaDark(): void {
+    const color = '#f3000000';
+    this.navigationBar.backgroundColorByHexString(color);
+    this.statusBar.backgroundColorByHexString(color);
+    this.statusBar.styleBlackOpaque();
+  }
+
+  setMediaLight(): void {
+    const color = '#d2000000';
     this.navigationBar.backgroundColorByHexString(color);
     this.statusBar.backgroundColorByHexString(color);
     this.statusBar.styleBlackOpaque();

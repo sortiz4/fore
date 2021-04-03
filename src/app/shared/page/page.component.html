@@ -9,11 +9,6 @@
         <ion-icon name="close-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons *ngIf="showOptions" slot="end">
-      <ion-button (click)="onOptions()">
-        <ion-icon name="ellipsis-vertical-outline" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-buttons>
     <ion-buttons *ngIf="showSave" slot="end">
       <ion-button (click)="save.emit()">
         Save
@@ -29,3 +24,21 @@
 <ion-content>
   <ng-content></ng-content>
 </ion-content>
+<ion-footer *ngIf="showMedia" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons *ngIf="showClose">
+      <ion-button (click)="hasOwnProperty()">
+        <ion-icon name="open-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button (click)="hasOwnProperty()">
+        <ion-icon name="copy-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button (click)="hasOwnProperty()">
+        <ion-icon name="share-social-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button (click)="download.emit()">
+        <ion-icon name="download-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

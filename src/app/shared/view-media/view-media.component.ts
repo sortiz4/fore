@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ViewWillEnter, ViewWillLeave } from '@ionic/angular';
-import { FileTransfer } from '@ionic-native/file-transfer/ngx';
-import { SystemUi } from '../../services/system-ui.service';
+import { ColorScheme } from '../../services/color-scheme.service';
+import { FileSystem } from '../../services/file-system.service';
 
 @Component({
   selector: 'app-view-media',
@@ -15,26 +15,22 @@ export class ViewMediaComponent implements ViewWillEnter, ViewWillLeave {
   @Input() modal: HTMLIonModalElement;
   @Input() name: string;
 
-  constructor(private systemUi: SystemUi, private transfer: FileTransfer) {
+  constructor(private colorScheme: ColorScheme, private fileSystem: FileSystem) {
   }
 
   ionViewWillEnter(): void {
-    this.systemUi.hide();
+    this.colorScheme.toggleMedia();
   }
 
   ionViewWillLeave(): void {
-    this.systemUi.show();
+    this.colorScheme.toggleMedia();
   }
 
   onClose(): Promise<boolean> {
     return this.modal.dismiss();
   }
 
-  onDownload(): Promise<unknown> {
-    return (
-      this.transfer
-        .create()
-        .download(this.media, this.name)
-    );
+  onDownload(): Promise<void> {
+    return this.fileSystem.download(this.media, this.name);
   }
 }

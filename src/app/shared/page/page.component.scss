@@ -2,6 +2,10 @@
   display: contents;
 }
 
+ion-footer ion-buttons {
+  justify-content: space-around;
+}
+
 ion-title {
   position: absolute;
   top: 50%;

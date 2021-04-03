@@ -25,6 +25,7 @@ export class Modal {
       title: 'Alert',
       buttons: ['Okay'],
     };
+
     const onSubscribe = (): ObservableInput<HTMLIonAlertElement> => {
       return (
         this.alert
