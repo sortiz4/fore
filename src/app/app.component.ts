@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Api } from './services/api.service';
 import { State } from './services/state.service';
 import { Storage } from './services/storage.service';
+import { SystemUi } from './services/system-ui.service';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +19,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private state: State,
-    private statusBar: StatusBar,
     private storage: Storage,
+    private systemUi: SystemUi,
   ) {
   }
 
@@ -50,7 +50,7 @@ export class AppComponent {
   }
 
   onSetupView(): void {
-    this.statusBar.styleDefault();
+    this.systemUi.setLight();
     this.splashScreen.hide();
   }
 }
