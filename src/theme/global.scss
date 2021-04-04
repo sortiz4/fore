@@ -113,6 +113,10 @@ ion-toolbar ion-avatar {
   }
 }
 
+.app-toast-media {
+  top: $app-toast-media-offset;
+}
+
 .deadlink {
   color: var(--ion-color-primary-shade);
 }

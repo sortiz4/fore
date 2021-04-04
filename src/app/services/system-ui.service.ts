@@ -9,32 +9,38 @@ export class SystemUi {
   constructor(private navigationBar: NavigationBar, private statusBar: StatusBar) {
   }
 
-  setDark(): void {
-    const color = getComputedStyle(document.body).getPropertyValue('--ion-background-color').trim();
+  backgroundColorByHexString(color: string): void {
     this.navigationBar.backgroundColorByHexString(color);
     this.statusBar.backgroundColorByHexString(color);
+  }
+
+  backgroundColorByName(color: string): void {
+    this.navigationBar.backgroundColorByName(color);
+    this.statusBar.backgroundColorByName(color);
+  }
+
+  setDark(): void {
+    const color = getComputedStyle(document.body).getPropertyValue('--ion-background-color').trim();
     this.statusBar.styleBlackOpaque();
+    this.backgroundColorByHexString(color);
   }
 
   setLight(): void {
     const color = '#ffffff';
-    this.navigationBar.backgroundColorByHexString(color);
-    this.statusBar.backgroundColorByHexString(color);
     this.statusBar.styleDefault();
+    this.backgroundColorByHexString(color);
   }
 
   setMediaDark(): void {
-    const color = '#f3000000';
-    this.navigationBar.backgroundColorByHexString(color);
-    this.statusBar.backgroundColorByHexString(color);
+    const color = '#0c0c0c';
     this.statusBar.styleBlackOpaque();
+    this.backgroundColorByHexString(color);
   }
 
   setMediaLight(): void {
-    const color = '#d2000000';
-    this.navigationBar.backgroundColorByHexString(color);
-    this.statusBar.backgroundColorByHexString(color);
+    const color = '#1c1c1c';
     this.statusBar.styleBlackOpaque();
+    this.backgroundColorByHexString(color);
   }
 
   hide(): void {

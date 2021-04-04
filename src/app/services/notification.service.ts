@@ -6,13 +6,13 @@ import { defer, Observable, ObservableInput } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class Toast {
+export class Notification {
   constructor(private toast: ToastController) {
   }
 
   openToast(options?: ToastOptions): Observable<HTMLIonToastElement> {
     const defaultOptions = {
-      duration: 2000,
+      duration: 1000,
     };
 
     const onSubscribe = (): ObservableInput<HTMLIonToastElement> => {
@@ -24,5 +24,9 @@ export class Toast {
     };
 
     return defer(onSubscribe);
+  }
+
+  openMediaToast(options?: ToastOptions): Observable<HTMLIonToastElement> {
+    return this.openToast({ cssClass: 'app-toast-media', ...options });
   }
 }
