@@ -64,9 +64,10 @@ export class HomePage implements ViewWillEnter {
     }
   }
 
-  onRefresh(): void {
+  onRefresh(event: CustomEvent): void {
     this.catalog$ = void 0;
     this.ionViewWillEnter();
+    (event.target as HTMLIonRefresherElement).complete();
   }
 
   onSelectBoard(): Promise<HTMLIonModalElement> {

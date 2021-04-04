@@ -4,9 +4,6 @@
       {{ title }}
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="onRefresh()">
-        <ion-icon name="refresh-outline" slot="icon-only"></ion-icon>
-      </ion-button>
       <ion-button routerLink="/b/search">
         <ion-icon name="search-outline" slot="icon-only"></ion-icon>
       </ion-button>
@@ -19,6 +16,9 @@
       <ion-icon name="chevron-up-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-list class="app-list" lines="none">
     <app-thread *ngFor="let thread of catalog$ | async" [board]="board" [thread]="thread"></app-thread>
   </ion-list>
