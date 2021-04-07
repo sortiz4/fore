@@ -4,12 +4,14 @@ import { BehaviorSubject } from 'rxjs';
 import { Board } from 'src/models';
 
 export interface Store {
-  boards: Board[];
+  readonly boards: Board[];
+  readonly dark: boolean;
 }
 
 function createDefaultStore(): Store {
   return {
     boards: [],
+    dark: false,
   };
 }
 

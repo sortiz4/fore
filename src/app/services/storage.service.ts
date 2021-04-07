@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Storage as IonicStorage } from '@ionic/storage-angular';
-import { Board } from '../../models';
+import { Store } from './state.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Storage {
-  private readonly boards = 'boards';
+  private readonly state = 'state';
 
   constructor(private storage: IonicStorage) {
   }
@@ -15,11 +15,11 @@ export class Storage {
     return this.storage.create();
   }
 
-  getBoards(): Promise<Board[]> {
-    return this.storage.get(this.boards);
+  getState(): Promise<Store> {
+    return this.storage.get(this.state);
   }
 
-  setBoards(boards: Board[]): Promise<Board[]> {
-    return this.storage.set(this.boards, boards);
+  setState(state: Store): Promise<Store> {
+    return this.storage.set(this.state, state);
   }
 }

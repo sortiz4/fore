@@ -20,6 +20,14 @@ export class ColorScheme {
     return !this.isDark();
   }
 
+  setDark(): void {
+    this.toggle(true);
+  }
+
+  setLight(): void {
+    this.toggle(false);
+  }
+
   start(): void {
     this.color.addEventListener('change', this.event);
   }
