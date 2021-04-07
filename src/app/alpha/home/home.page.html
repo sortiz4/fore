@@ -10,16 +10,8 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content [scrollEvents]="true" (ionScroll)="onScroll($event)">
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" [@fab]="isFabHidden">
-    <ion-fab-button color="dark" (click)="onScrollToTop()">
-      <ion-icon name="chevron-up-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-  <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+<app-content [canScrollToTop]="true" (refresh)="onRefresh($event)">
   <ion-list class="app-list" lines="none">
     <app-thread *ngFor="let thread of catalog$ | async" [board]="board" [thread]="thread"></app-thread>
   </ion-list>
-</ion-content>
+</app-content>

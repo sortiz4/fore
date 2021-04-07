@@ -2,6 +2,7 @@ ion-list {
   padding: 0;
 
   &::ng-deep app-post:last-child > ion-item {
+    --border-width: 0;
     margin-bottom: 15px;
   }
 }

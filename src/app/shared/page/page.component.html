@@ -21,9 +21,9 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<app-content [canScrollToTop]="canScrollToTop">
   <ng-content></ng-content>
-</ion-content>
+</app-content>
 <ion-footer *ngIf="showMedia" class="ion-no-border">
   <ion-toolbar>
     <ion-buttons *ngIf="showClose">

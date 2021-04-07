@@ -1,6 +1,5 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ViewChild } from '@angular/core';
-import { IonContent, ViewWillEnter } from '@ionic/angular';
+import { Component } from '@angular/core';
+import { ViewWillEnter } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { Api } from '../../services/api.service';
 import { Modal } from '../../services/modal.service';
@@ -13,22 +12,10 @@ import { random } from '../../../utils';
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
-  animations: [
-    trigger(
-      'fab',
-      [
-        state('true', style({ transform: 'scale(0)' })),
-        state('false', style({ transform: 'scale(1)' })),
-        transition('* <=> *', animate('250ms ease-in-out')),
-      ],
-    ),
-  ],
 })
 export class HomePage implements ViewWillEnter {
-  @ViewChild(IonContent) content: IonContent;
   board: Board;
   catalog$: Observable<Thread[]>;
-  isFabHidden = true;
 
   get title(): string {
     if (!this.board) {
@@ -79,27 +66,11 @@ export class HomePage implements ViewWillEnter {
       return modal;
     };
 
-    const options = {
-      component: SelectBoardComponent,
-    };
-
     return (
       this.modal
-        .openWindow(options)
+        .openWindow({ component: SelectBoardComponent })
         .toPromise()
         .then(onOpen)
     );
-  }
-
-  onScroll(event: CustomEvent): void {
-    if (event.detail.deltaY > 0) {
-      this.isFabHidden = true;
-    } else if (event.detail.deltaY < 0) {
-      this.isFabHidden = false;
-    }
-  }
-
-  onScrollToTop(): Promise<void> {
-    return this.content.scrollToTop(250);
   }
 }
