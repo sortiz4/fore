@@ -3,7 +3,7 @@
     <ion-item *ngFor="let board of boards" [class.app-disabled]="!isEnabled(board)">
       <ion-label>
         <h2>
-          /{{ board.board }}/
+          <b>/{{ board.board }}/</b>
         </h2>
         <p>
           {{ board.title }}
