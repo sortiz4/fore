@@ -1,5 +1,20 @@
 <app-page title="Boards" [showBack]="true">
   <ion-list class="app-list" lines="none">
-    <app-board *ngFor="let board of boards" [board]="board"></app-board>
+    <ion-item *ngFor="let board of boards" [class.app-disabled]="!isEnabled(board)">
+      <ion-label>
+        <h2>
+          /{{ board.board }}/
+        </h2>
+        <p>
+          {{ board.title }}
+        </p>
+      </ion-label>
+      <ion-chip slot="end" [color]="getColor(board)" [outline]="true" (click)="onToggle(board)">
+        <ion-icon [name]="getIcon(board)"></ion-icon>
+        <ion-label>
+          {{ getLabel(board) }}
+        </ion-label>
+      </ion-chip>
+    </ion-item>
   </ion-list>
 </app-page>

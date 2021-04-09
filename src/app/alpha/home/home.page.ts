@@ -6,7 +6,6 @@ import { Modal } from '../../services/modal.service';
 import { State } from '../../services/state.service';
 import { SelectBoardComponent } from '../../shared/select-board/select-board.component';
 import { Board, Thread } from '../../../models';
-import { random } from '../../../utils';
 
 @Component({
   selector: 'app-home',
@@ -27,14 +26,9 @@ export class HomePage implements ViewWillEnter {
   constructor(private api: Api, private modal: Modal, private state: State) {
   }
 
-  getRandomBoard(): Board {
-    const boards = this.state.get().boards;
-    return boards[random(0, boards.length - 1)];
-  }
-
   ionViewWillEnter(): void {
     if (!this.board) {
-      this.board = this.getRandomBoard();
+      this.board = this.state.get().boards[0];
     }
     if (!this.catalog$) {
       this.catalog$ = this.api.getCatalog(this.board.board);

@@ -52,7 +52,8 @@ export class AppComponent {
     switch (this.state.get().boards.length) {
       case 0:
         const boards = await this.api.getBoards().toPromise();
-        await this.storage.setState(this.state.set({ boards }).get());
+        const blocked = Object.fromEntries(boards.map(b => [b.board, false]));
+        await this.storage.setState(this.state.set({ blocked, boards }).get());
     }
   }
 

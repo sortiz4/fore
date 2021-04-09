@@ -20,6 +20,14 @@ ion-grid {
   padding-right: $app-space-2;
 }
 
+ion-item {
+  transition: $app-transition;
+
+  &.app-disabled {
+    opacity: $app-disabled-opacity;
+  }
+}
+
 ion-searchbar {
   --border-radius: #{$app-border-radius} !important;
   --box-shadow: none !important;
