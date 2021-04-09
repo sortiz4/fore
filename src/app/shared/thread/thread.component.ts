@@ -13,6 +13,7 @@ import { getId, getLink, getMedia, getReplies, getThumbnail, getTitle, isImage, 
 export class ThreadComponent {
   @Input() board: Board;
   @Input() thread: Thread;
+  @Input() clickable = true;
 
   get id(): string {
     return getId(this.thread.no);
@@ -79,17 +80,20 @@ export class ThreadComponent {
     return this.modal.openWindow(options).toPromise();
   }
 
-  onClickThread(event: MouseEvent): Promise<HTMLIonModalElement> {
+  onClickThread(event: MouseEvent): Promise<HTMLIonModalElement | void> {
     event.stopImmediatePropagation();
-    const options = {
-      component: ViewThreadComponent,
-      componentProps: {
-        board: this.board,
-        thread: this.thread,
-        title: this.title,
-      },
-      cssClass: 'app-modal-fullscreen',
-    };
-    return this.modal.openWindow(options).toPromise();
+    if (this.clickable) {
+      const options = {
+        component: ViewThreadComponent,
+        componentProps: {
+          board: this.board,
+          thread: this.thread,
+          title: this.title,
+        },
+        cssClass: 'app-modal-fullscreen',
+      };
+      return this.modal.openWindow(options).toPromise();
+    }
+    return Promise.resolve();
   }
 }
