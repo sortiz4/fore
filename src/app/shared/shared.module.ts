@@ -8,6 +8,7 @@ import { TimeAgoPipe } from './time-ago.pipe';
 import { BoardComponent } from './board/board.component';
 import { ContentComponent } from './content/content.component';
 import { InfiniteLoadComponent } from './infinite-load/infinite-load.component';
+import { MediaComponent } from './media/media.component';
 import { NotificationComponent } from './notification/notification.component';
 import { PageComponent } from './page/page.component';
 import { PostComponent } from './post/post.component';
@@ -22,6 +23,7 @@ import { ViewThreadComponent } from './view-thread/view-thread.component';
     BoardComponent,
     ContentComponent,
     InfiniteLoadComponent,
+    MediaComponent,
     NoRippleDirective,
     NotificationComponent,
     PageComponent,
@@ -43,6 +45,7 @@ import { ViewThreadComponent } from './view-thread/view-thread.component';
     BoardComponent,
     ContentComponent,
     InfiniteLoadComponent,
+    MediaComponent,
     NoRippleDirective,
     NotificationComponent,
     PageComponent,

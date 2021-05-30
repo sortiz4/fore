@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { ViewMediaComponent } from '../view-media/view-media.component';
 import { ViewThreadComponent } from '../view-thread/view-thread.component';
 import { Modal } from '../../services/modal.service';
 import { Board, Thread } from '../../../models';
@@ -14,6 +13,10 @@ export class ThreadComponent {
   @Input() board: Board;
   @Input() thread: Thread;
   @Input() clickable = true;
+
+  get filename(): string {
+    return `${this.thread.filename}${this.thread.ext}`;
+  }
 
   get id(): string {
     return getId(this.thread.no);
@@ -62,25 +65,7 @@ export class ThreadComponent {
   constructor(private modal: Modal) {
   }
 
-  onClickMedia(event: MouseEvent): Promise<HTMLIonModalElement> {
-    event.stopImmediatePropagation();
-    const options = {
-      component: ViewMediaComponent,
-      componentProps: {
-        isImage: this.isImage,
-        isVideo: this.isVideo,
-        media: this.media,
-        name: `${this.thread.filename}${this.thread.ext}`,
-      },
-      cssClass: [
-        'app-modal-fullscreen',
-        'app-modal-lightbox',
-      ],
-    };
-    return this.modal.openWindow(options).toPromise();
-  }
-
-  onClickThread(event: MouseEvent): Promise<HTMLIonModalElement | void> {
+  onClick(event: MouseEvent): Promise<HTMLIonModalElement | void> {
     event.stopImmediatePropagation();
     if (this.clickable) {
       const options = {

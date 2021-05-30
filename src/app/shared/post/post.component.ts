@@ -1,6 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { ViewMediaComponent } from '../view-media/view-media.component';
-import { Modal } from '../../services/modal.service';
 import { Board, Post } from '../../../models';
 import { getId, getLink, getMedia, getReplies, getThumbnail, isImage, isVideo } from '../../../utils';
 
@@ -12,6 +10,10 @@ import { getId, getLink, getMedia, getReplies, getThumbnail, isImage, isVideo } 
 export class PostComponent {
   @Input() board: Board;
   @Input() post: Post;
+
+  get filename(): string {
+    return `${this.post.filename}${this.post.ext}`;
+  }
 
   get id(): string {
     return getId(this.post.no);
@@ -51,26 +53,5 @@ export class PostComponent {
 
   get time(): number {
     return this.post.tim;
-  }
-
-  constructor(private modal: Modal) {
-  }
-
-  onClickMedia(event: MouseEvent): Promise<HTMLIonModalElement> {
-    event.stopImmediatePropagation();
-    const options = {
-      component: ViewMediaComponent,
-      componentProps: {
-        isImage: this.isImage,
-        isVideo: this.isVideo,
-        media: this.media,
-        name: `${this.post.filename}${this.post.ext}`,
-      },
-      cssClass: [
-        'app-modal-fullscreen',
-        'app-modal-lightbox',
-      ],
-    };
-    return this.modal.openWindow(options).toPromise();
   }
 }

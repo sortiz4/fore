@@ -1,0 +1,13 @@
+$app-media-height: 150px;
+
+div {
+  height: $app-media-height;
+  visibility: hidden;
+}
+
+img,
+video {
+  object-fit: cover;
+  width: 100vw;
+  height: $app-media-height;
+}

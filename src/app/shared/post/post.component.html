@@ -1,18 +1,10 @@
 <ion-item lines="full">
   <ion-card>
-    <img
-      *ngIf="isImage"
-      loading="lazy"
-      [src]="media"
-      (click)="onClickMedia($event)"/>
-    <video
-      *ngIf="isVideo"
-      preload="none"
-      [autoplay]="true"
-      [loop]="true"
-      [muted]="true"
-      [src]="media"
-      (click)="onClickMedia($event)"></video>
+    <app-media
+      [isImage]="isImage"
+      [isVideo]="isVideo"
+      [media]="media"
+      [name]="filename"></app-media>
     <ion-card-header>
       <ion-card-subtitle>
         {{ name }} · {{ id }} · {{ replies }} · {{ time | timeAgo }}
