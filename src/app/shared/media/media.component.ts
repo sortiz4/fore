@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { ViewMediaComponent } from '../view-media/view-media.component';
 import { Modal } from '../../services/modal.service';
+import { FileType } from '../../../models';
 
 @Component({
   selector: 'app-media',
@@ -8,12 +9,19 @@ import { Modal } from '../../services/modal.service';
   styleUrls: ['./media.component.scss'],
 })
 export class MediaComponent implements OnInit, OnDestroy {
-  @Input() isImage: boolean;
-  @Input() isVideo: boolean;
   @Input() media: string;
   @Input() name: string;
+  @Input() type: FileType;
   isVisible: boolean;
   observer: IntersectionObserver;
+
+  get isImage(): boolean {
+    return this.type === FileType.Image;
+  }
+
+  get isVideo(): boolean {
+    return this.type === FileType.Video;
+  }
 
   constructor(private element: ElementRef, private modal: Modal) {
   }
@@ -52,10 +60,9 @@ export class MediaComponent implements OnInit, OnDestroy {
     const options = {
       component: ViewMediaComponent,
       componentProps: {
-        isImage: this.isImage,
-        isVideo: this.isVideo,
         media: this.media,
         name: this.name,
+        type: this.type,
       },
       cssClass: [
         'app-modal-fullscreen',

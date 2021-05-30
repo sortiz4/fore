@@ -1,10 +1,6 @@
 <ion-item>
   <ion-card [button]="true" (click)="onClick($event)">
-    <app-media
-      [isImage]="isImage"
-      [isVideo]="isVideo"
-      [media]="media"
-      [name]="filename"></app-media>
+    <app-media *ngIf="isKnownFileType" [media]="media" [name]="fileName" [type]="fileType"></app-media>
     <ion-card-header>
       <ion-card-subtitle>
         {{ name }} · {{ id }} · {{ replies }} · {{ time | timeAgo }}

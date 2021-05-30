@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ViewThreadComponent } from '../view-thread/view-thread.component';
 import { Modal } from '../../services/modal.service';
-import { Board, Thread } from '../../../models';
-import { getId, getLink, getMedia, getReplies, getThumbnail, getTitle, isImage, isVideo } from '../../../utils';
+import { Board, FileType, Thread } from '../../../models';
+import { getFileName, getFileType, getId, getLink, getMedia, getReplies, getThumbnail, getTitle } from '../../../utils';
 
 @Component({
   selector: 'app-thread',
@@ -14,20 +14,20 @@ export class ThreadComponent {
   @Input() thread: Thread;
   @Input() clickable = true;
 
-  get filename(): string {
-    return `${this.thread.filename}${this.thread.ext}`;
+  get fileName(): string {
+    return getFileName(this.thread.filename, this.thread.ext);
+  }
+
+  get fileType(): FileType {
+    return getFileType(this.thread.ext);
   }
 
   get id(): string {
     return getId(this.thread.no);
   }
 
-  get isImage(): boolean {
-    return isImage(this.thread.ext);
-  }
-
-  get isVideo(): boolean {
-    return isVideo(this.thread.ext);
+  get isKnownFileType(): boolean {
+    return this.fileType !== FileType.Unknown;
   }
 
   get link(): string {

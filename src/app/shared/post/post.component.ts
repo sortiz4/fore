@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Board, Post } from '../../../models';
-import { getId, getLink, getMedia, getReplies, getThumbnail, isImage, isVideo } from '../../../utils';
+import { Board, FileType, Post } from '../../../models';
+import { getFileName, getFileType, getId, getLink, getMedia, getReplies, getThumbnail } from '../../../utils';
 
 @Component({
   selector: 'app-post',
@@ -11,20 +11,20 @@ export class PostComponent {
   @Input() board: Board;
   @Input() post: Post;
 
-  get filename(): string {
-    return `${this.post.filename}${this.post.ext}`;
+  get fileName(): string {
+    return getFileName(this.post.filename, this.post.ext);
+  }
+
+  get fileType(): FileType {
+    return getFileType(this.post.ext);
   }
 
   get id(): string {
     return getId(this.post.no);
   }
 
-  get isImage(): boolean {
-    return isImage(this.post.ext);
-  }
-
-  get isVideo(): boolean {
-    return isVideo(this.post.ext);
+  get isKnownFileType(): boolean {
+    return this.fileType !== FileType.Unknown;
   }
 
   get link(): string {

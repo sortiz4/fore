@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ViewWillEnter, ViewWillLeave } from '@ionic/angular';
+import { FileType } from '../../../models';
 import { ColorScheme } from '../../services/color-scheme.service';
 import { FileSystem } from '../../services/file-system.service';
 
@@ -9,11 +10,18 @@ import { FileSystem } from '../../services/file-system.service';
   styleUrls: ['./view-media.component.scss'],
 })
 export class ViewMediaComponent implements ViewWillEnter, ViewWillLeave {
-  @Input() isImage: boolean;
-  @Input() isVideo: boolean;
   @Input() media: string;
   @Input() modal: HTMLIonModalElement;
   @Input() name: string;
+  @Input() type: FileType;
+
+  get isImage(): boolean {
+    return this.type === FileType.Image;
+  }
+
+  get isVideo(): boolean {
+    return this.type === FileType.Video;
+  }
 
   constructor(private colorScheme: ColorScheme, private fileSystem: FileSystem) {
   }

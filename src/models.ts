@@ -1,3 +1,9 @@
+export enum FileType {
+  Image,
+  Video,
+  Unknown,
+}
+
 export interface Board {
   board: string;
   bumpLimit: number;

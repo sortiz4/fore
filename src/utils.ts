@@ -5,6 +5,7 @@ import { StackController } from '@ionic/angular/directives/navigation/stack-cont
 import { RouteView } from '@ionic/angular/directives/navigation/stack-utils';
 import camelCase from 'lodash/camelCase';
 import snakeCase from 'lodash/snakeCase';
+import { FileType } from './models';
 
 function mapKeys(map: (value: string) => string, input: unknown): unknown {
   if (typeof input === 'object' && input !== null) {
@@ -43,25 +44,23 @@ export function random(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export function isImage(extension: string): boolean {
+export function getFileType(extension: string): FileType {
   switch (extension) {
     case '.gif':
     case '.jpeg':
     case '.jpg':
     case '.png':
     case '.webp':
-      return true;
-  }
-  return false;
-}
-
-export function isVideo(extension: string): boolean {
-  switch (extension) {
+      return FileType.Image;
     case '.mp4':
     case '.webm':
-      return true;
+      return FileType.Video;
   }
-  return false;
+  return FileType.Unknown;
+}
+
+export function getFileName(name: string, extension: string): string {
+  return `${name}${extension}`;
 }
 
 export function getId(id: number): string {
