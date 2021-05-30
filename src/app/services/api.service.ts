@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { Board, GetBoards, GetCatalog, GetIndices, GetPosts, GetThreads, Post, Thread } from '../../models';
+import { ApiGetBoards, ApiGetCatalog, ApiGetIndices, ApiGetPosts, ApiGetThreads, Board, Post, Thread } from '../../models';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +26,7 @@ export class Api {
   getBoards(): Observable<Board[]> {
     return (
       this.http
-        .get<GetBoards>(this.getApiUrl('boards.json'))
+        .get<ApiGetBoards>(this.getApiUrl('boards.json'))
         .pipe(map(r => r.boards))
     );
   }
@@ -34,15 +34,15 @@ export class Api {
   getCatalog(board: string): Observable<Thread[]> {
     return (
       this.http
-        .get<GetCatalog[]>(this.getApiUrl(board, 'catalog.json'))
+        .get<ApiGetCatalog[]>(this.getApiUrl(board, 'catalog.json'))
         .pipe(map(r => r.map(a => a.threads).reduce((a, b) => b.concat(a), [])))
     );
   }
 
-  getIndices(board: string, page: number): Observable<GetIndices> {
+  getIndices(board: string, page: number): Observable<ApiGetIndices> {
     return (
       this.http
-        .get<GetIndices>(this.getApiUrl(board, `${page}.json`))
+        .get<ApiGetIndices>(this.getApiUrl(board, `${page}.json`))
     );
   }
 
@@ -60,15 +60,15 @@ export class Api {
 
     return (
       this.http
-        .get<GetPosts>(this.getApiUrl(board, 'thread', `${thread}.json`))
+        .get<ApiGetPosts>(this.getApiUrl(board, 'thread', `${thread}.json`))
         .pipe(map(r => updatePosts(r.posts.slice(1))))
     );
   }
 
-  getThreads(board: string): Observable<GetThreads> {
+  getThreads(board: string): Observable<ApiGetThreads> {
     return (
       this.http
-        .get<GetThreads>(this.getApiUrl(board, 'threads.json'))
+        .get<ApiGetThreads>(this.getApiUrl(board, 'threads.json'))
     );
   }
 }

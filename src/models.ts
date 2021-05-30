@@ -4,103 +4,18 @@ export enum FileType {
   Unknown,
 }
 
-export interface Board {
-  board: string;
-  bumpLimit: number;
-  codeTags?: number;
-  cooldowns: Cooldowns;
-  countryFlags?: number;
-  customSpoilers?: number;
-  forcedAnon?: number;
-  imageLimit: number;
-  isArchived: number;
-  mathTags?: number;
-  maxCommentChars: number;
-  maxFilesize: number;
-  maxWebmDuration: number;
-  maxWebmFilesize: number;
-  metaDescription: string;
-  minImageHeight?: number;
-  minImageWidth?: number;
-  oekaki?: number;
-  pages: number;
-  perPage: number;
-  requireSubject?: number;
-  sjisTags?: number;
-  spoilers?: number;
-  textOnly?: number;
-  title: string;
-  trollFlags?: number;
-  userIds?: number;
-  webmAudio?: number;
-  wsBoard: number;
-}
-
-export interface Cooldowns {
-  images: number;
-  replies: number;
-  threads: number;
-}
-
-export interface GetBoards {
-  boards: Board[];
-  trollFlags: TrollFlags;
-}
-
-export interface GetCatalog {
-  page: number;
-  threads: Thread[];
-}
-
-export interface GetIndices {
-  threads: ThreadPosts[];
-}
-
-export interface GetPosts {
-  posts: Post[];
-}
-
-export interface GetThreads {
-  page: number;
-  threads: ThreadMetadata[];
-}
-
-export interface Post {
-  bumplimit: number;
-  com: string;
-  customSpoiler: number;
-  ext: string;
-  filename: string;
-  fsize: number;
-  h: number;
-  imagelimit: number;
-  images: number;
-  md5: string;
-  name: string;
-  no: number;
-  now: string;
-  omittedImages: number;
-  omittedPosts: number;
-  replies: number;
-  resto: number;
-  semanticUrl: string;
-  sub: string;
-  tailSize?: number;
-  tim: number;
-  time: number;
-  tnH: number;
-  tnW: number;
-  uniqueIps: number;
-  w: number;
-}
-
-export interface Reply {
-  com: string;
-  ext: string;
-  filename: string;
+export interface ApiBaseContentAlpha {
+  boardFlag?: string;
+  com?: string;
+  country?: string;
+  countryName?: string;
+  ext?: '.gif' | '.jpg' | '.pdf' | '.png' | '.swf' | '.webm';
+  filename?: string;
+  flagName?: string;
   fsize?: number;
   h?: number;
-  md5: string;
+  md5?: string;
+  mImg?: 1;
   name: string;
   no: number;
   now: string;
@@ -109,71 +24,125 @@ export interface Reply {
   time: number;
   tnH?: number;
   tnW?: number;
-  trip: string;
+  trip?: string;
   w?: number;
 }
 
-export interface Thread {
-  bumplimit: number;
-  com: string;
-  customSpoiler: number;
-  ext: string;
-  filename: string;
-  fsize: number;
-  h: number;
-  imagelimit: number;
+export interface ApiBaseContentBravo {
+  bumplimit?: 1;
+  capcode?: string;
+  closed?: 1;
+  customSpoiler?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+  filedeleted?: 1;
+  id?: string;
+  imagelimit?: 1;
+  images?: number;
+  replies?: number;
+  semanticUrl?: string;
+  since4pass?: number;
+  spoiler?: 1;
+  sticky?: 1;
+  sub?: string;
+  tag?: string;
+  uniqueIps?: number;
+}
+
+export interface ApiBaseContentCharlie {
+  lastModified?: number;
+  omittedImages?: number;
+  omittedPosts?: number;
+}
+
+export interface ApiBaseContentDelta {
+  tailSize?: number;
+}
+
+export interface ApiBoard {
+  board: string;
+  boardFlags?: { [key: string]: string };
+  bumpLimit: number;
+  codeTags?: 0 | 1;
+  cooldowns: ApiCooldowns;
+  countryFlags?: 0 | 1;
+  customSpoilers?: number;
+  forcedAnon?: 0 | 1;
+  imageLimit: number;
+  isArchived?: 0 | 1;
+  mathTags?: 0 | 1;
+  maxCommentChars: number;
+  maxFilesize: number;
+  maxWebmDuration: number;
+  maxWebmFilesize: number;
+  metaDescription: string;
+  minImageHeight?: number;
+  minImageWidth?: number;
+  oekaki?: 0 | 1;
+  pages: number;
+  perPage: number;
+  requireSubject?: 0 | 1;
+  sjisTags?: 0 | 1;
+  spoilers?: 0 | 1;
+  textOnly?: 0 | 1;
+  title: string;
+  userIds?: 0 | 1;
+  webmAudio?: 0 | 1;
+  wsBoard: 0 | 1;
+}
+
+export interface ApiCooldowns {
   images: number;
-  lastModified: number;
-  lastReplies: Reply[];
-  md5: string;
-  name: string;
-  no: number;
-  now: string;
-  omittedImages: number;
-  omittedPosts: number;
   replies: number;
-  resto: number;
-  semanticUrl: string;
-  sub: string;
-  tim: number;
-  time: number;
-  tnH: number;
-  tnW: number;
-  w: number;
+  threads: number;
 }
 
-export interface ThreadMetadata {
+export interface ApiGetBoards {
+  boards: ApiBoard[];
+}
+
+export interface ApiGetCatalog {
+  page: number;
+  threads: ApiThread[];
+}
+
+export interface ApiGetIndices {
+  threads: ApiIndexThread[];
+}
+
+export interface ApiGetPosts {
+  posts: ApiThreadPost[];
+}
+
+export interface ApiGetThreads {
+  page: number;
+  threads: ApiThreadMetadata[];
+}
+
+export interface ApiIndexPost extends ApiBaseContentAlpha, ApiBaseContentBravo, ApiBaseContentCharlie, ApiBaseContentDelta {
+}
+
+export interface ApiIndexThread {
+  posts: ApiIndexPost[];
+}
+
+export interface ApiThread extends ApiBaseContentAlpha, ApiBaseContentBravo, ApiBaseContentCharlie {
+  lastReplies?: ApiThreadReply[];
+}
+
+export interface ApiThreadMetadata {
   lastModified: number;
   no: number;
   replies: number;
 }
 
-export interface ThreadPosts {
-  posts: Post[];
+export interface ApiThreadPost extends ApiBaseContentAlpha, ApiBaseContentBravo, ApiBaseContentDelta {
+  archived?: 1;
+  archivedOn?: number;
 }
 
-export interface TrollFlags {
-  ac: string;
-  an: string;
-  bl: string;
-  cf: string;
-  cm: string;
-  ct: string;
-  dm: string;
-  eu: string;
-  fc: string;
-  gn: string;
-  gy: string;
-  jh: string;
-  kn: string;
-  mf: string;
-  nb: string;
-  nz: string;
-  pc: string;
-  pr: string;
-  re: string;
-  tm: string;
-  tr: string;
-  un: string;
-  wp: string;
+export interface ApiThreadReply extends ApiBaseContentAlpha {
+  id: string;
 }
+
+export type Board = ApiBoard;
+export type Post = ApiIndexPost;
+export type Thread = ApiThread;
