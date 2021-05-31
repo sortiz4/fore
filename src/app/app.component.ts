@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { Api } from './services/api.service';
@@ -11,7 +11,7 @@ import { Storage } from './services/storage.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   isReady$: Promise<boolean>;
 
   constructor(
@@ -52,7 +52,7 @@ export class AppComponent {
     switch (this.state.get().boards.length) {
       case 0:
         const boards = await this.api.getBoards().toPromise();
-        const blocked = Object.fromEntries(boards.map(b => [b.board, false]));
+        const blocked = Object.fromEntries(boards.map(b => [b.path, false]));
         await this.storage.setState(this.state.set({ blocked, boards }).get());
     }
   }

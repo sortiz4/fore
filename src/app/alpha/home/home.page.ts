@@ -17,10 +17,7 @@ export class HomePage implements ViewWillEnter {
   catalog$: Observable<Thread[]>;
 
   get title(): string {
-    if (!this.board) {
-      return '';
-    }
-    return `/${this.board.board}/ - ${this.board.title}`;
+    return this.board?.title;
   }
 
   constructor(private api: Api, private modal: Modal, private state: State) {
@@ -31,17 +28,17 @@ export class HomePage implements ViewWillEnter {
       this.board = this.state.get().boards[0];
     }
     if (!this.catalog$) {
-      this.catalog$ = this.api.getCatalog(this.board.board);
+      this.catalog$ = this.api.getCatalog(this.board.path);
     }
   }
 
   onChangeBoard(board: Board): void {
-    if (this.board.board !== board.board) {
+    if (this.board.path !== board.path) {
       // Set the board
       this.board = board;
 
       // Update the catalog
-      this.catalog$ = this.api.getCatalog(this.board.board);
+      this.catalog$ = this.api.getCatalog(this.board.path);
     }
   }
 

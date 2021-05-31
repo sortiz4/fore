@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { ViewThreadComponent } from '../view-thread/view-thread.component';
 import { Modal } from '../../services/modal.service';
 import { Board, FileType, Thread } from '../../../models';
-import { getFileName, getFileType, getId, getLink, getMedia, getReplies, getThumbnail, getTitle } from '../../../utils';
 
 @Component({
   selector: 'app-thread',
@@ -14,28 +13,32 @@ export class ThreadComponent {
   @Input() thread: Thread;
   @Input() clickable = true;
 
+  get fileCanBePreviewed(): boolean {
+    return this.thread.fileCanBePreviewed;
+  }
+
   get fileName(): string {
-    return getFileName(this.thread.filename, this.thread.ext);
+    return this.thread.fileName;
+  }
+
+  get fileThumbnail(): string {
+    return this.thread.fileThumbnail;
   }
 
   get fileType(): FileType {
-    return getFileType(this.thread.ext);
+    return this.thread.fileType;
   }
 
-  get id(): string {
-    return getId(this.thread.no);
+  get fileUrl(): string {
+    return this.thread.fileUrl;
   }
 
-  get isKnownFileType(): boolean {
-    return this.fileType !== FileType.Unknown;
+  get id(): number {
+    return this.thread.id;
   }
 
   get link(): string {
-    return getLink(this.thread.no);
-  }
-
-  get media(): string {
-    return getMedia(this.thread.tim, this.board.board, this.thread.ext);
+    return this.thread.link;
   }
 
   get name(): string {
@@ -43,23 +46,19 @@ export class ThreadComponent {
   }
 
   get replies(): string {
-    return getReplies(this.thread.replies);
+    return this.thread.replyText;
   }
 
   get text(): string {
-    return this.thread.com;
-  }
-
-  get thumbnail(): string {
-    return getThumbnail(this.thread.tim, this.board.board);
+    return this.thread.text;
   }
 
   get time(): number {
-    return this.thread.tim;
+    return this.thread.time;
   }
 
   get title(): string {
-    return getTitle(this.thread.sub, this.thread.no);
+    return this.thread.title;
   }
 
   constructor(private modal: Modal) {

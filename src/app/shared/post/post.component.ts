@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Board, FileType, Post } from '../../../models';
-import { getFileName, getFileType, getId, getLink, getMedia, getReplies, getThumbnail } from '../../../utils';
 
 @Component({
   selector: 'app-post',
@@ -11,28 +10,32 @@ export class PostComponent {
   @Input() board: Board;
   @Input() post: Post;
 
+  get fileCanBePreviewed(): boolean {
+    return this.post.fileCanBePreviewed;
+  }
+
   get fileName(): string {
-    return getFileName(this.post.filename, this.post.ext);
+    return this.post.fileName;
+  }
+
+  get fileThumbnail(): string {
+    return this.post.fileThumbnail;
   }
 
   get fileType(): FileType {
-    return getFileType(this.post.ext);
+    return this.post.fileType;
   }
 
-  get id(): string {
-    return getId(this.post.no);
+  get fileUrl(): string {
+    return this.post.fileUrl;
   }
 
-  get isKnownFileType(): boolean {
-    return this.fileType !== FileType.Unknown;
+  get id(): number {
+    return this.post.id;
   }
 
   get link(): string {
-    return getLink(this.post.no);
-  }
-
-  get media(): string {
-    return getMedia(this.post.tim, this.board.board, this.post.ext);
+    return this.post.link;
   }
 
   get name(): string {
@@ -40,18 +43,14 @@ export class PostComponent {
   }
 
   get replies(): string {
-    return getReplies(this.post.replies);
+    return this.post.replyText;
   }
 
   get text(): string {
-    return this.post.com;
-  }
-
-  get thumbnail(): string {
-    return getThumbnail(this.post.tim, this.board.board);
+    return this.post.text;
   }
 
   get time(): number {
-    return this.post.tim;
+    return this.post.time;
   }
 }

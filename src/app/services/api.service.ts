@@ -3,7 +3,20 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { ApiGetBoards, ApiGetCatalog, ApiGetIndices, ApiGetPosts, ApiGetThreads, Board, Post, Thread } from '../../models';
+import {
+  ApiGetBoards,
+  ApiGetCatalog,
+  ApiGetIndices,
+  ApiGetPosts,
+  ApiGetThreads,
+  Board,
+  mapApiBoardToBoard,
+  mapApiPostToPost,
+  mapApiThreadToThread,
+  Post,
+  Thread,
+  updatePostsWithReplies,
+} from '../../models';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +40,7 @@ export class Api {
     return (
       this.http
         .get<ApiGetBoards>(this.getApiUrl('boards.json'))
-        .pipe(map(r => r.boards))
+        .pipe(map(r => r.boards.map(a => mapApiBoardToBoard(a))))
     );
   }
 
@@ -35,7 +48,7 @@ export class Api {
     return (
       this.http
         .get<ApiGetCatalog[]>(this.getApiUrl(board, 'catalog.json'))
-        .pipe(map(r => r.map(a => a.threads).reduce((a, b) => b.concat(a), [])))
+        .pipe(map(r => r.map(a => a.threads).reduce((a, b) => b.concat(a), []).map(a => mapApiThreadToThread(board, a))))
     );
   }
 
@@ -47,21 +60,10 @@ export class Api {
   }
 
   getPosts(board: string, thread: number): Observable<Post[]> {
-    const getPostReplies = (posts: Post[], id: number): number => {
-      return posts.filter(p => !!p.com ? p.com.includes(`${id}`) : false).length;
-    };
-
-    const updatePosts = (posts: Post[]): Post[] => {
-      for (const post of posts) {
-        Object.assign(post, { replies: getPostReplies(posts, post.no) });
-      }
-      return posts;
-    };
-
     return (
       this.http
         .get<ApiGetPosts>(this.getApiUrl(board, 'thread', `${thread}.json`))
-        .pipe(map(r => updatePosts(r.posts.slice(1))))
+        .pipe(map(r => updatePostsWithReplies(r.posts.slice(1).map(a => mapApiPostToPost(board, a)))))
     );
   }
 

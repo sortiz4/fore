@@ -20,9 +20,9 @@ export class ViewThreadComponent implements ViewWillEnter {
   }
 
   ionViewWillEnter(): void {
-    this.posts$ = this.api.getPosts(this.board.board, this.thread.no);
+    this.posts$ = this.api.getPosts(this.board.path, this.thread.id);
   }
-  
+
   onClose(): Promise<boolean> {
     return this.modal.dismiss();
   }

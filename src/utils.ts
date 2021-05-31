@@ -5,7 +5,6 @@ import { StackController } from '@ionic/angular/directives/navigation/stack-cont
 import { RouteView } from '@ionic/angular/directives/navigation/stack-utils';
 import camelCase from 'lodash/camelCase';
 import snakeCase from 'lodash/snakeCase';
-import { FileType } from './models';
 
 function mapKeys(map: (value: string) => string, input: unknown): unknown {
   if (typeof input === 'object' && input !== null) {
@@ -42,53 +41,6 @@ export function getTag<T>(component: Type<T>): string {
 
 export function random(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-export function getFileType(extension: string): FileType {
-  switch (extension) {
-    case '.gif':
-    case '.jpeg':
-    case '.jpg':
-    case '.png':
-    case '.webp':
-      return FileType.Image;
-    case '.mp4':
-    case '.webm':
-      return FileType.Video;
-  }
-  return FileType.Unknown;
-}
-
-export function getFileName(name: string, extension: string): string {
-  return `${name}${extension}`;
-}
-
-export function getId(id: number): string {
-  return `${id}`;
-}
-
-export function getLink(id: number): string {
-  return `p${id}`;
-}
-
-export function getMedia(id: number, board: string, extension: string): string {
-  return `${getUrl()}/${board}/${id}${extension}`;
-}
-
-export function getReplies(replies: number): string {
-  return `${replies} ${replies === 1 ? 'reply' : 'replies'}`;
-}
-
-export function getThumbnail(id: number, board: string): string {
-  return `${getUrl()}/${board}/${id}s.jpg`;
-}
-
-export function getTitle(title: string, id: number): string {
-  return title ?? `No. ${id}`;
-}
-
-export function getUrl(): string {
-  return 'https://i.4cdn.org';
 }
 
 export function observeChildren<T extends Node>(target: T): Promise<T> {

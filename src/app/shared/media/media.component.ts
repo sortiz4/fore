@@ -9,9 +9,9 @@ import { FileType } from '../../../models';
   styleUrls: ['./media.component.scss'],
 })
 export class MediaComponent implements OnInit, OnDestroy {
-  @Input() media: string;
   @Input() name: string;
   @Input() type: FileType;
+  @Input() url: string;
   isVisible: boolean;
   observer: IntersectionObserver;
 
@@ -42,7 +42,7 @@ export class MediaComponent implements OnInit, OnDestroy {
     };
 
     const options = {
-      root: this.element.nativeElement.closest('ion-content').shadowRoot.querySelector('main'),
+      root: this.element.nativeElement.closest('ion-content').shadowRoot.querySelector('.inner-scroll'),
       rootMargin: `${globalThis.innerHeight}px`,
       threshold: 1,
     };
@@ -60,9 +60,9 @@ export class MediaComponent implements OnInit, OnDestroy {
     const options = {
       component: ViewMediaComponent,
       componentProps: {
-        media: this.media,
         name: this.name,
         type: this.type,
+        url: this.url,
       },
       cssClass: [
         'app-modal-fullscreen',

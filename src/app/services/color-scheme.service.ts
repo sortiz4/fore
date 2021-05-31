@@ -5,9 +5,9 @@ import { SystemUi } from './system-ui.service';
   providedIn: 'root',
 })
 export class ColorScheme {
-  private readonly color = window.matchMedia('(prefers-color-scheme: dark)');
-  private readonly event = (mediaQuery: MediaQueryListEvent): void => this.toggle(mediaQuery.matches);
   private isMedia = false;
+  private readonly color = globalThis.matchMedia('(prefers-color-scheme: dark)');
+  private readonly event = (mediaQuery: MediaQueryListEvent): void => this.toggle(mediaQuery.matches);
 
   constructor(private systemUi: SystemUi) {
   }
@@ -48,7 +48,9 @@ export class ColorScheme {
   }
 
   toggleMedia(): void {
-    if (this.isMedia = !this.isMedia) {
+    this.isMedia = !this.isMedia;
+
+    if (this.isMedia) {
       if (this.isDark()) {
         this.systemUi.setMediaDark();
       } else {

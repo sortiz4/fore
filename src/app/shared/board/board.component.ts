@@ -11,14 +11,14 @@ export class BoardComponent {
   @Output() select = new EventEmitter<void>();
 
   get description(): string {
-    return this.board.metaDescription;
+    return this.board.description;
+  }
+
+  get name(): string {
+    return this.board.name;
   }
 
   get path(): string {
-    return this.board.board;
-  }
-
-  get title(): string {
-    return this.board.title;
+    return this.board.path;
   }
 }

@@ -10,10 +10,10 @@ import { FileSystem } from '../../services/file-system.service';
   styleUrls: ['./view-media.component.scss'],
 })
 export class ViewMediaComponent implements ViewWillEnter, ViewWillLeave {
-  @Input() media: string;
   @Input() modal: HTMLIonModalElement;
   @Input() name: string;
   @Input() type: FileType;
+  @Input() url: string;
 
   get isImage(): boolean {
     return this.type === FileType.Image;
@@ -39,6 +39,6 @@ export class ViewMediaComponent implements ViewWillEnter, ViewWillLeave {
   }
 
   onDownload(): Promise<void> {
-    return this.fileSystem.download(this.media, this.name);
+    return this.fileSystem.download(this.url, this.name);
   }
 }

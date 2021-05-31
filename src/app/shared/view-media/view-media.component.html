@@ -1,6 +1,6 @@
 <app-page [title]="name" (close)="onClose()" (download)="onDownload()">
   <pinch-zoom *ngIf="isImage" backgroundColor>
-    <img loading="lazy" [src]="media"/>
+    <img [src]="url"/>
   </pinch-zoom>
-  <video *ngIf="isVideo" preload="none" [autoplay]="true" [controls]="true" [loop]="true" [muted]="true" [src]="media"></video>
+  <video *ngIf="isVideo" [autoplay]="true" [controls]="true" [loop]="true" [muted]="true" [src]="url"></video>
 </app-page>

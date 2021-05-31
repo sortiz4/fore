@@ -27,7 +27,7 @@ export class NavigationBar extends IonicNativePlugin {
   hide(): void {
     return;
   }
-  
+
   @Cordova({ sync: true })
   show(): void {
     return;

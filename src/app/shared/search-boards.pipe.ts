@@ -17,9 +17,9 @@ export class SearchBoardsPipe implements PipeTransform {
   filter(boards: Board[], text: string): Board[] {
     const filterBoards = (board: Board): boolean => {
       return (
-        !!board.board.match(pattern) ||
-        !!board.title.match(pattern) ||
-        !!board.metaDescription.match(pattern)
+        !!board.description.match(pattern) ||
+        !!board.name.match(pattern) ||
+        !!board.path.match(pattern)
       );
     };
     const pattern = new RegExp(text, 'i');

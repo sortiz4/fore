@@ -3,10 +3,10 @@
     <ion-item *ngFor="let board of boards" [class.app-disabled]="!isEnabled(board)">
       <ion-label>
         <h2>
-          <b>/{{ board.board }}/</b>
+          <b>/{{ board.path }}/</b>
         </h2>
         <p>
-          {{ board.title }}
+          {{ board.name }}
         </p>
       </ion-label>
       <ion-chip slot="end" [color]="getColor(board)" [outline]="true" (click)="onToggle(board)">

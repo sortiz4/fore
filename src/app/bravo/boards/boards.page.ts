@@ -41,13 +41,13 @@ export class BoardsPage implements ViewWillEnter {
   }
 
   isEnabled(board: Board): boolean {
-    return !this.state.get().blocked[board.board];
+    return !this.state.get().blocked[board.path];
   }
 
   onToggle(board: Board): Promise<void> {
     const blocked = {
       ...this.state.get().blocked,
-      [board.board]: !this.state.get().blocked[board.board],
+      [board.path]: !this.state.get().blocked[board.path],
     };
     return this.storage.setState(this.state.set({ blocked }).get()).then(() => void 0);
   }

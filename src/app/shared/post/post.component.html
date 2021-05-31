@@ -1,6 +1,6 @@
 <ion-item lines="full">
   <ion-card>
-    <app-media *ngIf="isKnownFileType" [media]="media" [name]="fileName" [type]="fileType"></app-media>
+    <app-media *ngIf="fileCanBePreviewed" [name]="fileName" [type]="fileType" [url]="fileUrl"></app-media>
     <ion-card-header>
       <ion-card-subtitle>
         {{ name }} · {{ id }} · {{ replies }} · {{ time | timeAgo }}
