@@ -1,6 +1,6 @@
 <app-page [canScrollToTop]="true" [title]="title" (close)="onClose()" (refresh)="hasOwnProperty()">
   <ion-list class="app-list" lines="none">
     <app-thread [board]="board" [thread]="thread" [clickable]="false"></app-thread>
-    <app-post *ngFor="let post of posts$ | async" [board]="board" [post]="post"></app-post>
+    <app-post *ngFor="let post of posts$ | async" [post]="post"></app-post>
   </ion-list>
 </app-page>

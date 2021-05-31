@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Board, FileType, Post } from '../../../models';
+import { FileType, Post } from '../../../models';
 
 @Component({
   selector: 'app-post',
@@ -7,7 +7,6 @@ import { Board, FileType, Post } from '../../../models';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent {
-  @Input() board: Board;
   @Input() post: Post;
 
   get fileCanBePreviewed(): boolean {

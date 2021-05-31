@@ -73,28 +73,12 @@ ion-toolbar ion-avatar {
   border-radius: $app-border-radius-large;
 }
 
+.app-footer-border {
+  box-shadow: $app-footer-box-shadow;
+}
+
 .app-header-border {
-  border-bottom: $app-header-border;
-}
-
-.app-modal-fullscreen {
-  & > .modal-wrapper {
-    border-radius: 0;
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.app-modal-lightbox {
-  & ion-content,
-  & ion-toolbar {
-    --color: #{$app-lightbox-color};
-    --background: #{$app-lightbox-background};
-  }
-
-  & .modal-wrapper {
-    --background: transparent;
-  }
+  box-shadow: $app-header-box-shadow;
 }
 
 .app-input-block {
@@ -119,6 +103,35 @@ ion-toolbar ion-avatar {
       --padding-top: #{$app-space-1};
     }
   }
+}
+
+.app-modal-fullscreen {
+  & > .modal-wrapper {
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.app-modal-lightbox {
+  & ion-content,
+  & ion-toolbar {
+    --color: #{$app-lightbox-color};
+    --background: #{$app-lightbox-background};
+  }
+
+  & ion-header,
+  & ion-footer {
+    box-shadow: none;
+  }
+
+  & .modal-wrapper {
+    --background: transparent;
+  }
+}
+
+.app-no-border {
+  border: none;
 }
 
 .app-toast-media {

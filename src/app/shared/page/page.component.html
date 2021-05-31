@@ -1,4 +1,4 @@
-<ion-header class="ion-no-border">
+<ion-header class="app-header-border ion-no-border">
   <ion-toolbar>
     <ion-title *ngIf="title" [innerHTML]="title"></ion-title>
     <ion-buttons *ngIf="showBack" slot="start">
@@ -24,7 +24,7 @@
 <app-content [canScrollToTop]="canScrollToTop">
   <ng-content></ng-content>
 </app-content>
-<ion-footer *ngIf="showMedia" class="ion-no-border">
+<ion-footer *ngIf="showMedia" class="app-footer-border ion-no-border">
   <ion-toolbar>
     <ion-buttons *ngIf="showClose">
       <ion-button (click)="hasOwnProperty()">
