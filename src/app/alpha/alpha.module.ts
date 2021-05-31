@@ -10,10 +10,6 @@ const routes: Routes = [
     component: AlphaPage,
     children: [
       {
-        path: 'bookmarks',
-        loadChildren: () => import('./bookmarks/bookmarks.module').then(m => m.BookmarksPageModule),
-      },
-      {
         path: 'home',
         loadChildren: () => import('./home/home.module').then(m => m.HomePageModule),
       },

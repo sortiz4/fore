@@ -9,10 +9,6 @@ const routes: Routes = [
     loadChildren: () => import('./boards/boards.module').then(m => m.BoardsPageModule),
   },
   {
-    path: 'notifications',
-    loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsPageModule),
-  },
-  {
     path: 'search',
     loadChildren: () => import('./search/search.module').then(m => m.SearchPageModule),
   },
