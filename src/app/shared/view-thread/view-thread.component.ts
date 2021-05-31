@@ -10,17 +10,19 @@ import { Board, Thread } from '../../../models';
   styleUrls: ['./view-thread.component.scss'],
 })
 export class ViewThreadComponent implements ViewWillEnter {
-  @Input() board: Board;
   @Input() modal: HTMLIonModalElement;
   @Input() thread: Thread;
-  @Input() title: string;
   posts$: Observable<unknown>;
+
+  get title(): string {
+    return this.thread.title;
+  }
 
   constructor(private api: Api) {
   }
 
   ionViewWillEnter(): void {
-    this.posts$ = this.api.getPosts(this.board.path, this.thread.id);
+    this.posts$ = this.api.getPosts(this.thread.board, this.thread);
   }
 
   onClose(): Promise<boolean> {

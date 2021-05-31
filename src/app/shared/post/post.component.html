@@ -3,7 +3,7 @@
     <app-media *ngIf="fileCanBePreviewed" [name]="fileName" [type]="fileType" [url]="fileUrl"></app-media>
     <ion-card-header>
       <ion-card-subtitle>
-        {{ name }} · {{ id }} · {{ replies }} · {{ time | timeAgo }}
+        {{ author }} · {{ id }} · {{ replies }} · {{ time | timeAgo }}
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content *ngIf="text" [innerHTML]="text"></ion-card-content>

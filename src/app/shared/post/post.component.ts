@@ -9,6 +9,10 @@ import { FileType, Post } from '../../../models';
 export class PostComponent {
   @Input() post: Post;
 
+  get author(): string {
+    return this.post.author;
+  }
+
   get fileCanBePreviewed(): boolean {
     return this.post.fileCanBePreviewed;
   }
@@ -35,10 +39,6 @@ export class PostComponent {
 
   get link(): string {
     return this.post.link;
-  }
-
-  get name(): string {
-    return this.post.name;
   }
 
   get replies(): string {

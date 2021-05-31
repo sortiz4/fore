@@ -151,6 +151,8 @@ export interface Board {
 }
 
 export interface Content {
+  readonly author: string;
+  readonly board: Board;
   readonly fileCanBePreviewed: boolean;
   readonly fileName: string;
   readonly fileThumbnail: string;
@@ -158,7 +160,6 @@ export interface Content {
   readonly fileUrl: string;
   readonly id: number;
   readonly link: string;
-  readonly name: string;
   readonly replyCount: number;
   readonly replyText: string;
   readonly text: string;
@@ -167,6 +168,7 @@ export interface Content {
 
 export interface Post extends Content {
   readonly replies: Post[];
+  readonly thread: Thread;
 }
 
 export interface Thread extends Content {
@@ -177,7 +179,7 @@ function getFileName(name: string, extension: string): string {
   return `${name}${extension}`;
 }
 
-function getFileThumbnail(id: number, board: string): string {
+function getFileThumbnailUrl(id: number, board: string): string {
   return `${getUrl()}/${board}/${id}s.jpg`;
 }
 
@@ -229,36 +231,39 @@ export function mapApiBoardToBoard(board: ApiBoard): Board {
   }
 }
 
-export function mapApiPostToPost(board: string, post: ApiIndexPost | ApiThreadPost): Post {
+export function mapApiPostToPost(board: Board, thread: Thread, post: ApiIndexPost | ApiThreadPost): Post {
   const fileType = getFileType(post.ext);
   return {
+    author: post.name,
+    board,
     fileCanBePreviewed: fileType !== FileType.Unknown,
     fileName: getFileName(post.filename, post.ext),
-    fileThumbnail: getFileThumbnail(post.tim, board),
+    fileThumbnail: getFileThumbnailUrl(post.tim, board.path),
     fileType,
-    fileUrl: getFileUrl(post.tim, board, post.ext),
+    fileUrl: getFileUrl(post.tim, board.path, post.ext),
     id: post.no,
     link: getLink(post.no),
-    name: post.name,
     replies: null,
     replyCount: post.replies,
     replyText: getReplyText(post.replies),
     text: post.com,
+    thread,
     time: post.tim,
   }
 }
 
-export function mapApiThreadToThread(board: string, thread: ApiThread): Thread {
+export function mapApiThreadToThread(board: Board, thread: ApiThread): Thread {
   const fileType = getFileType(thread.ext);
   return {
+    author: thread.name,
+    board,
     fileCanBePreviewed: fileType !== FileType.Unknown,
     fileName: getFileName(thread.filename, thread.ext),
-    fileThumbnail: getFileThumbnail(thread.tim, board),
+    fileThumbnail: getFileThumbnailUrl(thread.tim, board.path),
     fileType,
-    fileUrl: getFileUrl(thread.tim, board, thread.ext),
+    fileUrl: getFileUrl(thread.tim, board.path, thread.ext),
     id: thread.no,
     link: getLink(thread.no),
-    name: thread.name,
     replyCount: thread.replies,
     replyText: getReplyText(thread.replies),
     text: thread.com,
@@ -267,7 +272,7 @@ export function mapApiThreadToThread(board: string, thread: ApiThread): Thread {
   }
 }
 
-export function updatePostsWithReplies(posts: Post[]): Post[] {
+export function updatePosts(posts: Post[]): Post[] {
   for (const post of posts) {
     const replies = getPostReplies(posts, post.id);
     Object.assign(post, { replies, replyCount: replies.length, replyText: getReplyText(replies.length) });

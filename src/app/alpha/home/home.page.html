@@ -12,6 +12,6 @@
 </ion-header>
 <app-content [canScrollToTop]="true" (refresh)="onRefresh($event)">
   <ion-list class="app-list" lines="none">
-    <app-thread *ngFor="let thread of catalog$ | async" [board]="board" [thread]="thread"></app-thread>
+    <app-thread *ngFor="let thread of catalog$ | async" [thread]="thread"></app-thread>
   </ion-list>
 </app-content>

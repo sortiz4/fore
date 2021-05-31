@@ -28,7 +28,7 @@ export class HomePage implements ViewWillEnter {
       this.board = this.state.get().boards[0];
     }
     if (!this.catalog$) {
-      this.catalog$ = this.api.getCatalog(this.board.path);
+      this.catalog$ = this.api.getCatalog(this.board);
     }
   }
 
@@ -38,7 +38,7 @@ export class HomePage implements ViewWillEnter {
       this.board = board;
 
       // Update the catalog
-      this.catalog$ = this.api.getCatalog(this.board.path);
+      this.catalog$ = this.api.getCatalog(this.board);
     }
   }
 

@@ -9,9 +9,12 @@ import { Board, FileType, Thread } from '../../../models';
   styleUrls: ['./thread.component.scss'],
 })
 export class ThreadComponent {
-  @Input() board: Board;
   @Input() thread: Thread;
   @Input() clickable = true;
+
+  get author(): string {
+    return this.thread.author;
+  }
 
   get fileCanBePreviewed(): boolean {
     return this.thread.fileCanBePreviewed;
@@ -41,10 +44,6 @@ export class ThreadComponent {
     return this.thread.link;
   }
 
-  get name(): string {
-    return this.thread.name;
-  }
-
   get replies(): string {
     return this.thread.replyText;
   }
@@ -70,9 +69,7 @@ export class ThreadComponent {
       const options = {
         component: ViewThreadComponent,
         componentProps: {
-          board: this.board,
           thread: this.thread,
-          title: this.title,
         },
         cssClass: 'app-modal-fullscreen',
       };
