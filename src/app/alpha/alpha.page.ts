@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { IonTabs } from '@ionic/angular';
 import { StackController } from '@ionic/angular/directives/navigation/stack-controller';
 import { RouteView, StackEvent } from '@ionic/angular/directives/navigation/stack-utils';
-import get from 'lodash/get';
 
 @Component({
   selector: 'app-alpha',
@@ -40,7 +39,7 @@ export class AlphaPage {
     };
 
     const getStack = (): StackController => {
-      return get(this.tabs.outlet, 'stackCtrl');
+      return (this.tabs.outlet as any).stackCtrl;
     };
 
     return getStack().setActive(createView());

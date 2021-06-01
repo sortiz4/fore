@@ -2,24 +2,34 @@ import { Type } from '@angular/core';
 import { cordova, CordovaOptions, PluginConfig } from '@ionic-native/core';
 import { AnimeInstance } from 'animejs';
 import camelCase from 'lodash/camelCase';
+import isArray from 'lodash/isArray';
+import isObject from 'lodash/isObject';
 import snakeCase from 'lodash/snakeCase';
 
-function mapKeys(map: (value: string) => string, input: unknown): unknown {
-  if (typeof input === 'object' && input !== null) {
-    if (input instanceof Array) {
-      const output = [];
-      for (const value of input) {
-        output.push(mapKeys(map, value));
-      }
-      return output;
+function mapKeysForArray(map: (_: string) => string, input: unknown[]): unknown[] {
+  const output = [];
+  for (const value of input) {
+    output.push(mapKeys(map, value));
+  }
+  return output;
+}
+
+function mapKeysForObject(map: (_: string) => string, input: object): object {
+  const output = {};
+  for (const key in input) {
+    if (input.hasOwnProperty(key)) {
+      output[map(key)] = mapKeys(map, input[key]);
+    }
+  }
+  return output;
+}
+
+function mapKeys(map: (_: string) => string, input: unknown): unknown {
+  if (isObject(input)) {
+    if (isArray(input)) {
+      return mapKeysForArray(map, input);
     } else {
-      const output = {};
-      for (const key in input) {
-        if (input.hasOwnProperty(key)) {
-          output[map(key)] = mapKeys(map, input[key]);
-        }
-      }
-      return output;
+      return mapKeysForObject(map, input);
     }
   }
   return input;

@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Board } from '../../models';
 
 export interface Store {
-  readonly blocked: { [k: string]: boolean };
+  readonly blocked: { [key: string]: boolean };
   readonly boards: Board[];
   readonly dark: boolean;
 }
