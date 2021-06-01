@@ -1,4 +1,5 @@
 import { Type } from '@angular/core';
+import { Animation as IonicAnimation, createAnimation } from '@ionic/core';
 import { cordova, CordovaOptions, PluginConfig } from '@ionic-native/core';
 import { AnimeInstance } from 'animejs';
 import camelCase from 'lodash/camelCase';
@@ -99,54 +100,98 @@ export function Plugin(options: PluginConfig): ClassDecorator {
   };
 }
 
-export abstract class AbstractAnimation {
-  private workers: AnimeInstance[];
+export abstract class AbstractAnimationAnime {
+  private animation: AnimeInstance;
 
   constructor(protected element: HTMLElement) {
-  }
-
-  protected animateBackward(): void {
-    if (this.isDirectionForward()) {
-      this.changeDirection();
-    }
-    for (const worker of this.getWorkers()) {
-      worker.play();
-    }
   }
 
   protected animateForward(): void {
     if (this.isDirectionBackward()) {
       this.changeDirection();
     }
-    for (const worker of this.getWorkers()) {
-      worker.play();
+    this.getAnimation().play();
+  }
+
+  protected animateBackward(): void {
+    if (this.isDirectionForward()) {
+      this.changeDirection();
     }
+    this.getAnimation().play();
   }
 
   protected changeDirection(): void {
-    for (const worker of this.getWorkers()) {
-      worker.reverse();
-    }
+    this.getAnimation().reverse();
   }
 
-  protected createWorkers(): AnimeInstance[] {
-    return [];
+  protected createAnimation(): AnimeInstance {
+    return;
+  }
+
+  protected getAnimation(): AnimeInstance {
+    this.animation = !this.animation ? this.createAnimation() : this.animation;
+    return this.animation;
   }
 
   protected getElements(getElements: () => HTMLElement[]): HTMLElement[] {
     return getElements().filter(e => e instanceof HTMLElement);
   }
 
-  protected getWorkers(): AnimeInstance[] {
-    this.workers = !this.workers ? this.createWorkers() : this.workers;
-    return this.workers;
+  protected isDirectionForward(): boolean {
+    return !this.isDirectionBackward();
   }
 
   protected isDirectionBackward(): boolean {
-    return this.getWorkers().some(h => h.reversed);
+    return this.getAnimation().reversed;
+  }
+}
+
+export abstract class AbstractAnimationIonic {
+  private animation: IonicAnimation;
+
+  constructor(protected element: HTMLElement) {
+  }
+
+  protected animateForward(): void {
+    if (this.isDirectionBackward()) {
+      this.changeDirectionToForward();
+    }
+    this.getAnimation().play();
+  }
+
+  protected animateBackward(): void {
+    if (this.isDirectionForward()) {
+      this.changeDirectionToBackward();
+    }
+    this.getAnimation().play();
+  }
+
+  protected changeDirectionToForward(): void {
+    return void this.getAnimation().direction('normal');
+  }
+
+  protected changeDirectionToBackward(): void {
+    return void this.getAnimation().direction('reverse');
+  }
+
+  protected createAnimation(): IonicAnimation {
+    return;
+  }
+
+  protected getAnimation(): IonicAnimation {
+    this.animation = !this.animation ? this.createAnimation() : this.animation;
+    return this.animation;
+  }
+
+  protected getElements(getElements: () => HTMLElement[]): HTMLElement[] {
+    return getElements().filter(e => e instanceof HTMLElement);
   }
 
   protected isDirectionForward(): boolean {
-    return !this.isDirectionBackward();
+    return this.getAnimation().getDirection() === 'normal';
+  }
+
+  protected isDirectionBackward(): boolean {
+    return this.getAnimation().getDirection() === 'reverse';
   }
 }

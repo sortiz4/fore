@@ -1,12 +1,13 @@
 import { Component, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
+import { Animation as IonicAnimation, createAnimation } from '@ionic/core';
 import anime, { AnimeInstance } from 'animejs';
 import { defer, fromEvent, Observable, Subscription } from 'rxjs';
 import { concatMap, filter, map, tap } from 'rxjs/operators';
-import { AbstractAnimation, observeChildren } from '../../../utils';
+import { AbstractAnimationIonic, AbstractAnimationAnime, observeChildren } from '../../../utils';
 
-class Animation extends AbstractAnimation {
-  protected createWorkers(): AnimeInstance[] {
+class AnimationAnime extends AbstractAnimationAnime {
+  protected createAnimation(): AnimeInstance {
     const getTopElements = (): HTMLElement[] => {
       return [
         this.element.closest('.ion-page').querySelector('ion-header'),
@@ -40,10 +41,54 @@ class Animation extends AbstractAnimation {
       translateY: globalThis.innerHeight / 4,
     };
 
-    return [
-      anime(hideTopOptions),
-      anime(hideBottomOptions),
-    ];
+    return anime.timeline(hideTopOptions).add(hideBottomOptions, 0);
+  }
+
+  hide(): void {
+    this.animateForward();
+  }
+
+  show(): void {
+    this.animateBackward();
+  }
+}
+
+class Animation extends AbstractAnimationIonic {
+  protected createAnimation(): IonicAnimation {
+    const getTopElements = (): HTMLElement[] => {
+      return [
+        this.element.closest('.ion-page').querySelector('ion-header'),
+      ];
+    };
+
+    const getBottomElements = (): HTMLElement[] => {
+      return [
+        this.element.closest('.ion-page').querySelector('ion-footer'),
+        this.element.closest('ion-tabs')?.querySelector?.('ion-tab-bar'),
+        this.element.querySelector('ion-fab'),
+      ];
+    };
+
+    const hideTopAnimation = (
+      createAnimation()
+        .addElement(this.getElements(getTopElements))
+        .to('transform', `translateY(${-globalThis.innerHeight / 4}px)`)
+        .to('height', '0')
+    );
+
+    const hideBottomAnimation = (
+      createAnimation()
+        .addElement(this.getElements(getBottomElements))
+        .to('transform', `translateY(${globalThis.innerHeight / 4}px)`)
+        .to('height', '0')
+    );
+
+    return (
+      createAnimation()
+        .addAnimation([hideTopAnimation, hideBottomAnimation])
+        .duration(250)
+        .easing('ease-in-out')
+    );
   }
 
   hide(): void {
