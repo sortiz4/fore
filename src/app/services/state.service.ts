@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import merge from 'lodash/merge';
 import { BehaviorSubject } from 'rxjs';
-import { Board } from 'src/models';
+import { Board } from '../../models';
 
 export interface Store {
   readonly blocked: { [k: string]: boolean };

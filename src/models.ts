@@ -4,7 +4,7 @@ export enum FileType {
   Unknown,
 }
 
-interface ApiBaseContentAlpha {
+interface ApiContentAlpha {
   readonly boardFlag?: string;
   readonly com?: string;
   readonly country?: string;
@@ -28,7 +28,7 @@ interface ApiBaseContentAlpha {
   readonly w?: number;
 }
 
-interface ApiBaseContentBravo {
+interface ApiContentBravo {
   readonly bumplimit?: 1;
   readonly capcode?: string;
   readonly closed?: 1;
@@ -47,13 +47,13 @@ interface ApiBaseContentBravo {
   readonly uniqueIps?: number;
 }
 
-interface ApiBaseContentCharlie {
+interface ApiContentCharlie {
   readonly lastModified?: number;
   readonly omittedImages?: number;
   readonly omittedPosts?: number;
 }
 
-interface ApiBaseContentDelta {
+interface ApiContentDelta {
   readonly tailSize?: number;
 }
 
@@ -117,14 +117,14 @@ export interface ApiGetThreads {
   readonly threads: ApiThreadMetadata[];
 }
 
-interface ApiIndexPost extends ApiBaseContentAlpha, ApiBaseContentBravo, ApiBaseContentCharlie, ApiBaseContentDelta {
+interface ApiIndexPost extends ApiContentAlpha, ApiContentBravo, ApiContentCharlie, ApiContentDelta {
 }
 
 interface ApiIndexThread {
   readonly posts: ApiIndexPost[];
 }
 
-interface ApiThread extends ApiBaseContentAlpha, ApiBaseContentBravo, ApiBaseContentCharlie {
+interface ApiThread extends ApiContentAlpha, ApiContentBravo, ApiContentCharlie {
   readonly lastReplies?: ApiThreadReply[];
 }
 
@@ -134,12 +134,12 @@ interface ApiThreadMetadata {
   readonly replies: number;
 }
 
-interface ApiThreadPost extends ApiBaseContentAlpha, ApiBaseContentBravo, ApiBaseContentDelta {
+interface ApiThreadPost extends ApiContentAlpha, ApiContentBravo, ApiContentDelta {
   readonly archived?: 1;
   readonly archivedOn?: number;
 }
 
-interface ApiThreadReply extends ApiBaseContentAlpha {
+interface ApiThreadReply extends ApiContentAlpha {
   readonly id: string;
 }
 

@@ -3,6 +3,7 @@ import { IonTabs, ViewDidLeave } from '@ionic/angular';
 import { cordova, CordovaOptions, PluginConfig } from '@ionic-native/core';
 import { StackController } from '@ionic/angular/directives/navigation/stack-controller';
 import { RouteView } from '@ionic/angular/directives/navigation/stack-utils';
+import { AnimeInstance } from 'animejs';
 import camelCase from 'lodash/camelCase';
 import snakeCase from 'lodash/snakeCase';
 
@@ -89,6 +90,58 @@ export function Plugin(options: PluginConfig): ClassDecorator {
   return (target: object): void => {
     Object.assign(target, options);
   };
+}
+
+export class AbstractAnimation {
+  private workers: AnimeInstance[];
+
+  constructor(protected element: HTMLElement) {
+  }
+
+  protected animateBackward(): void {
+    if (this.isDirectionForward()) {
+      this.changeDirection();
+    }
+    for (const worker of this.getWorkers()) {
+      worker.play();
+    }
+  }
+
+  protected animateForward(): void {
+    if (this.isDirectionBackward()) {
+      this.changeDirection();
+    }
+    for (const worker of this.getWorkers()) {
+      worker.play();
+    }
+  }
+
+  protected changeDirection(): void {
+    for (const worker of this.getWorkers()) {
+      worker.reverse();
+    }
+  }
+
+  protected createWorkers(): AnimeInstance[] {
+    return [];
+  }
+
+  protected getElements(getElements: () => HTMLElement[]): HTMLElement[] {
+    return getElements().filter(e => e instanceof HTMLElement);
+  }
+
+  protected getWorkers(): AnimeInstance[] {
+    this.workers = !this.workers ? this.createWorkers() : this.workers;
+    return this.workers;
+  }
+
+  protected isDirectionBackward(): boolean {
+    return this.getWorkers().some(h => h.reversed);
+  }
+
+  protected isDirectionForward(): boolean {
+    return !this.isDirectionBackward();
+  }
 }
 
 export abstract class TabPatch implements ViewDidLeave {

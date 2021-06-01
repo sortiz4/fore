@@ -13,7 +13,7 @@ import { Board, Thread } from '../../../models';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements ViewWillEnter {
-  board: Board;
+  private board: Board;
   catalog$: Observable<Thread[]>;
 
   get title(): string {
