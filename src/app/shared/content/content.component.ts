@@ -1,122 +1,37 @@
-import { Component, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
-import { Animation as IonicAnimation, createAnimation } from '@ionic/core';
-import anime, { AnimeInstance } from 'animejs';
 import { defer, fromEvent, Observable, Subscription } from 'rxjs';
 import { concatMap, filter, map, tap } from 'rxjs/operators';
-import { AbstractAnimationIonic, AbstractAnimationAnime, observeChildren } from '../../../utils';
-
-class AnimationAnime extends AbstractAnimationAnime {
-  protected createAnimation(): AnimeInstance {
-    const getTopElements = (): HTMLElement[] => {
-      return [
-        this.element.closest('.ion-page').querySelector('ion-header'),
-      ];
-    };
-
-    const getBottomElements = (): HTMLElement[] => {
-      return [
-        this.element.closest('.ion-page').querySelector('ion-footer'),
-        this.element.closest('ion-tabs')?.querySelector?.('ion-tab-bar'),
-        this.element.querySelector('ion-fab'),
-      ];
-    };
-
-    const hideOptions = {
-      height: 0,
-      easing: 'easeInOutSine',
-      duration: 250,
-      autoplay: false,
-    };
-
-    const hideTopOptions = {
-      ...hideOptions,
-      targets: this.getElements(getTopElements),
-      translateY: -globalThis.innerHeight / 4,
-    };
-
-    const hideBottomOptions = {
-      ...hideOptions,
-      targets: this.getElements(getBottomElements),
-      translateY: globalThis.innerHeight / 4,
-    };
-
-    return anime.timeline(hideTopOptions).add(hideBottomOptions, 0);
-  }
-
-  hide(): void {
-    this.animateForward();
-  }
-
-  show(): void {
-    this.animateBackward();
-  }
-}
-
-class Animation extends AbstractAnimationIonic {
-  protected createAnimation(): IonicAnimation {
-    const getTopElements = (): HTMLElement[] => {
-      return [
-        this.element.closest('.ion-page').querySelector('ion-header'),
-      ];
-    };
-
-    const getBottomElements = (): HTMLElement[] => {
-      return [
-        this.element.closest('.ion-page').querySelector('ion-footer'),
-        this.element.closest('ion-tabs')?.querySelector?.('ion-tab-bar'),
-        this.element.querySelector('ion-fab'),
-      ];
-    };
-
-    const hideTopAnimation = (
-      createAnimation()
-        .addElement(this.getElements(getTopElements))
-        .to('transform', `translateY(${-globalThis.innerHeight / 4}px)`)
-        .to('height', '0')
-    );
-
-    const hideBottomAnimation = (
-      createAnimation()
-        .addElement(this.getElements(getBottomElements))
-        .to('transform', `translateY(${globalThis.innerHeight / 4}px)`)
-        .to('height', '0')
-    );
-
-    return (
-      createAnimation()
-        .addAnimation([hideTopAnimation, hideBottomAnimation])
-        .duration(250)
-        .easing('ease-in-out')
-    );
-  }
-
-  hide(): void {
-    this.animateForward();
-  }
-
-  show(): void {
-    this.animateBackward();
-  }
-}
+import { observeChildren } from '../../../utils';
 
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.scss'],
+  animations: [
+    trigger(
+      'fab',
+      [
+        state('true', style({ transform: `translateY(${globalThis.innerHeight / 4}px)` })),
+        state('false', style({ transform: 'translateY(0)' })),
+        transition('* <=> *', animate('250ms ease-in-out')),
+      ],
+    ),
+  ],
 })
 export class ContentComponent implements OnInit, OnDestroy {
   @Input() canScrollToTop = false;
   @Output() refresh = new EventEmitter<CustomEvent>();
   @ViewChild(IonContent) content: IonContent;
-  private animation: Animation;
   private scrollEvent: Subscription;
+  didScrollDown = true;
 
   get canRefresh(): boolean {
     return this.refresh.observers.length > 0;
   }
 
-  constructor(private element: ElementRef, private zone: NgZone) {
+  constructor(private changeDetector: ChangeDetectorRef, private element: ElementRef, private zone: NgZone) {
   }
 
   createScrollEvent(): Observable<[number, number]> {
@@ -193,21 +108,16 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   zoneOnInit(): void {
-    this.animation = new Animation(this.element.nativeElement);
     this.scrollEvent = this.createScrollEvent().subscribe();
   }
 
   zoneOnDestroy(): void {
-    this.animation.show();
     this.scrollEvent.unsubscribe();
   }
 
   onScroll([_, deltaY]: [number, number]): void {
-    if (deltaY < 0) {
-      this.animation.hide();
-    } else {
-      this.animation.show();
-    }
+    this.didScrollDown = deltaY < 0;
+    this.changeDetector.detectChanges();
   }
 
   onScrollToTop(): Promise<void> {
