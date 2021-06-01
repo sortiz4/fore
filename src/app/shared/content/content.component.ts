@@ -78,7 +78,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     const filterToSignChange = (): (_: [number, number]) => boolean => {
       let previousX = 0;
       let previousY = 0;
-    
+
       const mapNumberToSign = (value: number): number => {
         if (value < 0) {
           return -1;
@@ -88,7 +88,7 @@ export class ContentComponent implements OnInit, OnDestroy {
         }
         return 0;
       };
-    
+
       return ([newX, newY]: [number, number]): boolean => {
         const result = (
           mapNumberToSign(previousX) !== mapNumberToSign(newX) ||
@@ -120,7 +120,7 @@ export class ContentComponent implements OnInit, OnDestroy {
     const mapScrollEventToDeltas = (): (_: Event) => [number, number] => {
       let previousX = 0;
       let previousY = 0;
-    
+
       return (event: Event): [number, number] => {
         const deltaX = previousX - (event.target as Element).scrollLeft;
         const deltaY = previousY - (event.target as Element).scrollTop;

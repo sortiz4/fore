@@ -1,8 +1,5 @@
-import { Type, ViewChild } from '@angular/core';
-import { IonTabs, ViewDidLeave } from '@ionic/angular';
+import { Type } from '@angular/core';
 import { cordova, CordovaOptions, PluginConfig } from '@ionic-native/core';
-import { StackController } from '@ionic/angular/directives/navigation/stack-controller';
-import { RouteView } from '@ionic/angular/directives/navigation/stack-utils';
 import { AnimeInstance } from 'animejs';
 import camelCase from 'lodash/camelCase';
 import snakeCase from 'lodash/snakeCase';
@@ -92,7 +89,7 @@ export function Plugin(options: PluginConfig): ClassDecorator {
   };
 }
 
-export class AbstractAnimation {
+export abstract class AbstractAnimation {
   private workers: AnimeInstance[];
 
   constructor(protected element: HTMLElement) {
@@ -141,40 +138,5 @@ export class AbstractAnimation {
 
   protected isDirectionForward(): boolean {
     return !this.isDirectionBackward();
-  }
-}
-
-export abstract class TabPatch implements ViewDidLeave {
-  @ViewChild(IonTabs) private tabs: IonTabs;
-  private readonly view: RouteView = {
-    id: -1,
-    url: 'void',
-    stackId: 'void',
-    element: document.createElement('div'),
-    ref: {
-      injector: null,
-      instance: null,
-      location: null,
-      hostView: null,
-      componentType: null,
-      changeDetectorRef: {
-        detach(): void {},
-        reattach(): void {},
-        markForCheck(): void {},
-        detectChanges(): void {},
-        checkNoChanges(): void {},
-      },
-      destroy(): void {},
-      onDestroy(): void {},
-    },
-    unlistenEvents(): void {},
-  };
-
-  private get stack(): StackController {
-    return (this.tabs.outlet as any).stackCtrl;
-  }
-
-  ionViewDidLeave(): Promise<unknown> {
-    return this.stack.setActive(this.view);
   }
 }
