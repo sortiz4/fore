@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { ViewMediaComponent } from '../view-media/view-media.component';
 import { Modal } from '../../services/modal.service';
 import { FileType } from '../../../models';
@@ -23,21 +23,24 @@ export class MediaComponent implements OnInit, OnDestroy {
     return this.type === FileType.Video;
   }
 
-  constructor(private element: ElementRef, private modal: Modal) {
+  constructor(private changeDetector: ChangeDetectorRef, private element: ElementRef, private modal: Modal, private zone: NgZone) {
   }
 
   ngOnInit(): void {
-    this.startObserver();
+    this.zone.runOutsideAngular(() => this.startObserver());
   }
 
   ngOnDestroy(): void {
-    this.stopObserver();
+    this.zone.runOutsideAngular(() => this.stopObserver());
   }
 
   startObserver(): void {
     const callback = ([entry]: IntersectionObserverEntry[]): void => {
-      if (!this.isVisible) {
-        this.isVisible = entry.isIntersecting;
+      this.isVisible = entry.isIntersecting;
+      
+      if (this.isVisible) {
+        this.observer.disconnect();
+        this.changeDetector.detectChanges();
       }
     };
 
