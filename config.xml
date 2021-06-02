@@ -19,6 +19,7 @@
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="FadeSplashScreenDuration" value="300" />
+    <preference name="GradlePluginKotlinEnabled" value="true" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="SplashMaintainAspectRatio" value="true" />
