@@ -6,14 +6,12 @@ import { Board } from '../../models';
 export interface Store {
   readonly blocked: { [key: string]: boolean };
   readonly boards: Board[];
-  readonly dark: boolean;
 }
 
 function createDefaultStore(): Store {
   return {
     blocked: {},
     boards: [],
-    dark: false,
   };
 }
 

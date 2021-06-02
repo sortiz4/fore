@@ -10,46 +10,36 @@ export class SystemUi {
   }
 
   backgroundColorByHexString(color: string): void {
-    this.navigationBar.backgroundColorByHexString(color);
     this.statusBar.backgroundColorByHexString(color);
+    this.navigationBar.backgroundColorByHexString(color);
   }
 
   backgroundColorByName(color: string): void {
-    this.navigationBar.backgroundColorByName(color);
     this.statusBar.backgroundColorByName(color);
+    this.navigationBar.backgroundColorByName(color);
   }
 
   setDark(): void {
-    const color = getComputedStyle(document.body).getPropertyValue('--ion-background-color').trim();
+    this.setTransparent();
     this.statusBar.styleBlackOpaque();
-    this.backgroundColorByHexString(color);
   }
 
   setLight(): void {
-    const color = '#ffffff';
+    this.setTransparent();
     this.statusBar.styleDefault();
-    this.backgroundColorByHexString(color);
   }
 
-  setMediaDark(): void {
-    const color = '#0c0c0c';
-    this.statusBar.styleBlackOpaque();
-    this.backgroundColorByHexString(color);
-  }
-
-  setMediaLight(): void {
-    const color = '#1c1c1c';
-    this.statusBar.styleBlackOpaque();
-    this.backgroundColorByHexString(color);
+  setTransparent(): void {
+    this.backgroundColorByHexString('#00000000');
   }
 
   hide(): void {
-    this.navigationBar.hide();
     this.statusBar.hide();
+    this.navigationBar.hide();
   }
 
   show(): void {
-    this.navigationBar.show();
     this.statusBar.show();
+    this.navigationBar.show();
   }
 }

@@ -7,39 +7,30 @@ import { SystemUi } from './system-ui.service';
 export class ColorScheme {
   private isMedia = false;
   private readonly color = globalThis.matchMedia('(prefers-color-scheme: dark)');
-  private readonly event = (mediaQuery: MediaQueryListEvent): void => this.toggle(mediaQuery.matches);
+  private readonly event = (): void => this.synchronize();
 
   constructor(private systemUi: SystemUi) {
   }
 
   isDark(): boolean {
-    return document.body.classList.contains('dark');
+    return this.color.matches;
   }
 
   isLight(): boolean {
     return !this.isDark();
   }
 
-  setDark(): void {
-    this.toggle(true);
-  }
-
-  setLight(): void {
-    this.toggle(false);
-  }
-
   start(): void {
+    this.synchronize();
     this.color.addEventListener('change', this.event);
   }
 
   stop(): void {
     this.color.removeEventListener('change', this.event);
+    this.synchronize();
   }
 
-  toggle(force?: boolean): void {
-    document.body.classList.toggle('dark', force);
-
-    // Update the system theme accordingly
+  synchronize(): void {
     if (this.isDark()) {
       this.systemUi.setDark();
     } else {
@@ -50,18 +41,10 @@ export class ColorScheme {
   toggleMedia(): void {
     this.isMedia = !this.isMedia;
 
-    if (this.isMedia) {
-      if (this.isDark()) {
-        this.systemUi.setMediaDark();
-      } else {
-        this.systemUi.setMediaLight();
-      }
+    if (this.isMedia || this.isDark()) {
+      this.systemUi.setDark();
     } else {
-      if (this.isDark()) {
-        this.systemUi.setDark();
-      } else {
-        this.systemUi.setLight();
-      }
+      this.systemUi.setLight();
     }
   }
 }

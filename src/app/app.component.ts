@@ -3,6 +3,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { Api } from './services/api.service';
 import { ColorScheme } from './services/color-scheme.service';
+import { SafeArea } from './services/safe-area.service';
 import { State } from './services/state.service';
 import { Storage } from './services/storage.service';
 
@@ -14,10 +15,15 @@ import { Storage } from './services/storage.service';
 export class AppComponent implements OnInit {
   isReady$: Promise<boolean>;
 
+  get isAndroid(): boolean {
+    return this.platform.is('android');
+  }
+
   constructor(
     private api: Api,
     private colorScheme: ColorScheme,
     private platform: Platform,
+    private safeArea: SafeArea,
     private splashScreen: SplashScreen,
     private state: State,
     private storage: Storage,
@@ -57,12 +63,14 @@ export class AppComponent implements OnInit {
     }
   }
 
-  onSetupView(): void {
-    if (this.state.get().dark) {
-      this.colorScheme.setDark();
-    } else {
-      this.colorScheme.setLight();
+  async onSetupView(): Promise<void> {
+    if (this.isAndroid) {
+      const dimensions = await this.safeArea.getNormalizedSystemDimensions();
+      document.documentElement.style.setProperty('--ion-safe-area-top', `${dimensions.statusBarHeight}px`);
+      document.documentElement.style.setProperty('--ion-safe-area-bottom', `${dimensions.navigationBarHeight}px`);
     }
+
+    this.colorScheme.start();
     this.splashScreen.hide();
   }
 }
