@@ -100,11 +100,15 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.zone.runOutsideAngular(() => this.zoneOnInit());
+    if (this.canScrollToTop) {
+      this.zone.runOutsideAngular(() => this.zoneOnInit());
+    }
   }
 
   ngOnDestroy(): void {
-    this.zone.runOutsideAngular(() => this.zoneOnDestroy());
+    if (this.canScrollToTop) {
+      this.zone.runOutsideAngular(() => this.zoneOnDestroy());
+    }
   }
 
   zoneOnInit(): void {

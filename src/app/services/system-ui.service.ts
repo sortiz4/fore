@@ -31,14 +31,8 @@ export class SystemUi {
     this.backgroundColorByHexString(color);
   }
 
-  setMediaDark(): void {
-    const color = '#0c0c0c';
-    this.statusBar.styleBlackOpaque();
-    this.backgroundColorByHexString(color);
-  }
-
-  setMediaLight(): void {
-    const color = '#1c1c1c';
+  setMedia(): void {
+    const color = '#000000';
     this.statusBar.styleBlackOpaque();
     this.backgroundColorByHexString(color);
   }

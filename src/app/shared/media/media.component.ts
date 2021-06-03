@@ -37,7 +37,7 @@ export class MediaComponent implements OnInit, OnDestroy {
   startObserver(): void {
     const callback = ([entry]: IntersectionObserverEntry[]): void => {
       this.isVisible = entry.isIntersecting;
-      
+
       if (this.isVisible) {
         this.observer.disconnect();
         this.changeDetector.detectChanges();

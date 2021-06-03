@@ -9,15 +9,15 @@ export class ColorScheme {
   private readonly color = globalThis.matchMedia('(prefers-color-scheme: dark)');
   private readonly event = (): void => this.synchronize();
 
-  constructor(private systemUi: SystemUi) {
-  }
-
-  isDark(): boolean {
+  get isDark(): boolean {
     return this.color.matches;
   }
 
-  isLight(): boolean {
-    return !this.isDark();
+  get isLight(): boolean {
+    return !this.isDark;
+  }
+
+  constructor(private systemUi: SystemUi) {
   }
 
   start(): void {
@@ -32,17 +32,11 @@ export class ColorScheme {
 
   synchronize(): void {
     if (this.isMedia) {
-      if (this.isDark()) {
-        this.systemUi.setMediaDark();
-      } else {
-        this.systemUi.setMediaLight();
-      }
+      this.systemUi.setMedia();
+    } else if (this.isLight) {
+      this.systemUi.setLight();
     } else {
-      if (this.isDark()) {
-        this.systemUi.setDark();
-      } else {
-        this.systemUi.setLight();
-      }
+      this.systemUi.setDark();
     }
   }
 
