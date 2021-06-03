@@ -3,10 +3,11 @@
     <color name="light" type="color">#FFFFFFFF</color>
     <color name="primary" type="color">#FF19C84B</color>
     <style name="AppTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
-        <item name="android:windowLightNavigationBar">false</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:navigationBarColor">@color/light</item>
+        <item name="android:statusBarColor">@color/light</item>
+        <item name="android:windowBackground">@color/light</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
     <style name="SplashTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
         <item name="android:windowLightNavigationBar">false</item>

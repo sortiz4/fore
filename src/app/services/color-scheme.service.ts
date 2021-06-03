@@ -31,20 +31,23 @@ export class ColorScheme {
   }
 
   synchronize(): void {
-    if (this.isDark()) {
-      this.systemUi.setDark();
+    if (this.isMedia) {
+      if (this.isDark()) {
+        this.systemUi.setMediaDark();
+      } else {
+        this.systemUi.setMediaLight();
+      }
     } else {
-      this.systemUi.setLight();
+      if (this.isDark()) {
+        this.systemUi.setDark();
+      } else {
+        this.systemUi.setLight();
+      }
     }
   }
 
   toggleMedia(): void {
     this.isMedia = !this.isMedia;
-
-    if (this.isMedia || this.isDark()) {
-      this.systemUi.setDark();
-    } else {
-      this.systemUi.setLight();
-    }
+    this.synchronize();
   }
 }

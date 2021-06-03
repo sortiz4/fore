@@ -65,9 +65,9 @@ export class AppComponent implements OnInit {
 
   async onSetupView(): Promise<void> {
     if (this.isAndroid) {
-      const dimensions = await this.safeArea.getNormalizedSystemDimensions();
-      document.documentElement.style.setProperty('--ion-safe-area-top', `${dimensions.statusBarHeight}px`);
-      document.documentElement.style.setProperty('--ion-safe-area-bottom', `${dimensions.navigationBarHeight}px`);
+      const insets = await this.safeArea.getNormalizedSafeAreaInsets();
+      document.documentElement.style.setProperty('--ion-safe-area-left', `${insets.top}px`);
+      document.documentElement.style.setProperty('--ion-safe-area-right', `${insets.top}px`);
     }
 
     this.colorScheme.start();

@@ -70,8 +70,8 @@
       "android"
     ],
     "plugins": {
-      "cordova-plugin-android-dark-mode-support": {},
       "cordova-plugin-advanced-http": {},
+      "cordova-plugin-android-dark-mode-support": {},
       "cordova-plugin-device": {},
       "cordova-plugin-file": {},
       "cordova-plugin-file-transfer": {},

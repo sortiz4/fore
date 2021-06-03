@@ -20,17 +20,27 @@ export class SystemUi {
   }
 
   setDark(): void {
-    this.setTransparent();
+    const color = getComputedStyle(document.body).getPropertyValue('--ion-background-color').trim();
     this.statusBar.styleBlackOpaque();
+    this.backgroundColorByHexString(color);
   }
 
   setLight(): void {
-    this.setTransparent();
+    const color = '#ffffff';
     this.statusBar.styleDefault();
+    this.backgroundColorByHexString(color);
   }
 
-  setTransparent(): void {
-    this.backgroundColorByHexString('#00000000');
+  setMediaDark(): void {
+    const color = '#0c0c0c';
+    this.statusBar.styleBlackOpaque();
+    this.backgroundColorByHexString(color);
+  }
+
+  setMediaLight(): void {
+    const color = '#1c1c1c';
+    this.statusBar.styleBlackOpaque();
+    this.backgroundColorByHexString(color);
   }
 
   hide(): void {
