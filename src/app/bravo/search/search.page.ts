@@ -1,7 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { timer } from 'rxjs';
-import { InfiniteLoadComponent } from '../../shared/infinite-load/infinite-load.component';
 
 @Component({
   selector: 'app-search',
@@ -9,7 +7,6 @@ import { InfiniteLoadComponent } from '../../shared/infinite-load/infinite-load.
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage {
-  @ViewChild(InfiniteLoadComponent) infinite: InfiniteLoadComponent;
   posts = this.createPosts();
 
   constructor(private navigation: NavController) {
@@ -21,13 +18,5 @@ export class SearchPage {
 
   onCancel(): void {
     return this.navigation.back();
-  }
-
-  onNextPage(): Promise<void> {
-    return (
-      timer(1000).toPromise()
-        .then(() => this.posts.push(...this.createPosts()))
-        .then(() => this.infinite.stop())
-    )
   }
 }
