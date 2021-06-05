@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonTabs } from '@ionic/angular';
+import { IonTabs, ViewDidLeave } from '@ionic/angular';
 import { StackController } from '@ionic/angular/directives/navigation/stack-controller';
 import { RouteView, StackEvent } from '@ionic/angular/directives/navigation/stack-utils';
 
@@ -8,7 +8,7 @@ import { RouteView, StackEvent } from '@ionic/angular/directives/navigation/stac
   templateUrl: './alpha.page.html',
   styleUrls: ['./alpha.page.scss'],
 })
-export class AlphaPage {
+export class AlphaPage implements ViewDidLeave {
   @ViewChild(IonTabs) tabs: IonTabs;
 
   ionViewDidLeave(): Promise<StackEvent> {

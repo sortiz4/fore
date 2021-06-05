@@ -1,9 +1,83 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { IonContent } from '@ionic/angular';
+import { IonContent, IonRefresher } from '@ionic/angular';
+import { Animation as IonicAnimation, createAnimation } from '@ionic/core';
 import { defer, fromEvent, Observable, Subscription } from 'rxjs';
 import { concatMap, filter, map, tap } from 'rxjs/operators';
-import { observeChildren } from '../../../utils';
+import { AbstractAnimationIonic, observeChildren } from '../../../utils';
+
+class Animation extends AbstractAnimationIonic {
+  private readonly className = 'app-refresher-refreshing';
+
+  private addClasses(): void {
+    for (const element of this.getElements()) {
+      element.classList.add(this.className);
+    }
+  }
+
+  private removeClasses(): void {
+    for (const element of this.getElements()) {
+      element.classList.remove(this.className);
+    }
+  }
+
+  private rawHide(): Promise<void> {
+    return (
+      Promise.resolve()
+        .then(() => this.animateForward())
+        .then(() => this.removeClasses())
+        .then(() => this.animateBackward())
+      );
+  }
+
+  private rawShow(): Promise<void> {
+    return (
+      Promise.resolve()
+      .then(() => this.addClasses())
+      .then(() => this.animateBackward())
+    );
+  }
+
+  private shouldAnimate(): boolean {
+    for (const element of this.getElements()) {
+      try {
+        if (element.closest('ion-refresher').classList.contains('refresher-active')) {
+          return false;
+        }
+      } catch {
+      }
+    }
+    return true;
+  }
+
+  protected createAnimation(): IonicAnimation {
+    const getElements = (): HTMLElement[] => {
+      return [
+        this.element.querySelector('ion-refresher .refresher-refreshing'),
+      ];
+    };
+
+    return (
+      createAnimation()
+        .addElement(this.filterElements(getElements))
+        .to('transform', 'scale(0)')
+        .duration(250)
+        .easing('ease-in-out')
+    );
+  }
+
+  async hide(): Promise<void> {
+    if (this.shouldAnimate()) {
+      await this.rawHide();
+    }
+  }
+
+  async show(): Promise<void> {
+    if (this.shouldAnimate()) {
+      await this.rawShow();
+    }
+  }
+}
 
 @Component({
   selector: 'app-content',
@@ -24,6 +98,8 @@ export class ContentComponent implements OnInit, OnDestroy {
   @Input() canScrollToTop = false;
   @Output() refresh = new EventEmitter<CustomEvent>();
   @ViewChild(IonContent) content: IonContent;
+  @ViewChild(IonRefresher) refresher: IonRefresher;
+  private animation: Animation;
   private scrollEvent: Subscription;
   didScrollDown = true;
 
@@ -100,23 +176,26 @@ export class ContentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (this.canScrollToTop) {
-      this.zone.runOutsideAngular(() => this.zoneOnInit());
-    }
+    this.zone.runOutsideAngular(() => this.zoneOnInit());
   }
 
   ngOnDestroy(): void {
-    if (this.canScrollToTop) {
-      this.zone.runOutsideAngular(() => this.zoneOnDestroy());
-    }
+    this.zone.runOutsideAngular(() => this.zoneOnDestroy());
   }
 
   zoneOnInit(): void {
-    this.scrollEvent = this.createScrollEvent().subscribe();
+    if (this.canRefresh) {
+      this.animation = new Animation(this.element.nativeElement);
+    }
+    if (this.canScrollToTop) {
+      this.scrollEvent = this.createScrollEvent().subscribe();
+    }
   }
 
   zoneOnDestroy(): void {
-    this.scrollEvent.unsubscribe();
+    if (this.canScrollToTop) {
+      this.scrollEvent.unsubscribe();
+    }
   }
 
   onScroll([_, deltaY]: [number, number]): void {
@@ -126,5 +205,21 @@ export class ContentComponent implements OnInit, OnDestroy {
 
   onScrollToTop(): Promise<void> {
     return this.content.scrollToTop(250);
+  }
+
+  startRefreshing(): Promise<void> {
+    return (
+      Promise.resolve()
+        .then(() => this.refresh.emit())
+        .then(() => this.animation.show())
+    );
+  }
+
+  stopRefreshing(): Promise<void> {
+    return (
+      this.refresher
+        .complete()
+        .then(() => this.animation.hide())
+    );
   }
 }

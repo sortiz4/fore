@@ -134,6 +134,13 @@ ion-toolbar ion-avatar {
   border: none;
 }
 
+.app-refresher {
+  &-refreshing {
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
 .app-toast-media {
   top: $app-toast-media-offset;
 }

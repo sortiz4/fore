@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ViewWillEnter } from '@ionic/angular';
-import { Observable } from 'rxjs';
 import { Api } from '../../services/api.service';
 import { Modal } from '../../services/modal.service';
 import { State } from '../../services/state.service';
+import { ContentComponent } from '../../shared/content/content.component';
 import { SelectBoardComponent } from '../../shared/select-board/select-board.component';
 import { Board, Thread } from '../../../models';
 
@@ -13,8 +13,9 @@ import { Board, Thread } from '../../../models';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements ViewWillEnter {
+  @ViewChild(ContentComponent) content: ContentComponent;
   private board: Board;
-  catalog$: Observable<Thread[]>;
+  catalog$: Promise<Thread[]>;
 
   get title(): string {
     return this.board?.title;
@@ -28,7 +29,7 @@ export class HomePage implements ViewWillEnter {
       this.board = this.state.get().boards[0];
     }
     if (!this.catalog$) {
-      this.catalog$ = this.api.getCatalog(this.board);
+      this.content.startRefreshing();
     }
   }
 
@@ -38,14 +39,20 @@ export class HomePage implements ViewWillEnter {
       this.board = board;
 
       // Update the catalog
-      this.catalog$ = this.api.getCatalog(this.board);
+      this.content.startRefreshing();
     }
   }
 
   onRefresh(event: CustomEvent): void {
-    this.catalog$ = void 0;
-    this.ionViewWillEnter();
-    (event.target as HTMLIonRefresherElement).complete();
+    const getPromise = (): Promise<void> => {
+      return event ? (event.target as HTMLIonRefresherElement).complete() : this.content.stopRefreshing();
+    };
+
+    const onStop = (catalog: Thread[]): Promise<Thread[]> => {
+      return getPromise().then(() => catalog);
+    };
+
+    this.catalog$ = this.api.getCatalog(this.board).toPromise().then(onStop);
   }
 
   onSelectBoard(): Promise<HTMLIonModalElement> {
