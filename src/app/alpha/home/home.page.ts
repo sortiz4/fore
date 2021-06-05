@@ -14,12 +14,8 @@ import { Board, Thread } from '../../../models';
 })
 export class HomePage implements ViewWillEnter {
   @ViewChild(ContentComponent) content: ContentComponent;
-  private board: Board;
+  board: Board;
   catalog$: Promise<Thread[]>;
-
-  get title(): string {
-    return this.board?.title;
-  }
 
   constructor(private api: Api, private modal: Modal, private state: State) {
   }

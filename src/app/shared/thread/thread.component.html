@@ -1,12 +1,16 @@
 <ion-item>
   <ion-card [button]="true" (click)="onClick($event)">
-    <app-media *ngIf="fileCanBePreviewed" [name]="fileName" [type]="fileType" [url]="fileUrl"></app-media>
+    <app-media
+      *ngIf="thread.fileCanBePreviewed"
+      [name]="thread.fileName"
+      [type]="thread.fileType"
+      [url]="thread.fileUrl"></app-media>
     <ion-card-header>
       <ion-card-subtitle>
-        {{ author }} · {{ id }} · {{ replies }} · {{ time | timeAgo }}
+        {{ thread.author }} · {{ thread.id }} · {{ thread.replies }} · {{ thread.time | timeAgo }}
       </ion-card-subtitle>
-      <ion-card-title [innerHTML]="title"></ion-card-title>
+      <ion-card-title [innerHTML]="thread.title"></ion-card-title>
     </ion-card-header>
-    <ion-card-content *ngIf="text" [innerHTML]="text"></ion-card-content>
+    <ion-card-content *ngIf="thread.text" [innerHTML]="thread.text"></ion-card-content>
   </ion-card>
 </ion-item>

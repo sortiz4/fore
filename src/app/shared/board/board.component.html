@@ -2,12 +2,12 @@
   <ion-card [button]="true" (click)="select.emit()">
     <ion-card-header>
       <ion-card-subtitle>
-        /{{ path }}/
+        /{{ board.path }}/
       </ion-card-subtitle>
       <ion-card-title>
-        {{ name }}
+        {{ board.name }}
       </ion-card-title>
     </ion-card-header>
-    <ion-card-content [innerHTML]="description"></ion-card-content>
+    <ion-card-content [innerHTML]="board.description"></ion-card-content>
   </ion-card>
 </ion-item>

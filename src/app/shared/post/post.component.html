@@ -1,11 +1,15 @@
 <ion-item lines="full">
   <ion-card>
-    <app-media *ngIf="fileCanBePreviewed" [name]="fileName" [type]="fileType" [url]="fileUrl"></app-media>
+    <app-media
+      *ngIf="post.fileCanBePreviewed"
+      [name]="post.fileName"
+      [type]="post.fileType"
+      [url]="post.fileUrl"></app-media>
     <ion-card-header>
       <ion-card-subtitle>
-        {{ author }} · {{ id }} · {{ replies }} · {{ time | timeAgo }}
+        {{ post.author }} · {{ post.id }} · {{ post.replies }} · {{ post.time | timeAgo }}
       </ion-card-subtitle>
     </ion-card-header>
-    <ion-card-content *ngIf="text" [innerHTML]="text"></ion-card-content>
+    <ion-card-content *ngIf="post.text" [innerHTML]="post.text"></ion-card-content>
   </ion-card>
 </ion-item>

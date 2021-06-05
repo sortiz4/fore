@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ViewThreadComponent } from '../view-thread/view-thread.component';
 import { Modal } from '../../services/modal.service';
-import { Board, FileType, Thread } from '../../../models';
+import { Thread } from '../../../models';
 
 @Component({
   selector: 'app-thread',
@@ -11,54 +11,6 @@ import { Board, FileType, Thread } from '../../../models';
 export class ThreadComponent {
   @Input() thread: Thread;
   @Input() clickable = true;
-
-  get author(): string {
-    return this.thread.author;
-  }
-
-  get fileCanBePreviewed(): boolean {
-    return this.thread.fileCanBePreviewed;
-  }
-
-  get fileName(): string {
-    return this.thread.fileName;
-  }
-
-  get fileThumbnail(): string {
-    return this.thread.fileThumbnail;
-  }
-
-  get fileType(): FileType {
-    return this.thread.fileType;
-  }
-
-  get fileUrl(): string {
-    return this.thread.fileUrl;
-  }
-
-  get id(): number {
-    return this.thread.id;
-  }
-
-  get link(): string {
-    return this.thread.link;
-  }
-
-  get replies(): string {
-    return this.thread.replyText;
-  }
-
-  get text(): string {
-    return this.thread.text;
-  }
-
-  get time(): number {
-    return this.thread.time;
-  }
-
-  get title(): string {
-    return this.thread.title;
-  }
 
   constructor(private modal: Modal) {
   }
