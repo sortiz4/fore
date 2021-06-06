@@ -26,7 +26,7 @@ export class Notification {
     return defer(onSubscribe);
   }
 
-  openMediaToast(options?: ToastOptions): Observable<HTMLIonToastElement> {
-    return this.openToast({ cssClass: 'app-toast-media', ...options });
+  openFooterToast(options?: ToastOptions): Observable<HTMLIonToastElement> {
+    return this.openToast({ cssClass: 'app-toast-footer', ...options });
   }
 }
