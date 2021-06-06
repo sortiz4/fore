@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PreloadAllModules, RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
-import { AngularDelegate, IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
+import { IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { File } from '@ionic-native/file/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
@@ -47,7 +47,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
   providers: [
-    AngularDelegate,
     File,
     FileTransfer,
     SplashScreen,
