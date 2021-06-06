@@ -1,4 +1,4 @@
-<app-page title="Boards" [showBack]="true">
+<app-page title="Boards" [canScrollToTop]="true" [showBack]="true">
   <ion-list class="app-list" lines="none">
     <ion-item *ngFor="let board of boards" [class.app-disabled]="!isEnabled(board)">
       <ion-label>

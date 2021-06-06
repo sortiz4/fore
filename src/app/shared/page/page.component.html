@@ -1,4 +1,4 @@
-<ion-header class="app-header-border ion-no-border">
+<ion-header *ngIf="showHeader" class="app-header-border ion-no-border">
   <ion-toolbar>
     <ion-title *ngIf="title" [innerHTML]="title"></ion-title>
     <ion-buttons *ngIf="showBack" slot="start">
@@ -21,9 +21,17 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<app-content [canScrollToTop]="canScrollToTop">
+<ion-content>
+  <ion-fab *ngIf="canScrollToTop" vertical="bottom" horizontal="end" slot="fixed" [@fab]="didScrollDown">
+    <ion-fab-button color="dark" (click)="onScrollToTop()">
+      <ion-icon name="chevron-up-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-refresher *ngIf="canRefresh" slot="fixed" (ionRefresh)="refresh.emit($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ng-content></ng-content>
-</app-content>
+</ion-content>
 <ion-footer *ngIf="showMedia" class="app-footer-border ion-no-border">
   <ion-toolbar>
     <ion-buttons *ngIf="showClose">

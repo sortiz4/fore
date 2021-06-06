@@ -6,7 +6,6 @@ import { PinchZoomModule } from 'ngx-pinch-zoom';
 import { NoRippleDirective } from './no-ripple.directive';
 import { TimeAgoPipe } from './time-ago.pipe';
 import { BoardComponent } from './board/board.component';
-import { ContentComponent } from './content/content.component';
 import { MediaComponent } from './media/media.component';
 import { NotificationComponent } from './notification/notification.component';
 import { PageComponent } from './page/page.component';
@@ -20,7 +19,6 @@ import { ViewThreadComponent } from './view-thread/view-thread.component';
 @NgModule({
   declarations: [
     BoardComponent,
-    ContentComponent,
     MediaComponent,
     NoRippleDirective,
     NotificationComponent,
@@ -41,7 +39,6 @@ import { ViewThreadComponent } from './view-thread/view-thread.component';
   ],
   exports: [
     BoardComponent,
-    ContentComponent,
     MediaComponent,
     NoRippleDirective,
     NotificationComponent,

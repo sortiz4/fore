@@ -10,8 +10,8 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<app-content [canScrollToTop]="true" (refresh)="onRefresh($event)">
+<app-page [canScrollToTop]="true" (refresh)="onRefresh($event)">
   <ion-list class="app-list" lines="none">
     <app-thread *ngFor="let thread of catalog$ | async" [thread]="thread"></app-thread>
   </ion-list>
-</app-content>
+</app-page>

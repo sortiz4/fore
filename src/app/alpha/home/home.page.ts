@@ -3,7 +3,7 @@ import { ViewWillEnter } from '@ionic/angular';
 import { Api } from '../../services/api.service';
 import { Modal } from '../../services/modal.service';
 import { State } from '../../services/state.service';
-import { ContentComponent } from '../../shared/content/content.component';
+import { PageComponent } from '../../shared/page/page.component';
 import { SelectBoardComponent } from '../../shared/select-board/select-board.component';
 import { Board, Thread } from '../../../models';
 
@@ -13,7 +13,7 @@ import { Board, Thread } from '../../../models';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements ViewWillEnter {
-  @ViewChild(ContentComponent) content: ContentComponent;
+  @ViewChild(PageComponent) page: PageComponent;
   board: Board;
   catalog$: Promise<Thread[]>;
 
@@ -25,7 +25,7 @@ export class HomePage implements ViewWillEnter {
       this.board = this.state.get().boards[0];
     }
     if (!this.catalog$) {
-      this.content.startRefreshing();
+      this.page.startRefreshing();
     }
   }
 
@@ -35,13 +35,13 @@ export class HomePage implements ViewWillEnter {
       this.board = board;
 
       // Update the catalog
-      this.content.startRefreshing();
+      this.page.startRefreshing();
     }
   }
 
   onRefresh(event: CustomEvent): void {
     const getPromise = (): Promise<void> => {
-      return event ? (event.target as HTMLIonRefresherElement).complete() : this.content.stopRefreshing();
+      return event ? (event.target as HTMLIonRefresherElement).complete() : this.page.stopRefreshing();
     };
 
     const onStop = (catalog: Thread[]): Promise<Thread[]> => {
