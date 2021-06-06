@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { SystemUi } from './system-ui.service';
+import { SystemView } from './system-view.service';
 
-describe('SystemUi', () => {
-  let service: SystemUi;
+describe('SystemView', () => {
+  let service: SystemView;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SystemUi);
+    service = TestBed.inject(SystemView);
   });
 
   it('should be created', () => {

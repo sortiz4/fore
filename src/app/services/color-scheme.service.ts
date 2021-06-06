@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { SystemUi } from './system-ui.service';
+import { fromEvent, Subscription } from 'rxjs';
+import { SystemView } from './system-view.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ColorScheme {
-  private isMedia = false;
   private readonly color = globalThis.matchMedia('(prefers-color-scheme: dark)');
-  private readonly event = (): void => this.synchronize();
+  private colorSchemeEvent: Subscription;
+  private isMedia = false;
 
   get isDark(): boolean {
     return this.color.matches;
@@ -17,26 +18,26 @@ export class ColorScheme {
     return !this.isDark;
   }
 
-  constructor(private systemUi: SystemUi) {
+  constructor(private systemView: SystemView) {
   }
 
   start(): void {
     this.synchronize();
-    this.color.addEventListener('change', this.event);
+    this.colorSchemeEvent = fromEvent(this.color, 'change').subscribe(() => this.synchronize());
   }
 
   stop(): void {
-    this.color.removeEventListener('change', this.event);
+    this.colorSchemeEvent.unsubscribe();
     this.synchronize();
   }
 
   synchronize(): void {
     if (this.isMedia) {
-      this.systemUi.setMedia();
+      this.systemView.changeToMediaTheme();
     } else if (this.isLight) {
-      this.systemUi.setLight();
+      this.systemView.changeToLightTheme();
     } else {
-      this.systemUi.setDark();
+      this.systemView.changeToDarkTheme();
     }
   }
 

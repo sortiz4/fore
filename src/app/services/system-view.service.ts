@@ -5,44 +5,42 @@ import { NavigationBar } from './navigation-bar.service';
 @Injectable({
   providedIn: 'root',
 })
-export class SystemUi {
+export class SystemView {
   constructor(private navigationBar: NavigationBar, private statusBar: StatusBar) {
   }
 
-  backgroundColorByHexString(color: string): void {
+  changeBarBackgroundColorByHex(color: string): void {
     this.statusBar.backgroundColorByHexString(color);
     this.navigationBar.backgroundColorByHexString(color);
   }
 
-  backgroundColorByName(color: string): void {
+  changeBarBackgroundColorByName(color: string): void {
     this.statusBar.backgroundColorByName(color);
     this.navigationBar.backgroundColorByName(color);
   }
 
-  setDark(): void {
+  changeToDarkTheme(): void {
     const color = getComputedStyle(document.body).getPropertyValue('--ion-background-color').trim();
     this.statusBar.styleBlackOpaque();
-    this.backgroundColorByHexString(color);
+    this.changeBarBackgroundColorByHex(color);
   }
 
-  setLight(): void {
-    const color = '#ffffff';
+  changeToLightTheme(): void {
     this.statusBar.styleDefault();
-    this.backgroundColorByHexString(color);
+    this.changeBarBackgroundColorByName('white');
   }
 
-  setMedia(): void {
-    const color = '#000000';
+  changeToMediaTheme(): void {
     this.statusBar.styleBlackOpaque();
-    this.backgroundColorByHexString(color);
+    this.changeBarBackgroundColorByName('black');
   }
 
-  hide(): void {
+  hideBars(): void {
     this.statusBar.hide();
     this.navigationBar.hide();
   }
 
-  show(): void {
+  showBars(): void {
     this.statusBar.show();
     this.navigationBar.show();
   }
