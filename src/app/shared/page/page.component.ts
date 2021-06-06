@@ -106,45 +106,59 @@ class Animation extends AbstractAnimationIonic {
   ],
 })
 export class PageComponent implements OnInit, OnDestroy {
+  @Input() canGoBack = false;
   @Input() canScrollToTop = false;
-  @Input() showBack = false;
   @Input() title = '';
   @Output() close = new EventEmitter<void>();
   @Output() copy = new EventEmitter<void>();
   @Output() download = new EventEmitter<void>();
   @Output() open = new EventEmitter<void>();
   @Output() refresh = new EventEmitter<CustomEvent>();
-  @Output() save = new EventEmitter<void>();
   @Output() share = new EventEmitter<void>();
-  @Output() submit = new EventEmitter<void>();
   @ViewChild(IonContent) content: IonContent;
   @ViewChild(IonRefresher) refresher: IonRefresher;
   private animation: Animation;
   private scrollEvent: Subscription;
   didScrollDown = true;
 
+  get canClose(): boolean {
+    return this.close.observers.length > 0;
+  }
+
+  get canCopy(): boolean {
+    return this.copy.observers.length > 0;
+  }
+
+  get canDownload(): boolean {
+    return this.download.observers.length > 0;
+  }
+
+  get canOpen(): boolean {
+    return this.open.observers.length > 0;
+  }
+
   get canRefresh(): boolean {
     return this.refresh.observers.length > 0;
   }
 
-  get showClose(): boolean {
-    return this.close.observers.length > 0;
+  get canShare(): boolean {
+    return this.share.observers.length > 0;
   }
 
-  get showHeader(): boolean {
+  get hasFooter(): boolean {
+    return this.hasMedia;
+  }
+
+  get hasHeader(): boolean {
+    return this.canGoBack || this.canClose || this.hasTitle;
+  }
+
+  get hasMedia(): boolean {
+    return this.canCopy || this.canDownload || this.canOpen || this.canShare;
+  }
+
+  get hasTitle(): boolean {
     return this.title.length > 0;
-  }
-
-  get showMedia(): boolean {
-    return this.download.observers.length > 0;
-  }
-
-  get showSave(): boolean {
-    return this.save.observers.length > 0;
-  }
-
-  get showSubmit(): boolean {
-    return this.submit.observers.length > 0;
   }
 
   constructor(private changeDetector: ChangeDetectorRef, private element: ElementRef, private zone: NgZone) {
