@@ -1,4 +1,4 @@
-<app-page [canScrollToTop]="true" [title]="thread.title" (close)="onClose()" (refresh)="hasOwnProperty('')">
+<app-page [canScrollToTop]="true" [title]="thread.title" (close)="onClose()" (refresh)="onRefresh($event)">
   <ion-list class="app-list" lines="none">
     <app-thread [thread]="thread" [clickable]="false"></app-thread>
     <app-post *ngFor="let post of posts$ | async" [post]="post"></app-post>

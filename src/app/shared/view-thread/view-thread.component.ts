@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { ViewWillEnter } from '@ionic/angular';
-import { Observable } from 'rxjs';
+import { PageComponent } from '../page/page.component';
 import { Api } from '../../services/api.service';
-import { Thread } from '../../../models';
+import { Post, Thread } from '../../../models';
 
 @Component({
   selector: 'app-view-thread',
@@ -12,16 +12,29 @@ import { Thread } from '../../../models';
 export class ViewThreadComponent implements ViewWillEnter {
   @Input() modal: HTMLIonModalElement;
   @Input() thread: Thread;
-  posts$: Observable<unknown>;
+  @ViewChild(PageComponent) page: PageComponent;
+  posts$: Promise<Post[]>;
 
   constructor(private api: Api) {
   }
 
   ionViewWillEnter(): void {
-    this.posts$ = this.api.getPosts(this.thread.board, this.thread);
+    this.page.startRefreshing();
   }
 
   onClose(): Promise<boolean> {
     return this.modal.dismiss();
+  }
+
+  onRefresh(event: CustomEvent): void {
+    const getPromise = (): Promise<void> => {
+      return event ? (event.target as HTMLIonRefresherElement).complete() : this.page.stopRefreshing();
+    };
+
+    const onStop = (posts: Post[]): Promise<Post[]> => {
+      return getPromise().then(() => posts);
+    };
+
+    this.posts$ = this.api.getPosts(this.thread.board, this.thread).toPromise().then(onStop);
   }
 }

@@ -1,5 +1,16 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { IonContent, IonRefresher } from '@ionic/angular';
 import { Animation as IonicAnimation, createAnimation } from '@ionic/core';
 import { defer, fromEvent, Observable, Subscription } from 'rxjs';

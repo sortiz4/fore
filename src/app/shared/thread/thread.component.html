@@ -7,7 +7,7 @@
       [url]="thread.fileUrl"></app-media>
     <ion-card-header>
       <ion-card-subtitle>
-        {{ thread.author }} · {{ thread.id }} · {{ thread.replies }} · {{ thread.time | timeAgo }}
+        {{ thread.author }} · {{ thread.id }} · {{ thread.replyText }} · {{ thread.time | timeAgo }}
       </ion-card-subtitle>
       <ion-card-title [innerHTML]="thread.title"></ion-card-title>
     </ion-card-header>

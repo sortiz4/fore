@@ -7,7 +7,7 @@
       [url]="post.fileUrl"></app-media>
     <ion-card-header>
       <ion-card-subtitle>
-        {{ post.author }} · {{ post.id }} · {{ post.replies }} · {{ post.time | timeAgo }}
+        {{ post.author }} · {{ post.id }} · {{ post.replyText }} · {{ post.time | timeAgo }}
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content *ngIf="post.text" [innerHTML]="post.text"></ion-card-content>
