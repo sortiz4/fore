@@ -3,11 +3,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
-import { NoRippleDirective } from './no-ripple.directive';
 import { TimeAgoPipe } from './time-ago.pipe';
 import { BoardComponent } from './board/board.component';
 import { MediaComponent } from './media/media.component';
-import { NotificationComponent } from './notification/notification.component';
 import { PageComponent } from './page/page.component';
 import { PostComponent } from './post/post.component';
 import { SearchBoardsPipe } from './search-boards.pipe';
@@ -20,8 +18,6 @@ import { ViewThreadComponent } from './view-thread/view-thread.component';
   declarations: [
     BoardComponent,
     MediaComponent,
-    NoRippleDirective,
-    NotificationComponent,
     PageComponent,
     PostComponent,
     SearchBoardsPipe,
@@ -40,8 +36,6 @@ import { ViewThreadComponent } from './view-thread/view-thread.component';
   exports: [
     BoardComponent,
     MediaComponent,
-    NoRippleDirective,
-    NotificationComponent,
     PageComponent,
     PostComponent,
     SearchBoardsPipe,
