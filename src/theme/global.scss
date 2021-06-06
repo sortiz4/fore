@@ -10,8 +10,7 @@ a {
   text-decoration: none;
 }
 
-ion-button,
-ion-segment-button {
+ion-button {
   text-transform: none;
 }
 
@@ -41,21 +40,6 @@ ion-searchbar {
   }
 }
 
-ion-segment {
-  justify-content: center;
-}
-
-ion-segment-button {
-  --background-hover-opacity: 0;
-}
-
-ion-toolbar ion-avatar {
-  cursor: pointer;
-  margin-right: $app-header-avatar-margin;
-  width: $app-header-avatar-size;
-  height: $app-header-avatar-size;
-}
-
 .action-sheet-group.sc-ion-action-sheet-md:first-child,
 .picker-wrapper.sc-ion-picker-md {
   border-radius: $app-border-radius-large $app-border-radius-large 0 0;
@@ -79,11 +63,6 @@ ion-toolbar ion-avatar {
 
 .app-header-border {
   box-shadow: $app-header-box-shadow;
-}
-
-.app-input-block {
-  border: $app-input-border;
-  border-radius: $app-border-radius;
 }
 
 .app-list {

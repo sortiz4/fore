@@ -110,9 +110,12 @@ export class PageComponent implements OnInit, OnDestroy {
   @Input() showBack = false;
   @Input() title = '';
   @Output() close = new EventEmitter<void>();
+  @Output() copy = new EventEmitter<void>();
   @Output() download = new EventEmitter<void>();
+  @Output() open = new EventEmitter<void>();
   @Output() refresh = new EventEmitter<CustomEvent>();
   @Output() save = new EventEmitter<void>();
+  @Output() share = new EventEmitter<void>();
   @Output() submit = new EventEmitter<void>();
   @ViewChild(IonContent) content: IonContent;
   @ViewChild(IonRefresher) refresher: IonRefresher;
