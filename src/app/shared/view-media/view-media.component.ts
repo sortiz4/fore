@@ -39,11 +39,11 @@ export class ViewMediaComponent implements ViewWillEnter, ViewWillLeave {
   }
 
   onCopy(): Promise<string> {
-    return this.system.writeToClipboardWithToast(this.url);
+    return this.system.writeToClipboard(this.url);
   }
 
   onDownload(): Promise<void> {
-    return this.system.downloadWithToast(this.url, this.name);
+    return this.system.download(this.url, this.name);
   }
 
   onOpen(): Promise<void> {

@@ -16,7 +16,7 @@ export class System {
   ) {
   }
 
-  downloadWithToast(uri: string, name: string): Promise<void> {
+  download(uri: string, name: string): Promise<void> {
     const onDownload = (toast: HTMLIonToastElement): Promise<string> => {
       return (
         this.fileSystem
@@ -46,28 +46,23 @@ export class System {
   }
 
   readFromClipboard(): Promise<string> {
-    return this.clipboard.paste();
-  }
-
-  writeToClipboard(text: string): Promise<string> {
-    return this.clipboard.copy(text).then(() => text);
-  }
-
-  readFromClipboardWithToast(): Promise<string> {
     return (
-      this.readFromClipboard()
+      this.clipboard
+        .paste()
         .then(s => [s, 'Copied from clipboard'])
-        .catch(s => [s, `Couldn't access clipboard`])
+        .catch(s => [s, "Couldn't access clipboard"])
         .then(a => this.notification.openFooterToast({ message: a[1] }).toPromise().then(() => a[0]))
     );
   }
 
-  writeToClipboardWithToast(text: string): Promise<string> {
+  writeToClipboard(text: string): Promise<string> {
     return (
-      this.writeToClipboard(text)
-        .then(s => [s, 'Copied to clipboard'])
-        .catch(s => [s, `Couldn't access clipboard`])
-        .then(a => this.notification.openFooterToast({ message: a[1] }).toPromise().then(() => a[0]))
+      this.clipboard
+        .copy(text)
+        .then(() => 'Copied to clipboard')
+        .catch(() => "Couldn't access clipboard")
+        .then(m => this.notification.openFooterToast({ message: m }).toPromise())
+        .then(() => text)
     );
   }
 }
