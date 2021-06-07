@@ -1,4 +1,3 @@
-import { Type } from '@angular/core';
 import { Animation as IonicAnimation } from '@ionic/core';
 import { cordova, CordovaOptions, PluginConfig } from '@ionic-native/core';
 import camelCase from 'lodash/camelCase';
@@ -43,14 +42,6 @@ export function snakeCaseKeys(input: unknown): unknown {
   return mapKeys(snakeCase, input);
 }
 
-export function getTag<T>(component: Type<T>): string {
-  return (component as any).ɵcmp.selectors[0][0];
-}
-
-export function random(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 export function observeChildren<T extends Node>(target: T): Promise<T> {
   return new Promise(
     resolve => {
@@ -63,23 +54,6 @@ export function observeChildren<T extends Node>(target: T): Promise<T> {
       observer.observe(target, { childList: true });
     },
   );
-}
-
-export function Memoize(): MethodDecorator {
-  return (target: object, key: string, descriptor: PropertyDescriptor): PropertyDescriptor => {
-    let result = void 0;
-    let memoed = false;
-    return {
-      ...descriptor,
-      value(): unknown {
-        if (!memoed) {
-          result = descriptor.value.apply(this, arguments);
-          memoed = true;
-        }
-        return result;
-      },
-    };
-  };
 }
 
 export function Cordova(options?: CordovaOptions): MethodDecorator {
