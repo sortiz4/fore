@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ViewWillEnter } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { delay } from 'rxjs/operators';
 import { Api } from '../../services/api.service';
 import { Modal } from '../../services/modal.service';
 import { State } from '../../services/state.service';
@@ -53,7 +52,7 @@ export class HomePage implements ViewWillEnter {
 
     this.refreshEvent = (
       this.page
-        .doSafeRefresh(() => this.api.getCatalog(this.board).pipe(delay(2000)))
+        .doSafeRefresh(() => this.api.getCatalog(this.board))
         .subscribe(c => this.catalog = c)
     );
   }

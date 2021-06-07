@@ -1,7 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { ViewWillEnter } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { delay } from 'rxjs/operators';
 import { PageComponent } from '../page/page.component';
 import { Api } from '../../services/api.service';
 import { Post, Thread } from '../../../models';
@@ -40,7 +39,7 @@ export class ViewThreadComponent implements ViewWillEnter {
 
     this.refreshEvent = (
       this.page
-        .doSafeRefresh(() => this.api.getPosts(this.thread.board, this.thread).pipe(delay(2000)))
+        .doSafeRefresh(() => this.api.getPosts(this.thread.board, this.thread))
         .subscribe(p => this.posts = p)
     );
   }
