@@ -10,6 +10,7 @@ import { PageComponent } from './page/page.component';
 import { PostComponent } from './post/post.component';
 import { SearchBoardsPipe } from './search-boards.pipe';
 import { SelectBoardComponent } from './select-board/select-board.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 import { ThreadComponent } from './thread/thread.component';
 import { ViewMediaComponent } from './view-media/view-media.component';
 import { ViewThreadComponent } from './view-thread/view-thread.component';
@@ -22,6 +23,7 @@ import { ViewThreadComponent } from './view-thread/view-thread.component';
     PostComponent,
     SearchBoardsPipe,
     SelectBoardComponent,
+    SpinnerComponent,
     ThreadComponent,
     TimeAgoPipe,
     ViewMediaComponent,
@@ -40,6 +42,7 @@ import { ViewThreadComponent } from './view-thread/view-thread.component';
     PostComponent,
     SearchBoardsPipe,
     SelectBoardComponent,
+    SpinnerComponent,
     ThreadComponent,
     TimeAgoPipe,
     ViewMediaComponent,

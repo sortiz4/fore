@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ViewWillEnter } from '@ionic/angular';
-import { Subscription, timer } from 'rxjs';
-import { delay, finalize } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { Api } from '../../services/api.service';
 import { Modal } from '../../services/modal.service';
 import { State } from '../../services/state.service';
@@ -21,7 +21,7 @@ export class HomePage implements ViewWillEnter {
   refreshEvent: Subscription;
 
   get hasCatalog(): boolean {
-    return this.catalog?.length > 0;
+    return !!this.catalog;
   }
 
   constructor(private api: Api, private modal: Modal, private state: State) {
@@ -32,7 +32,7 @@ export class HomePage implements ViewWillEnter {
       this.board = this.state.get().boards[0];
     }
     if (!this.hasCatalog) {
-      this.page.startRefreshing();
+      this.onSelectNewBoard();
     }
   }
 
@@ -42,24 +42,18 @@ export class HomePage implements ViewWillEnter {
       this.board = board;
 
       // Update the catalog
-      this.page.startRefreshing();
+      this.onSelectNewBoard();
     }
   }
 
-  async onRefresh(event?: CustomEvent): Promise<void> {
-    const onStop = (): Promise<void> => {
-      return event ? (event.target as HTMLIonRefresherElement).complete() : this.page.stopRefreshing();
-    };
-
+  async onRefresh(): Promise<void> {
     if (this.refreshEvent) {
       this.refreshEvent.unsubscribe();
     }
 
     this.refreshEvent = (
-      this.api
-        .getCatalog(this.board)
-        .pipe(delay(2000))
-        .pipe(finalize((onStop)))
+      this.page
+        .doSafeRefresh(() => this.api.getCatalog(this.board).pipe(delay(2000)))
         .subscribe(c => this.catalog = c)
     );
   }
@@ -79,5 +73,10 @@ export class HomePage implements ViewWillEnter {
         .toPromise()
         .then(onOpen)
     );
+  }
+
+  onSelectNewBoard(): void {
+    this.catalog = void 0;
+    this.onRefresh();
   }
 }

@@ -12,85 +12,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import { IonContent, IonRefresher } from '@ionic/angular';
-import { Animation as IonicAnimation, createAnimation } from '@ionic/core';
-import { defer, fromEvent, Observable, Subscription } from 'rxjs';
-import { concatMap, filter, map, tap } from 'rxjs/operators';
-import { AbstractAnimationIonic, observeChildren } from '../../../utils';
-
-class Animation extends AbstractAnimationIonic {
-  private readonly className = 'app-refresher-refreshing';
-
-  private getRoot(element: HTMLElement): HTMLIonRefresherElement {
-    return element.closest('ion-refresher');
-  }
-
-  private beforeAnimation(): void {
-    for (const element of this.getElements()) {
-      this.getRoot(element).disabled = true;
-      element.classList.add(this.className);
-    }
-  }
-
-  private afterAnimation(): void {
-    for (const element of this.getElements()) {
-      this.getRoot(element).disabled = false;
-      element.classList.remove(this.className);
-    }
-  }
-
-  private rawHide(): Promise<void> {
-    return (
-      Promise.resolve()
-        .then(() => this.animateForward())
-        .then(() => this.afterAnimation())
-        .then(() => this.animateBackward())
-    );
-  }
-
-  private rawShow(): Promise<void> {
-    return (
-      Promise.resolve()
-        .then(() => this.beforeAnimation())
-        .then(() => this.animateBackward())
-    );
-  }
-
-  private shouldHide(): boolean {
-    return this.getElements().every(e => this.getRoot(e).disabled);
-  }
-
-  private shouldShow(): boolean {
-    return !this.shouldHide();
-  }
-
-  protected createAnimation(): IonicAnimation {
-    const getElements = (): HTMLElement[] => {
-      return [
-        this.element.querySelector('ion-refresher .refresher-refreshing'),
-      ];
-    };
-
-    return (
-      createAnimation()
-        .addElement(this.filterElements(getElements))
-        .to('transform', 'scale(0)')
-        .duration(150)
-        .easing('ease-in-out')
-    );
-  }
-
-  async hide(): Promise<void> {
-    if (this.shouldHide()) {
-      await this.rawHide();
-    }
-  }
-
-  async show(): Promise<void> {
-    if (this.shouldShow()) {
-      await this.rawShow();
-    }
-  }
-}
+import { defer, fromEvent, Observable, of, Subscription } from 'rxjs';
+import { concatMap, filter, finalize, map, switchMap, tap } from 'rxjs/operators';
+import { observeChildren } from '../../../utils';
 
 @Component({
   selector: 'app-page',
@@ -119,7 +43,6 @@ export class PageComponent implements OnInit, OnDestroy {
   @Output() share = new EventEmitter<void>();
   @ViewChild(IonContent) content: IonContent;
   @ViewChild(IonRefresher) refresher: IonRefresher;
-  private animation: Animation;
   private scrollEvent: Subscription;
   didScrollDown = true;
 
@@ -240,9 +163,6 @@ export class PageComponent implements OnInit, OnDestroy {
   }
 
   zoneOnInit(): void {
-    if (this.canRefresh) {
-      this.animation = new Animation(this.element.nativeElement);
-    }
     if (this.canScrollToTop) {
       this.scrollEvent = this.createScrollEvent().subscribe();
     }
@@ -263,20 +183,21 @@ export class PageComponent implements OnInit, OnDestroy {
     return this.content.scrollToTop(250);
   }
 
-  startRefreshing(): Promise<void> {
-    return (
-      Promise.resolve()
-        .then(() => this.refresh.emit())
-        .then(() => this.animation.hide())
-        .then(() => this.animation.show())
-    );
-  }
+  doSafeRefresh<T>(callback: () => Observable<T>): Observable<T> {
+    const onStart = (): void => {
+      this.refresher.disabled = true;
+    };
 
-  stopRefreshing(): Promise<void> {
+    const onStop = async (): Promise<void> => {
+      await this.refresher.complete();
+      this.refresher.disabled = false;
+    };
+
     return (
-      this.refresher
-        .complete()
-        .then(() => this.animation.hide())
+      of(true)
+        .pipe(tap(onStart))
+        .pipe(switchMap(callback))
+        .pipe(finalize(onStop))
     );
   }
 }

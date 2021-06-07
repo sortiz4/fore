@@ -1,6 +1,11 @@
-<app-page [canScrollToTop]="true" [title]="thread.title" (close)="onClose()" (refresh)="onRefresh($event)">
+<app-page [canScrollToTop]="true" [title]="thread.title" (close)="onClose()" (refresh)="onRefresh()">
   <ion-list class="app-list" lines="none">
     <app-thread [thread]="thread" [clickable]="false"></app-thread>
-    <app-post *ngFor="let post of posts$ | async" [post]="post"></app-post>
+    <ng-container *ngIf="hasPosts; else loading">
+      <app-post *ngFor="let post of posts" [post]="post"></app-post>
+    </ng-container>
   </ion-list>
 </app-page>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>
