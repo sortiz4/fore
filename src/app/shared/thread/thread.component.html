@@ -1,4 +1,4 @@
-<ion-item>
+<ion-item [id]="thread.link">
   <ion-card [button]="true" (click)="onClick($event)">
     <app-media
       *ngIf="thread.fileCanBePreviewed"

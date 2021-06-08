@@ -43,7 +43,7 @@ export class PageComponent implements OnInit, OnDestroy {
   @Output() share = new EventEmitter<void>();
   @ViewChild(IonContent) content: IonContent;
   @ViewChild(IonRefresher) refresher: IonRefresher;
-  private scrollEvent: Subscription;
+  scrollEvent: Subscription;
   didScrollDown = true;
 
   get canClose(): boolean {
