@@ -33,10 +33,10 @@ export class ViewThreadComponent implements ViewWillEnter {
   }
 
   onRefresh(): void {
-    if (this.refreshEvent) {
-      this.refreshEvent.unsubscribe();
-    }
+    // Cancel the current request
+    this.refreshEvent?.unsubscribe?.();
 
+    // Start the next request
     this.refreshEvent = (
       this.page
         .doSafeRefresh(() => this.api.getPosts(this.thread.board, this.thread))

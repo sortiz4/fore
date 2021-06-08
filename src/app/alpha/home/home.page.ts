@@ -46,10 +46,10 @@ export class HomePage implements ViewWillEnter {
   }
 
   async onRefresh(): Promise<void> {
-    if (this.refreshEvent) {
-      this.refreshEvent.unsubscribe();
-    }
+    // Cancel the current request
+    this.refreshEvent?.unsubscribe?.();
 
+    // Start the next request
     this.refreshEvent = (
       this.page
         .doSafeRefresh(() => this.api.getCatalog(this.board))
