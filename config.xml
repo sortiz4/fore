@@ -5,7 +5,7 @@
     xmlns="http://www.w3.org/ns/widgets"
     xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Fore</name>
-    <author>Fore</author>
+    <author>Steven Ortiz</author>
     <description>Image board client.</description>
     <content src="index.html" />
     <access origin="*" />
@@ -20,15 +20,13 @@
     <preference name="AndroidXEnabled" value="true" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="BackupWebStorage" value="none" />
-    <preference name="FadeSplashScreenDuration" value="300" />
+    <preference name="FadeSplashScreenDuration" value="250" />
     <preference name="GradlePluginKotlinEnabled" value="true" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
-    <preference name="StatusBarBackgroundColor" value="#FFFFFF" />
-    <preference name="StatusBarStyle" value="lightcontent" />
     <platform name="android">
         <allow-intent href="market:*" />
         <edit-config
