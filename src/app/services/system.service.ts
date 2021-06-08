@@ -50,7 +50,7 @@ export class System {
       this.clipboard
         .paste()
         .then(s => [s, 'Copied from clipboard'])
-        .catch(s => [s, "Couldn't access clipboard"])
+        .catch(s => [s, `Couldn't access clipboard`])
         .then(a => this.notification.openFooterToast({ message: a[1] }).toPromise().then(() => a[0]))
     );
   }
@@ -60,7 +60,7 @@ export class System {
       this.clipboard
         .copy(text)
         .then(() => 'Copied to clipboard')
-        .catch(() => "Couldn't access clipboard")
+        .catch(() => `Couldn't access clipboard`)
         .then(m => this.notification.openFooterToast({ message: m }).toPromise())
         .then(() => text)
     );

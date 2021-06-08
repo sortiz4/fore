@@ -1,3 +1,5 @@
+import { environment } from './environments/environment';
+
 export enum FileType {
   Image,
   Video,
@@ -180,7 +182,7 @@ function getFileName(name: string, extension: string): string {
 }
 
 function getFileThumbnailUrl(id: number, board: string): string {
-  return `${getUrl()}/${board}/${id}s.jpg`;
+  return `${environment.cdn}/${board}/${id}s.jpg`;
 }
 
 function getFileType(extension: string): FileType {
@@ -199,7 +201,7 @@ function getFileType(extension: string): FileType {
 }
 
 function getFileUrl(id: number, board: string, extension: string): string {
-  return `${getUrl()}/${board}/${id}${extension}`;
+  return `${environment.cdn}/${board}/${id}${extension}`;
 }
 
 function getLink(id: number): string {
@@ -216,10 +218,6 @@ function getReplyText(replies: number): string {
 
 function getTitle(title: string, id: number): string {
   return title ?? `No. ${id}`;
-}
-
-function getUrl(): string {
-  return 'https://i.4cdn.org';
 }
 
 export function mapApiBoardToBoard(board: ApiBoard): Board {

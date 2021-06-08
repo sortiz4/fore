@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  async onSetupView(): Promise<void> {
+  onSetupView(): void {
     this.colorScheme.start();
     this.splashScreen.hide();
   }
