@@ -1,4 +1,3 @@
-import { Animation as IonicAnimation } from '@ionic/core';
 import { cordova, CordovaOptions, PluginConfig } from '@ionic-native/core';
 import camelCase from 'lodash/camelCase';
 import isArray from 'lodash/isArray';
@@ -71,60 +70,4 @@ export function Plugin(options: PluginConfig): ClassDecorator {
   return (target: object): void => {
     Object.assign(target, options);
   };
-}
-
-export abstract class AbstractAnimationIonic {
-  private animation: IonicAnimation;
-
-  constructor(protected element: HTMLElement) {
-  }
-
-  protected animateForward(): Promise<void> {
-    if (this.isDirectionBackward()) {
-      this.changeDirectionToForward();
-    }
-    return this.getAnimation().play();
-  }
-
-  protected animateBackward(): Promise<void> {
-    if (this.isDirectionForward()) {
-      this.changeDirectionToBackward();
-    }
-    return this.getAnimation().play();
-  }
-
-  protected changeDirectionToForward<T extends AbstractAnimationIonic>(): T {
-    this.getAnimation().direction('normal');
-    return this as unknown as T;
-  }
-
-  protected changeDirectionToBackward<T extends AbstractAnimationIonic>(): T {
-    this.getAnimation().direction('reverse');
-    return this as unknown as T;
-  }
-
-  protected createAnimation(): IonicAnimation {
-    return;
-  }
-
-  protected filterElements(getElements: () => HTMLElement[]): HTMLElement[] {
-    return getElements().filter(e => e instanceof HTMLElement);
-  }
-
-  protected getAnimation(): IonicAnimation {
-    this.animation = !this.animation ? this.createAnimation() : this.animation;
-    return this.animation;
-  }
-
-  protected getElements(): HTMLElement[] {
-    return this.getAnimation().elements;
-  }
-
-  protected isDirectionForward(): boolean {
-    return this.getAnimation().getDirection() === 'normal';
-  }
-
-  protected isDirectionBackward(): boolean {
-    return this.getAnimation().getDirection() === 'reverse';
-  }
 }

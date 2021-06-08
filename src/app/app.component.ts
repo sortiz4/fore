@@ -3,8 +3,8 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { Api } from './services/api.service';
 import { ColorScheme } from './services/color-scheme.service';
+import { Database } from './services/database.service';
 import { State } from './services/state.service';
-import { Storage } from './services/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -17,10 +17,10 @@ export class AppComponent implements OnInit {
   constructor(
     private api: Api,
     private colorScheme: ColorScheme,
+    private database: Database,
     private platform: Platform,
     private splashScreen: SplashScreen,
     private state: State,
-    private storage: Storage,
   ) {
   }
 
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     this.isReady$ = (
       this.platform
         .ready()
-        .then(() => this.onSetupStorage())
+        .then(() => this.onSetupDatabase())
         .then(() => this.onSetupState())
         .then(() => this.onSetupView())
         .catch(() => this.onReady())
@@ -40,20 +40,20 @@ export class AppComponent implements OnInit {
     return true;
   }
 
-  async onSetupStorage(): Promise<void> {
-    await this.storage.create();
+  async onSetupDatabase(): Promise<void> {
+    await this.database.create();
   }
 
   async onSetupState(): Promise<void> {
     // Restore the state
-    this.state.set(await this.storage.getState());
+    this.state.set(await this.database.getState());
 
     // Initialize the boards
     switch (this.state.get().boards.length) {
       case 0:
         const boards = await this.api.getBoards().toPromise();
         const blocked = Object.fromEntries(boards.map(b => [b.path, false]));
-        await this.storage.setState(this.state.set({ blocked, boards }).get());
+        await this.database.setState(this.state.set({ blocked, boards }).get());
     }
   }
 

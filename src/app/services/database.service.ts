@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Storage as IonicStorage } from '@ionic/storage-angular';
+import { Storage } from '@ionic/storage-angular';
 import { Store } from './state.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class Storage {
+export class Database {
   private readonly state = 'state';
 
-  constructor(private storage: IonicStorage) {
+  constructor(private storage: Storage) {
   }
 
-  create(): Promise<IonicStorage> {
+  create(): Promise<Storage> {
     return this.storage.create();
   }
 

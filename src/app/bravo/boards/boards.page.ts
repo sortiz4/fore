@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewWillEnter } from '@ionic/angular';
+import { Database } from '../../services/database.service';
 import { State } from '../../services/state.service';
-import { Storage } from '../../services/storage.service';
 import { Board } from '../../../models';
 
 @Component({
@@ -12,7 +12,7 @@ import { Board } from '../../../models';
 export class BoardsPage implements ViewWillEnter {
   boards: Board[];
 
-  constructor(private state: State, private storage: Storage) {
+  constructor(private database: Database, private state: State) {
   }
 
   getColor(board: Board): string {
@@ -49,6 +49,6 @@ export class BoardsPage implements ViewWillEnter {
       ...this.state.get().blocked,
       [board.path]: !this.state.get().blocked[board.path],
     };
-    return this.storage.setState(this.state.set({ blocked }).get()).then(() => void 0);
+    return this.database.setState(this.state.set({ blocked }).get()).then(() => void 0);
   }
 }
