@@ -1,6 +1,7 @@
 <ion-header class="app-header-border ion-no-border">
   <ion-toolbar>
     <ion-searchbar
+      cancelButtonIcon="arrow-back-outline"
       showCancelButton="always"
       [animated]="true" 
       (ionCancel)="onCancel()"
@@ -8,7 +9,13 @@
   </ion-toolbar>
 </ion-header>
 <app-page [canScrollToTop]="true">
-  <ion-list *ngIf="isBoardMode" class="app-list" lines="none">
-    <app-thread *ngFor="let thread of threads | searchThreads: search" [thread]="thread"></app-thread>
+  <ion-list class="app-list" lines="none">
+    <ng-container *ngIf="isBoardMode; else threadTemplate">
+      <app-thread *ngFor="let thread of threads | searchThreads: search" [thread]="thread"></app-thread>
+    </ng-container>
   </ion-list>
 </app-page>
+<ng-template #threadTemplate>
+  <app-thread [thread]="thread" [clickable]="false"></app-thread>
+  <app-post *ngFor="let post of posts | searchPosts: search" [post]="post"></app-post>
+</ng-template>

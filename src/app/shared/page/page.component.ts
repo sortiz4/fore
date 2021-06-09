@@ -40,6 +40,7 @@ export class PageComponent implements OnInit, OnDestroy {
   @Output() download = new EventEmitter<void>();
   @Output() open = new EventEmitter<void>();
   @Output() refresh = new EventEmitter<CustomEvent>();
+  @Output() search = new EventEmitter<void>();
   @Output() share = new EventEmitter<void>();
   @ViewChild(IonContent) content: IonContent;
   @ViewChild(IonRefresher) refresher: IonRefresher;
@@ -64,6 +65,10 @@ export class PageComponent implements OnInit, OnDestroy {
 
   get canRefresh(): boolean {
     return this.refresh.observers.length > 0;
+  }
+
+  get canSearch(): boolean {
+    return this.search.observers.length > 0;
   }
 
   get canShare(): boolean {

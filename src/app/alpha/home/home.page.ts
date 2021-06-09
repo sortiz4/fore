@@ -5,6 +5,8 @@ import { Api } from '../../services/api.service';
 import { Modal } from '../../services/modal.service';
 import { State } from '../../services/state.service';
 import { PageComponent } from '../../shared/page/page.component';
+import { SearchComponent } from '../../shared/search/search.component';
+import { SelectBoardComponent } from '../../shared/select-board/select-board.component';
 import { Board, Thread } from '../../../models';
 
 @Component({
@@ -58,11 +60,12 @@ export class HomePage implements ViewWillEnter {
 
   onSearch(): Promise<HTMLIonModalElement> {
     const options = {
+      component: SearchComponent,
       componentProps: {
         threads: this.threads,
       },
     };
-    return this.modal.openSearchWindow(options).toPromise();
+    return this.modal.openFullscreenWindow(options).toPromise();
   }
 
   onSelectBoard(): Promise<HTMLIonModalElement> {
@@ -74,7 +77,11 @@ export class HomePage implements ViewWillEnter {
       return modal;
     };
 
-    return this.modal.openSelectBoardWindow().toPromise().then(onOpen);
+    const options = {
+      component: SelectBoardComponent,
+    };
+
+    return this.modal.openWindow(options).toPromise().then(onOpen);
   }
 
   onSelectNewBoard(): void {

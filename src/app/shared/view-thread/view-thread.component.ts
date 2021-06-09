@@ -2,7 +2,9 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { ViewWillEnter } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { PageComponent } from '../page/page.component';
+import { SearchComponent } from '../search/search.component';
 import { Api } from '../../services/api.service';
+import { Modal } from '../../services/modal.service';
 import { Post, Thread } from '../../../models';
 
 @Component({
@@ -21,7 +23,7 @@ export class ViewThreadComponent implements ViewWillEnter {
     return !!this.posts;
   }
 
-  constructor(private api: Api) {
+  constructor(private api: Api, private modal0: Modal) {
   }
 
   ionViewWillEnter(): void {
@@ -42,5 +44,16 @@ export class ViewThreadComponent implements ViewWillEnter {
         .doSafeRefresh(() => this.api.getPosts(this.thread.board, this.thread))
         .subscribe(p => this.posts = p)
     );
+  }
+
+  onSearch(): Promise<HTMLIonModalElement> {
+    const options = {
+      component: SearchComponent,
+      componentProps: {
+        posts: this.posts,
+        thread: this.thread,
+      },
+    };
+    return this.modal0.openFullscreenWindow(options).toPromise();
   }
 }
