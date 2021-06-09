@@ -10,7 +10,8 @@ import {
 } from '@angular/core';
 import { ViewMediaComponent } from '../view-media/view-media.component';
 import { Modal } from '../../services/modal.service';
-import { FileType } from '../../../models';
+import { State } from '../../services/state.service';
+import { Content, FileType } from '../../../models';
 
 @Component({
   selector: 'app-media',
@@ -18,11 +19,27 @@ import { FileType } from '../../../models';
   styleUrls: ['./media.component.scss'],
 })
 export class MediaComponent implements OnInit, OnDestroy {
-  @Input() name: string;
-  @Input() type: FileType;
-  @Input() url: string;
+  @Input() content: Content;
   isVisible: boolean;
   observer: IntersectionObserver;
+
+  get name(): string {
+    return this.content.fileName;
+  }
+
+  get type(): FileType {
+    if (this.useThumbnails) {
+      return FileType.Image;
+    }
+    return this.content.fileType;
+  }
+
+  get url(): string {
+    if (this.useThumbnails) {
+      return this.content.fileThumbnailUrl;
+    }
+    return this.content.fileUrl;
+  }
 
   get isImage(): boolean {
     return this.type === FileType.Image;
@@ -32,7 +49,17 @@ export class MediaComponent implements OnInit, OnDestroy {
     return this.type === FileType.Video;
   }
 
-  constructor(private changeDetector: ChangeDetectorRef, private element: ElementRef, private modal: Modal, private zone: NgZone) {
+  get useThumbnails(): boolean {
+    return this.state.get().useThumbnails;
+  }
+
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    private element: ElementRef,
+    private modal: Modal,
+    private state: State,
+    private zone: NgZone,
+  ) {
   }
 
   ngOnInit(): void {
@@ -72,9 +99,9 @@ export class MediaComponent implements OnInit, OnDestroy {
     const options = {
       component: ViewMediaComponent,
       componentProps: {
-        name: this.name,
-        type: this.type,
-        url: this.url,
+        name: this.content.fileName,
+        type: this.content.fileType,
+        url: this.content.fileUrl,
       },
     };
     return this.modal.openLightboxWindow(options).toPromise();

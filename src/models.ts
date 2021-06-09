@@ -157,7 +157,7 @@ export interface Content {
   readonly board: Board;
   readonly fileCanBePreviewed: boolean;
   readonly fileName: string;
-  readonly fileThumbnail: string;
+  readonly fileThumbnailUrl: string;
   readonly fileType: FileType;
   readonly fileUrl: string;
   readonly id: number;
@@ -236,7 +236,7 @@ export function mapApiPostToPost(board: Board, thread: Thread, post: ApiIndexPos
     board,
     fileCanBePreviewed: fileType !== FileType.Unknown,
     fileName: getFileName(post.filename, post.ext),
-    fileThumbnail: getFileThumbnailUrl(post.tim, board.path),
+    fileThumbnailUrl: getFileThumbnailUrl(post.tim, board.path),
     fileType,
     fileUrl: getFileUrl(post.tim, board.path, post.ext),
     id: post.no,
@@ -257,7 +257,7 @@ export function mapApiThreadToThread(board: Board, thread: ApiThread): Thread {
     board,
     fileCanBePreviewed: fileType !== FileType.Unknown,
     fileName: getFileName(thread.filename, thread.ext),
-    fileThumbnail: getFileThumbnailUrl(thread.tim, board.path),
+    fileThumbnailUrl: getFileThumbnailUrl(thread.tim, board.path),
     fileType,
     fileUrl: getFileUrl(thread.tim, board.path, thread.ext),
     id: thread.no,

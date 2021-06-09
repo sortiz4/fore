@@ -6,12 +6,14 @@ import { Board } from '../../models';
 export interface Store {
   readonly blocked: { [key: string]: boolean };
   readonly boards: Board[];
+  readonly useThumbnails: boolean;
 }
 
 function createDefaultStore(): Store {
   return {
     blocked: {},
     boards: [],
+    useThumbnails: true,
   };
 }
 
