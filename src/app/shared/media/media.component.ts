@@ -8,7 +8,6 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { ViewMediaComponent } from '../view-media/view-media.component';
 import { Modal } from '../../services/modal.service';
 import { FileType } from '../../../models';
 
@@ -70,17 +69,12 @@ export class MediaComponent implements OnInit, OnDestroy {
   @HostListener('click', ['$event']) onClick(event: MouseEvent): Promise<HTMLIonModalElement> {
     event.stopImmediatePropagation();
     const options = {
-      component: ViewMediaComponent,
       componentProps: {
         name: this.name,
         type: this.type,
         url: this.url,
       },
-      cssClass: [
-        'app-modal-fullscreen',
-        'app-modal-lightbox',
-      ],
     };
-    return this.modal.openWindow(options).toPromise();
+    return this.modal.openViewMediaWindow(options).toPromise();
   }
 }

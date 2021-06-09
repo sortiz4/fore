@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { ViewThreadComponent } from '../view-thread/view-thread.component';
 import { Modal } from '../../services/modal.service';
 import { Thread } from '../../../models';
 
@@ -15,18 +14,15 @@ export class ThreadComponent {
   constructor(private modal: Modal) {
   }
 
-  onClick(event: MouseEvent): Promise<HTMLIonModalElement | void> {
+  onClick(event: MouseEvent): Promise<HTMLIonModalElement> {
     event.stopImmediatePropagation();
     if (this.clickable) {
       const options = {
-        component: ViewThreadComponent,
         componentProps: {
           thread: this.thread,
         },
-        cssClass: 'app-modal-fullscreen',
       };
-      return this.modal.openWindow(options).toPromise();
+      return this.modal.openViewThreadWindow(options).toPromise();
     }
-    return Promise.resolve();
   }
 }

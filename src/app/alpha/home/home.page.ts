@@ -5,7 +5,6 @@ import { Api } from '../../services/api.service';
 import { Modal } from '../../services/modal.service';
 import { State } from '../../services/state.service';
 import { PageComponent } from '../../shared/page/page.component';
-import { SelectBoardComponent } from '../../shared/select-board/select-board.component';
 import { Board, Thread } from '../../../models';
 
 @Component({
@@ -57,21 +56,20 @@ export class HomePage implements ViewWillEnter {
     );
   }
 
+  onSearch(): Promise<HTMLIonModalElement> {
+    return this.modal.openSearchWindow({}).toPromise();
+  }
+
   onSelectBoard(): Promise<HTMLIonModalElement> {
     const onOpen = (modal: HTMLIonModalElement): HTMLIonModalElement => {
       // Change the board
-      modal.onDidDismiss().then(v => v.data ? this.onChangeBoard(v.data) : void 0);
+      void modal.onDidDismiss().then(v => v.data ? this.onChangeBoard(v.data) : void 0);
 
       // Forward the modal
       return modal;
     };
 
-    return (
-      this.modal
-        .openWindow({ component: SelectBoardComponent })
-        .toPromise()
-        .then(onOpen)
-    );
+    return this.modal.openSelectBoardWindow().toPromise().then(onOpen);
   }
 
   onSelectNewBoard(): void {

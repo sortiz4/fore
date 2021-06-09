@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { ViewWillEnter } from '@ionic/angular';
 import Mark from 'mark.js';
 import { State } from '../../services/state.service';
@@ -10,9 +10,9 @@ import { Board } from '../../../models';
   styleUrls: ['./select-board.component.scss'],
 })
 export class SelectBoardComponent implements ViewWillEnter {
+  @Input() modal: HTMLIonModalElement;
   boards: Board[];
   mark: Mark;
-  modal: HTMLIonModalElement;
   search: string;
 
   constructor(private element: ElementRef, private state: State) {
@@ -29,7 +29,8 @@ export class SelectBoardComponent implements ViewWillEnter {
 
   onChange(event: CustomEvent): void {
     this.search = event.detail.value;
-    this.mark.unmark().mark(this.search);
+    this.mark.unmark();
+    this.mark.mark(this.search);
   }
 
   onSelect(board: Board): Promise<boolean> {

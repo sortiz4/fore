@@ -8,10 +8,6 @@ const routes: Routes = [
     path: 'boards',
     loadChildren: () => import('./boards/boards.module').then(m => m.BoardsPageModule),
   },
-  {
-    path: 'search',
-    loadChildren: () => import('./search/search.module').then(m => m.SearchPageModule),
-  },
 ];
 
 @NgModule({

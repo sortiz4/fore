@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { SearchPage } from './search.page';
+import { SearchComponent } from './search.component';
 
-describe('SearchPage', () => {
-  let component: SearchPage;
-  let fixture: ComponentFixture<SearchPage>;
+describe('SearchComponent', () => {
+  let component: SearchComponent;
+  let fixture: ComponentFixture<SearchComponent>;
 
   beforeEach(waitForAsync(() => {
     const config = {
       declarations: [
-        SearchPage,
+        SearchComponent,
       ],
       imports: [
         IonicModule.forRoot(),
@@ -17,7 +17,7 @@ describe('SearchPage', () => {
     };
     TestBed.configureTestingModule(config).compileComponents();
 
-    fixture = TestBed.createComponent(SearchPage);
+    fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
