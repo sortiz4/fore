@@ -27,6 +27,10 @@ export class MediaComponent implements OnInit, OnDestroy {
     return this.content.fileName;
   }
 
+  get poster(): string {
+    return this.content.fileThumbnailUrl
+  }
+
   get type(): FileType {
     if (this.useThumbnails) {
       return FileType.Image;

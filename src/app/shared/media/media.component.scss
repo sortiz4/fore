@@ -1,4 +1,4 @@
-$app-media-height: 150px;
+@import '../../../theme/app.scss';
 
 div {
   height: $app-media-height;

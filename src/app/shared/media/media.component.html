@@ -1,3 +1,3 @@
 <div *ngIf="!isVisible"></div>
 <img *ngIf="isVisible && isImage" [src]="url"/>
-<video *ngIf="isVisible && isVideo" [autoplay]="true" [loop]="true" [muted]="true" [src]="url"></video>
+<video *ngIf="isVisible && isVideo" [autoplay]="true" [loop]="true" [muted]="true" [poster]="poster" [src]="url"></video>
