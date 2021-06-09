@@ -3,12 +3,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
+import { SearchBoardsPipe } from './search-boards.pipe';
+import { SearchThreadsPipe } from './search-threads.pipe';
 import { TimeAgoPipe } from './time-ago.pipe';
 import { BoardComponent } from './board/board.component';
 import { MediaComponent } from './media/media.component';
 import { PageComponent } from './page/page.component';
 import { PostComponent } from './post/post.component';
-import { SearchBoardsPipe } from './search-boards.pipe';
 import { SearchComponent } from './search/search.component';
 import { SelectBoardComponent } from './select-board/select-board.component';
 import { SpinnerComponent } from './spinner/spinner.component';
@@ -24,6 +25,7 @@ import { ViewThreadComponent } from './view-thread/view-thread.component';
     PostComponent,
     SearchBoardsPipe,
     SearchComponent,
+    SearchThreadsPipe,
     SelectBoardComponent,
     SpinnerComponent,
     ThreadComponent,
@@ -44,6 +46,7 @@ import { ViewThreadComponent } from './view-thread/view-thread.component';
     PostComponent,
     SearchBoardsPipe,
     SearchComponent,
+    SearchThreadsPipe,
     SelectBoardComponent,
     SpinnerComponent,
     ThreadComponent,

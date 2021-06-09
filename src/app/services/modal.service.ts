@@ -38,10 +38,7 @@ export class Modal {
   openSelectBoardWindow(): Observable<HTMLIonModalElement> {
     const defaultOptions = {
       component: SelectBoardComponent,
-      cssClass: [
-        'app-modal-fullscreen',
-        'app-modal-lightbox',
-      ],
+      cssClass: 'app-modal-fullscreen',
     };
 
     return this.openWindow(defaultOptions);

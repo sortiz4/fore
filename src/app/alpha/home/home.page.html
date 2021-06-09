@@ -11,8 +11,8 @@
   </ion-toolbar>
 </ion-header>
 <app-page [canScrollToTop]="true" (refresh)="onRefresh()">
-  <ion-list *ngIf="hasCatalog; else loading" class="app-list" lines="none">
-    <app-thread *ngFor="let thread of catalog" [thread]="thread"></app-thread>
+  <ion-list *ngIf="hasThreads; else loading" class="app-list" lines="none">
+    <app-thread *ngFor="let thread of threads" [thread]="thread"></app-thread>
   </ion-list>
 </app-page>
 <ng-template #loading>

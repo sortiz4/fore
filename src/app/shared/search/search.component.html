@@ -7,6 +7,8 @@
       (ionChange)="onChange($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <ion-list class="app-list" lines="full"></ion-list>
-</ion-content>
+<app-page [canScrollToTop]="true">
+  <ion-list *ngIf="isBoardMode" class="app-list" lines="none">
+    <app-thread *ngFor="let thread of threads | searchThreads: search" [thread]="thread"></app-thread>
+  </ion-list>
+</app-page>

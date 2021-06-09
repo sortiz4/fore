@@ -8,8 +8,8 @@
       (ionChange)="onChange($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<app-page [canScrollToTop]="true">
   <ion-list class="app-list" lines="none">
     <app-board *ngFor="let board of boards | searchBoards: search" [board]="board" (select)="onSelect(board)"></app-board>
   </ion-list>
-</ion-content>
+</app-page>

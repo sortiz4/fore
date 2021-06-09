@@ -15,11 +15,11 @@ import { Board, Thread } from '../../../models';
 export class HomePage implements ViewWillEnter {
   @ViewChild(PageComponent) page: PageComponent;
   board: Board;
-  catalog: Thread[];
+  threads: Thread[];
   refreshEvent: Subscription;
 
-  get hasCatalog(): boolean {
-    return !!this.catalog;
+  get hasThreads(): boolean {
+    return !!this.threads;
   }
 
   constructor(private api: Api, private modal: Modal, private state: State) {
@@ -29,7 +29,7 @@ export class HomePage implements ViewWillEnter {
     if (!this.board) {
       this.board = this.state.get().boards[0];
     }
-    if (!this.hasCatalog) {
+    if (!this.hasThreads) {
       this.onSelectNewBoard();
     }
   }
@@ -39,7 +39,7 @@ export class HomePage implements ViewWillEnter {
       // Set the board
       this.board = board;
 
-      // Update the catalog
+      // Update the threads
       this.onSelectNewBoard();
     }
   }
@@ -52,12 +52,17 @@ export class HomePage implements ViewWillEnter {
     this.refreshEvent = (
       this.page
         .doSafeRefresh(() => this.api.getCatalog(this.board))
-        .subscribe(c => this.catalog = c)
+        .subscribe(c => this.threads = c)
     );
   }
 
   onSearch(): Promise<HTMLIonModalElement> {
-    return this.modal.openSearchWindow({}).toPromise();
+    const options = {
+      componentProps: {
+        threads: this.threads,
+      },
+    };
+    return this.modal.openSearchWindow(options).toPromise();
   }
 
   onSelectBoard(): Promise<HTMLIonModalElement> {
@@ -73,7 +78,7 @@ export class HomePage implements ViewWillEnter {
   }
 
   onSelectNewBoard(): void {
-    this.catalog = void 0;
+    this.threads = void 0;
     this.onRefresh();
   }
 }

@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input } from '@angular/core';
 import Mark from 'mark.js';
+import { Post, Thread } from '../../../models';
 
 @Component({
   selector: 'app-search',
@@ -8,8 +9,19 @@ import Mark from 'mark.js';
 })
 export class SearchComponent {
   @Input() modal: HTMLIonModalElement;
+  @Input() posts: Post[];
+  @Input() thread: Thread;
+  @Input() threads: Thread[];
   mark: Mark;
   search: string;
+
+  get isBoardMode(): boolean {
+    return !!this.threads;
+  }
+
+  get isThreadMode(): boolean {
+    return !!this.thread && !!this.posts;
+  }
 
   constructor(private element: ElementRef) {
   }
