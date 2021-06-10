@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { ViewWillEnter } from '@ionic/angular';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 import { PageComponent } from '../page/page.component';
 import { SearchComponent } from '../search/search.component';
 import { Api } from '../../services/api.service';
@@ -54,6 +54,6 @@ export class ViewThreadComponent implements ViewWillEnter {
         thread: this.thread,
       },
     };
-    return this.overlay.openPageModal(options).toPromise();
+    return firstValueFrom(this.overlay.openPageModal(options));
   }
 }

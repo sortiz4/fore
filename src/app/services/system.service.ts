@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { firstValueFrom } from 'rxjs';
 import { Notification } from './notification.service';
 import { FileSystem } from './file-system.service';
 
@@ -27,11 +28,9 @@ export class System {
     };
 
     return (
-      this.notification
-        .openFooterToast({ message: 'Download started' })
-        .toPromise()
+      firstValueFrom(this.notification.openFooterToast({ message: 'Download started' }))
         .then(t => onDownload(t))
-        .then(m => this.notification.openFooterToast({ message: m }).toPromise())
+        .then(m => firstValueFrom(this.notification.openFooterToast({ message: m })))
         .then(() => void 0)
     );
   }
@@ -51,7 +50,7 @@ export class System {
         .paste()
         .then(s => [s, 'Copied from clipboard'])
         .catch(s => [s, `Couldn't access clipboard`])
-        .then(a => this.notification.openFooterToast({ message: a[1] }).toPromise().then(() => a[0]))
+        .then(a => firstValueFrom(this.notification.openFooterToast({ message: a[1] })).then(() => a[0]))
     );
   }
 
@@ -61,7 +60,7 @@ export class System {
         .copy(text)
         .then(() => 'Copied to clipboard')
         .catch(() => `Couldn't access clipboard`)
-        .then(m => this.notification.openFooterToast({ message: m }).toPromise())
+        .then(m => firstValueFrom(this.notification.openFooterToast({ message: m })))
         .then(() => text)
     );
   }

@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ViewWillEnter } from '@ionic/angular';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 import { Api } from '../../services/api.service';
 import { Overlay } from '../../services/overlay.service';
 import { State } from '../../services/state.service';
@@ -65,7 +65,7 @@ export class HomePage implements ViewWillEnter {
         threads: this.threads,
       },
     };
-    return this.overlay.openPageModal(options).toPromise();
+    return firstValueFrom(this.overlay.openPageModal(options));
   }
 
   onSelectBoard(): Promise<HTMLIonModalElement> {
@@ -81,7 +81,7 @@ export class HomePage implements ViewWillEnter {
       component: SelectBoardComponent,
     };
 
-    return this.overlay.openModal(options).toPromise().then(onOpen);
+    return firstValueFrom(this.overlay.openModal(options)).then(onOpen);
   }
 
   onSelectNewBoard(): void {

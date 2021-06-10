@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import { ViewThreadComponent } from '../view-thread/view-thread.component';
 import { Overlay } from '../../services/overlay.service';
 import { Thread } from '../../../models';
@@ -24,7 +25,7 @@ export class ThreadComponent {
           thread: this.thread,
         },
       };
-      return this.overlay.openPageModal(options).toPromise();
+      return firstValueFrom(this.overlay.openPageModal(options));
     }
   }
 }

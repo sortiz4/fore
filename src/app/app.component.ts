@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { firstValueFrom } from 'rxjs';
 import { Api } from './services/api.service';
 import { ColorScheme } from './services/color-scheme.service';
 import { Database } from './services/database.service';
@@ -51,7 +52,7 @@ export class AppComponent implements OnInit {
     // Initialize the boards
     switch (this.state.get().boards.length) {
       case 0:
-        const boards = await this.api.getBoards().toPromise();
+        const boards = await firstValueFrom(this.api.getBoards());
         const hidden = Object.fromEntries(boards.map(b => [b.path, false]));
         await this.database.setState(this.state.set({ hidden, boards }).get());
     }
