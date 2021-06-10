@@ -8,6 +8,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { timer } from 'rxjs';
 import { ViewMediaComponent } from '../view-media/view-media.component';
 import { Modal } from '../../services/modal.service';
 import { State } from '../../services/state.service';
@@ -74,8 +75,12 @@ export class MediaComponent implements OnInit, OnDestroy {
     this.zone.runOutsideAngular(() => this.stopObserver());
   }
 
-  startObserver(): void {
-    const callback = ([entry]: IntersectionObserverEntry[]): void => {
+  async startObserver(): Promise<void> {
+    const getTarget = (): HTMLElement => {
+      return this.element.nativeElement.closest('ion-content').shadowRoot.querySelector('.inner-scroll');
+    };
+
+    const onIntersect = ([entry]: IntersectionObserverEntry[]): void => {
       this.isVisible = entry.isIntersecting;
 
       if (this.isVisible) {
@@ -85,12 +90,12 @@ export class MediaComponent implements OnInit, OnDestroy {
     };
 
     const options = {
-      root: this.element.nativeElement.closest('ion-content').shadowRoot.querySelector('.inner-scroll'),
+      root: await timer(0).toPromise().then(getTarget),
       rootMargin: `${globalThis.innerHeight}px`,
       threshold: 1,
     };
 
-    this.observer = new IntersectionObserver(callback, options);
+    this.observer = new IntersectionObserver(onIntersect, options);
     this.observer.observe(this.element.nativeElement);
   }
 
