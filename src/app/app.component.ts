@@ -52,8 +52,8 @@ export class AppComponent implements OnInit {
     switch (this.state.get().boards.length) {
       case 0:
         const boards = await this.api.getBoards().toPromise();
-        const blocked = Object.fromEntries(boards.map(b => [b.path, false]));
-        await this.database.setState(this.state.set({ blocked, boards }).get());
+        const hidden = Object.fromEntries(boards.map(b => [b.path, false]));
+        await this.database.setState(this.state.set({ hidden, boards }).get());
     }
   }
 

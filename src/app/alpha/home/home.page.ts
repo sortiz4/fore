@@ -29,7 +29,7 @@ export class HomePage implements ViewWillEnter {
 
   ionViewWillEnter(): void {
     if (!this.board) {
-      this.board = this.state.get().boards[0];
+      this.board = this.state.get().boards.find(b => !this.state.get().hidden[b.path]);
     }
     if (!this.hasThreads) {
       this.onSelectNewBoard();

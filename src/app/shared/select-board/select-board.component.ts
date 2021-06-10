@@ -19,7 +19,7 @@ export class SelectBoardComponent implements ViewWillEnter {
   }
 
   ionViewWillEnter(): void {
-    this.boards = this.state.get().boards.filter(b => !this.state.get().blocked[b.path]);
+    this.boards = this.state.get().boards.filter(b => !this.state.get().hidden[b.path]);
     this.mark = new Mark(this.element.nativeElement);
   }
 

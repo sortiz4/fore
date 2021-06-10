@@ -4,15 +4,15 @@ import { BehaviorSubject } from 'rxjs';
 import { Board } from '../../models';
 
 export interface Store {
-  readonly blocked: { [key: string]: boolean };
   readonly boards: Board[];
+  readonly hidden: { [key: string]: boolean };
   readonly useThumbnails: boolean;
 }
 
 function createDefaultStore(): Store {
   return {
-    blocked: {},
     boards: [],
+    hidden: {},
     useThumbnails: true,
   };
 }
