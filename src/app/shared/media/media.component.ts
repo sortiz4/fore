@@ -1,13 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  HostListener,
-  Input,
-  NgZone,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { timer } from 'rxjs';
 import { ViewMediaComponent } from '../view-media/view-media.component';
 import { Overlay } from '../../services/overlay.service';
@@ -90,7 +81,7 @@ export class MediaComponent implements OnInit, OnDestroy {
     };
 
     const options = {
-      root: await timer(0).toPromise().then(getTarget),
+      root: await timer(5).toPromise().then(getTarget),
       rootMargin: `${globalThis.innerHeight}px`,
       threshold: 1,
     };
