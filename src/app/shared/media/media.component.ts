@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { timer } from 'rxjs';
 import { ViewMediaComponent } from '../view-media/view-media.component';
-import { Modal } from '../../services/modal.service';
+import { Overlay } from '../../services/overlay.service';
 import { State } from '../../services/state.service';
 import { Content, FileType } from '../../../models';
 
@@ -61,7 +61,7 @@ export class MediaComponent implements OnInit, OnDestroy {
   constructor(
     private changeDetector: ChangeDetectorRef,
     private element: ElementRef,
-    private modal: Modal,
+    private overlay: Overlay,
     private state: State,
     private zone: NgZone,
   ) {
@@ -113,6 +113,6 @@ export class MediaComponent implements OnInit, OnDestroy {
         url: this.content.fileUrl,
       },
     };
-    return this.modal.openLightboxWindow(options).toPromise();
+    return this.overlay.openMediaModal(options).toPromise();
   }
 }

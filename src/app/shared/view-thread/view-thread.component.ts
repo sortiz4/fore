@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { PageComponent } from '../page/page.component';
 import { SearchComponent } from '../search/search.component';
 import { Api } from '../../services/api.service';
-import { Modal } from '../../services/modal.service';
+import { Overlay } from '../../services/overlay.service';
 import { Post, Thread } from '../../../models';
 
 @Component({
@@ -23,7 +23,7 @@ export class ViewThreadComponent implements ViewWillEnter {
     return !!this.posts;
   }
 
-  constructor(private api: Api, private modal0: Modal) {
+  constructor(private api: Api, private overlay: Overlay) {
   }
 
   ionViewWillEnter(): void {
@@ -54,6 +54,6 @@ export class ViewThreadComponent implements ViewWillEnter {
         thread: this.thread,
       },
     };
-    return this.modal0.openFullscreenWindow(options).toPromise();
+    return this.overlay.openPageModal(options).toPromise();
   }
 }

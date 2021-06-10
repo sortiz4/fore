@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ViewWillEnter } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Api } from '../../services/api.service';
-import { Modal } from '../../services/modal.service';
+import { Overlay } from '../../services/overlay.service';
 import { State } from '../../services/state.service';
 import { PageComponent } from '../../shared/page/page.component';
 import { SearchComponent } from '../../shared/search/search.component';
@@ -24,7 +24,7 @@ export class HomePage implements ViewWillEnter {
     return !!this.threads;
   }
 
-  constructor(private api: Api, private modal: Modal, private state: State) {
+  constructor(private api: Api, private overlay: Overlay, private state: State) {
   }
 
   ionViewWillEnter(): void {
@@ -65,7 +65,7 @@ export class HomePage implements ViewWillEnter {
         threads: this.threads,
       },
     };
-    return this.modal.openFullscreenWindow(options).toPromise();
+    return this.overlay.openPageModal(options).toPromise();
   }
 
   onSelectBoard(): Promise<HTMLIonModalElement> {
@@ -81,7 +81,7 @@ export class HomePage implements ViewWillEnter {
       component: SelectBoardComponent,
     };
 
-    return this.modal.openWindow(options).toPromise().then(onOpen);
+    return this.overlay.openModal(options).toPromise().then(onOpen);
   }
 
   onSelectNewBoard(): void {

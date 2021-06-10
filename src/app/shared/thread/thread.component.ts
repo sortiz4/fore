@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ViewThreadComponent } from '../view-thread/view-thread.component';
-import { Modal } from '../../services/modal.service';
+import { Overlay } from '../../services/overlay.service';
 import { Thread } from '../../../models';
 
 @Component({
@@ -12,7 +12,7 @@ export class ThreadComponent {
   @Input() thread: Thread;
   @Input() clickable = true;
 
-  constructor(private modal: Modal) {
+  constructor(private overlay: Overlay) {
   }
 
   onClick(event: MouseEvent): Promise<HTMLIonModalElement> {
@@ -24,7 +24,7 @@ export class ThreadComponent {
           thread: this.thread,
         },
       };
-      return this.modal.openFullscreenWindow(options).toPromise();
+      return this.overlay.openPageModal(options).toPromise();
     }
   }
 }
