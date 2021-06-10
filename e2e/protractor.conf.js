@@ -1,23 +1,24 @@
-const { SpecReporter } = require('jasmine-spec-reporter');
+const { SpecReporter, StacktraceOption } = require('jasmine-spec-reporter');
 
 exports.config = {
+  baseUrl: 'http://localhost:4200/',
+  framework: 'jasmine',
+  directConnect: true,
   allScriptsTimeout: 11000,
+  SELENIUM_PROMISE_MANAGER: false,
   specs: [
     './src/**/*.e2e-spec.ts',
   ],
   capabilities: {
     browserName: 'chrome',
   },
-  directConnect: true,
-  baseUrl: 'http://localhost:4200/',
-  framework: 'jasmine',
   jasmineNodeOpts: {
-    showColors: true,
     defaultTimeoutInterval: 30000,
-    print: function () {},
+    showColors: true,
+    print: () => {},
   },
-  onPrepare() {
+  onPrepare: () => {
     require('ts-node').register({ project: require('path').join(__dirname, './tsconfig.json') });
-    jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
+    jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: StacktraceOption.PRETTY } }));
   },
 };
