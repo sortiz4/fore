@@ -17,7 +17,8 @@ exports.config = {
     showColors: true,
     print: () => {},
   },
-  onPrepare: () => {
+  onPrepare: async () => {
+    await browser.waitForAngularEnabled(false);
     require('ts-node').register({ project: require('path').join(__dirname, './tsconfig.json') });
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: StacktraceOption.PRETTY } }));
   },
