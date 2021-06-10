@@ -226,7 +226,7 @@ export function mapApiBoardToBoard(board: ApiBoard): Board {
     name: board.title,
     path: board.board,
     title: `/${board.board}/ - ${board.title}`,
-  }
+  };
 }
 
 export function mapApiPostToPost(board: Board, thread: Thread, post: ApiIndexPost | ApiThreadPost): Post {
@@ -247,7 +247,7 @@ export function mapApiPostToPost(board: Board, thread: Thread, post: ApiIndexPos
     text: post.com,
     thread,
     time: post.tim,
-  }
+  };
 }
 
 export function mapApiThreadToThread(board: Board, thread: ApiThread): Thread {
@@ -267,7 +267,7 @@ export function mapApiThreadToThread(board: Board, thread: ApiThread): Thread {
     text: thread.com,
     time: thread.tim,
     title: getTitle(thread.sub, thread.no),
-  }
+  };
 }
 
 export function updatePosts(posts: Post[]): Post[] {

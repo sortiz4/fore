@@ -29,7 +29,7 @@ export class MediaComponent implements OnInit, OnDestroy {
   }
 
   get poster(): string {
-    return this.content.fileThumbnailUrl
+    return this.content.fileThumbnailUrl;
   }
 
   get type(): FileType {

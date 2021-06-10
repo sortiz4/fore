@@ -2,6 +2,7 @@ $app-border-radius: 4px;
 $app-border-radius-large: 10px;
 $app-breakpoint-large-height: 600px;
 $app-breakpoint-large-width: 768px;
+$app-content-box-shadow: 0px 4px 8px 2px rgba(0, 0, 0, 0.2);
 $app-disabled-opacity: 0.3;
 $app-footer-box-shadow: 0px -2px 4px 0px rgba(0, 0, 0, 0.1);
 $app-header-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
@@ -18,8 +19,22 @@ $app-space-5: 25px;
 $app-toast-footer-offset: -56px;
 $app-transition: 250ms ease-in-out;
 
-@mixin inline-space($app-space: $app-space-1) {
-  & > *:not(:first-child) {
-    margin-left: $app-space;
+@mixin app-content-card {
+  --border-width: 0;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+@mixin app-content-item {
+  --padding-start: 0;
+  --padding-end: 0;
+  box-shadow: $app-content-box-shadow;
+  margin-bottom: $app-space-3;
+
+  &::part(native) {
+    padding: 0;
   }
 }

@@ -45,7 +45,44 @@
             "prefix": "app",
             "style": "camelCase"
           }
-        ]
+        ],
+        "@angular-eslint/no-output-native": 0,
+        "@typescript-eslint/ban-types": [
+          "error",
+          {
+            "types": {
+              "object": false
+            }
+          }
+        ],
+        "@typescript-eslint/member-ordering": [
+          "error",
+          {
+            "default": {
+              "memberTypes": [
+                "static-field",
+                "instance-field",
+                "abstract-field",
+                "constructor",
+                "static-method",
+                "instance-method",
+                "abstract-method"
+              ]
+            }
+          }
+        ],
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "enumMember",
+            "format": [
+              "PascalCase"
+            ]
+          }
+        ],
+        "arrow-body-style": 0,
+        "no-underscore-dangle": 0,
+        "prefer-arrow/prefer-arrow-functions": 0
       }
     },
     {
