@@ -14,7 +14,7 @@
       </ion-label>
       <ion-icon name="reader-outline" slot="start"></ion-icon>
     </ion-item>
-    <ion-item routerLink="/" [detail]="true">
+    <ion-item [button]="true" [detail]="true" (click)="onGetHelp()">
       <ion-label>
         <h2>
           Assistance
@@ -39,33 +39,20 @@
       </ion-label>
       <ion-toggle slot="end" [checked]="useThumbnails" (ionChange)="onToggleUseThumbnails($event)"></ion-toggle>
     </ion-item>
-    <ion-list-header>
-      Review
-    </ion-list-header>
-    <ion-item routerLink="/">
+    <ion-item [button]="true" (click)="onHideUnsafeBoards()">
       <ion-label>
         <h2>
-          Terms and conditions
+          Hide unsafe boards
         </h2>
         <p>
-          Review our terms of service
-        </p>
-      </ion-label>
-    </ion-item>
-    <ion-item routerLink="/">
-      <ion-label>
-        <h2>
-          Privacy policy
-        </h2>
-        <p>
-          What information we use
+          Some boards may be too graphic
         </p>
       </ion-label>
     </ion-item>
     <ion-list-header>
       About
     </ion-list-header>
-    <ion-item routerLink="/">
+    <ion-item [button]="true" (click)="onGetLicenses()">
       <ion-label>
         <h2>
           Open source licenses
@@ -81,7 +68,7 @@
           Version
         </h2>
         <p>
-          2020.05.15
+          {{ version }}
         </p>
       </ion-label>
     </ion-item>

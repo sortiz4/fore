@@ -30,10 +30,7 @@ export class Api {
   }
 
   getArchive(board: Board): Observable<number[]> {
-    return (
-      this.http
-        .get<number[]>(this.getApiUrl(board.path, 'archive.json'))
-    );
+    return this.http.get<number[]>(this.getApiUrl(board.path, 'archive.json'));
   }
 
   getBoards(): Observable<Board[]> {
@@ -53,10 +50,11 @@ export class Api {
   }
 
   getIndices(board: Board, page: number): Observable<ApiGetIndices> {
-    return (
-      this.http
-        .get<ApiGetIndices>(this.getApiUrl(board.path, `${page}.json`))
-    );
+    return this.http.get<ApiGetIndices>(this.getApiUrl(board.path, `${page}.json`));
+  }
+
+  getLicenses(): Observable<string> {
+    return this.http.get('3rdpartylicenses.txt', { responseType: 'text' });
   }
 
   getPosts(board: Board, thread: Thread): Observable<Post[]> {
@@ -68,9 +66,6 @@ export class Api {
   }
 
   getThreads(board: Board): Observable<ApiGetThreads> {
-    return (
-      this.http
-        .get<ApiGetThreads>(this.getApiUrl(board.path, 'threads.json'))
-    );
+    return this.http.get<ApiGetThreads>(this.getApiUrl(board.path, 'threads.json'));
   }
 }

@@ -8,6 +8,7 @@ import { SearchPostsPipe } from './search-posts.pipe';
 import { SearchThreadsPipe } from './search-threads.pipe';
 import { TimeAgoPipe } from './time-ago.pipe';
 import { BoardComponent } from './board/board.component';
+import { LicenseComponent } from './license/license.component';
 import { MediaComponent } from './media/media.component';
 import { PageComponent } from './page/page.component';
 import { PostComponent } from './post/post.component';
@@ -21,6 +22,7 @@ import { ViewThreadComponent } from './view-thread/view-thread.component';
 @NgModule({
   declarations: [
     BoardComponent,
+    LicenseComponent,
     MediaComponent,
     PageComponent,
     PostComponent,
@@ -43,6 +45,7 @@ import { ViewThreadComponent } from './view-thread/view-thread.component';
   ],
   exports: [
     BoardComponent,
+    LicenseComponent,
     MediaComponent,
     PageComponent,
     PostComponent,
