@@ -37,8 +37,8 @@ export class SettingsPage {
     return this.system.openUrl(environment.help);
   }
 
-  onGetLicenses(): Promise<void> {
-    const createModal = async (): Promise<void> => {
+  async onGetLicenses(): Promise<void> {
+    try {
       const options = {
         component: LicenseComponent,
         componentProps: {
@@ -46,13 +46,9 @@ export class SettingsPage {
         },
       };
       await firstValueFrom(this.overlay.openModal(options));
-    };
-
-    return (
-      createModal()
-        .catch(() => firstValueFrom(this.notification.openFooterToast({ message: 'Licenses unavailable' })))
-        .then(() => void 0)
-    );
+    } catch {
+      await firstValueFrom(this.notification.openFooterToast({ message: 'Licenses unavailable' }));
+    }
   }
 
   onHideUnsafeBoards(): Promise<void> {

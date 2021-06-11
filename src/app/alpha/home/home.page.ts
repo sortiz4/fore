@@ -46,7 +46,7 @@ export class HomePage implements ViewWillEnter {
     }
   }
 
-  async onRefresh(): Promise<void> {
+  onRefresh(): void {
     // Cancel the current request
     this.refreshEvent?.unsubscribe?.();
 
