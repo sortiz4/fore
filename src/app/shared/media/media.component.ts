@@ -58,12 +58,12 @@ export class MediaComponent implements OnInit, OnDestroy {
   ) {
   }
 
-  ngOnInit(): void {
-    this.zone.runOutsideAngular(() => this.startObserver());
+  ngOnInit(): Promise<void> {
+    return this.zone.runOutsideAngular(() => this.startObserver());
   }
 
   ngOnDestroy(): void {
-    this.zone.runOutsideAngular(() => this.stopObserver());
+    return this.zone.runOutsideAngular(() => this.stopObserver());
   }
 
   async startObserver(): Promise<void> {

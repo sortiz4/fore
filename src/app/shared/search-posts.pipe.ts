@@ -21,6 +21,7 @@ export class SearchPostsPipe implements PipeTransform {
         pattern.test(post.text)
       );
     };
+
     return posts.filter(filter);
   }
 }

@@ -7,14 +7,14 @@ import { camelCaseKeys } from '../../utils';
 @Injectable()
 export class CamelCase implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request).pipe(
-      map(
-        event => event instanceof HttpResponse ? (
-          event.clone({ body: camelCaseKeys(event.body) })
-        ) : (
-          event
-        ),
-      ),
-    );
+    const mapResponseToCamelCase = (event: HttpEvent<unknown>): HttpEvent<unknown> => {
+      return event instanceof HttpResponse ? (
+        event.clone({ body: camelCaseKeys(event.body) })
+      ) : (
+        event
+      );
+    };
+
+    return next.handle(request).pipe(map(mapResponseToCamelCase));
   }
 }

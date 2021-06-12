@@ -22,6 +22,7 @@ export class SearchThreadsPipe implements PipeTransform {
         pattern.test(thread.title)
       );
     };
+
     return threads.filter(filter);
   }
 }

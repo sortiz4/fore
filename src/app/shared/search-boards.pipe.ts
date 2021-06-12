@@ -22,6 +22,7 @@ export class SearchBoardsPipe implements PipeTransform {
         pattern.test(board.path)
       );
     };
+
     return boards.filter(filter);
   }
 }
