@@ -28,9 +28,9 @@ export class System {
     };
 
     return (
-      firstValueFrom(this.overlay.openFooterToast({ message: 'Download started' }))
+      firstValueFrom(this.overlay.openToast({ message: 'Download started' }))
         .then(t => onDownload(t))
-        .then(m => firstValueFrom(this.overlay.openFooterToast({ message: m })))
+        .then(m => firstValueFrom(this.overlay.openToast({ message: m })))
         .then(() => void 0)
     );
   }
@@ -50,7 +50,7 @@ export class System {
         .paste()
         .then(s => [s, 'Copied from clipboard'])
         .catch(s => [s, `Couldn't access clipboard`])
-        .then(a => firstValueFrom(this.overlay.openFooterToast({ message: a[1] })).then(() => a[0]))
+        .then(a => firstValueFrom(this.overlay.openToast({ message: a[1] })).then(() => a[0]))
     );
   }
 
@@ -60,7 +60,7 @@ export class System {
         .copy(text)
         .then(() => 'Copied to clipboard')
         .catch(() => `Couldn't access clipboard`)
-        .then(m => firstValueFrom(this.overlay.openFooterToast({ message: m })))
+        .then(m => firstValueFrom(this.overlay.openToast({ message: m })))
         .then(() => text)
     );
   }

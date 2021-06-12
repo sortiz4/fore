@@ -43,12 +43,9 @@ export class Overlay {
     return this.openModal({ ...defaultOptions, ...options });
   }
 
-  closeModal(): Observable<boolean> {
-    return defer(() => this.modal.dismiss());
-  }
-
   openToast(options?: ToastOptions): Observable<HTMLIonToastElement> {
     const defaultOptions = {
+      cssClass: 'app-toast-footer',
       duration: 1000,
     };
 
@@ -61,9 +58,5 @@ export class Overlay {
     };
 
     return defer(onSubscribe);
-  }
-
-  openFooterToast(options?: ToastOptions): Observable<HTMLIonToastElement> {
-    return this.openToast({ cssClass: 'app-toast-footer', ...options });
   }
 }

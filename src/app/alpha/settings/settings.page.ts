@@ -39,7 +39,7 @@ export class SettingsPage {
       };
       await firstValueFrom(this.overlay.openModal(options));
     } catch {
-      await firstValueFrom(this.overlay.openFooterToast({ message: 'Licenses unavailable' }));
+      await firstValueFrom(this.overlay.openToast({ message: 'Licenses unavailable' }));
     }
   }
 
@@ -67,7 +67,7 @@ export class SettingsPage {
     return (
       this.database
         .setState(this.state.set({ hidden }).get())
-        .then(() => firstValueFrom(this.overlay.openFooterToast({ message: 'Boards hidden' })))
+        .then(() => firstValueFrom(this.overlay.openToast({ message: 'Boards hidden' })))
         .then(() => void 0)
     );
   }

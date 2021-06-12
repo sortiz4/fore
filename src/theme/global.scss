@@ -40,23 +40,6 @@ ion-searchbar {
   }
 }
 
-.action-sheet-group.sc-ion-action-sheet-md:first-child,
-.picker-wrapper.sc-ion-picker-md {
-  border-radius: $app-border-radius-large $app-border-radius-large 0 0;
-}
-
-.alert-button.sc-ion-alert-md,
-.picker-button.sc-ion-picker-md {
-  &,
-  &.ion-activated {
-    text-transform: none;
-  }
-}
-
-.alert-wrapper.sc-ion-alert-md {
-  border-radius: $app-border-radius-large;
-}
-
 .app-footer-border {
   box-shadow: $app-footer-box-shadow;
 }
