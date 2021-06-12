@@ -11,17 +11,16 @@ export class SearchPostsPipe implements PipeTransform {
       case 0:
         return posts;
     }
-    return this.filter(posts, trimmed);
+    return this.filter(posts, new RegExp(trimmed, 'i'));
   }
 
-  filter(posts: Post[], text: string): Post[] {
-    const filterBoards = (post: Post): boolean => {
+  filter(posts: Post[], pattern: RegExp): Post[] {
+    const filter = (post: Post): boolean => {
       return (
-        !!post.author.match(pattern) ||
-        !!post.text?.match?.(pattern)
+        pattern.test(post.author) ||
+        pattern.test(post.text)
       );
     };
-    const pattern = new RegExp(text, 'i');
-    return posts.filter(filterBoards);
+    return posts.filter(filter);
   }
 }

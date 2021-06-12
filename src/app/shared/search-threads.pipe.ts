@@ -11,18 +11,17 @@ export class SearchThreadsPipe implements PipeTransform {
       case 0:
         return threads;
     }
-    return this.filter(threads, trimmed);
+    return this.filter(threads, new RegExp(trimmed, 'i'));
   }
 
-  filter(threads: Thread[], text: string): Thread[] {
-    const filterBoards = (thread: Thread): boolean => {
+  filter(threads: Thread[], pattern: RegExp): Thread[] {
+    const filter = (thread: Thread): boolean => {
       return (
-        !!thread.author.match(pattern) ||
-        !!thread.text?.match?.(pattern) ||
-        !!thread.title.match(pattern)
+        pattern.test(thread.author) ||
+        pattern.test(thread.text) ||
+        pattern.test(thread.title)
       );
     };
-    const pattern = new RegExp(text, 'i');
-    return threads.filter(filterBoards);
+    return threads.filter(filter);
   }
 }

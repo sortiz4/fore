@@ -81,6 +81,47 @@
           }
         ],
         "arrow-body-style": 0,
+        "comma-dangle": [
+          "error",
+          "always-multiline"
+        ],
+        "no-empty": [
+          "error",
+          {
+            "allowEmptyCatch": true
+          }
+        ],
+        "no-underscore-dangle": 0,
+        "prefer-arrow/prefer-arrow-functions": 0
+      }
+    },
+    {
+      "files": [
+        "*.js"
+      ],
+      "parserOptions": {
+        "ecmaVersion": 2021
+      },
+      "env": {
+        "jasmine": true,
+        "node": true,
+        "protractor": true
+      },
+      "extends": [
+        "eslint:recommended"
+      ],
+      "rules": {
+        "arrow-body-style": 0,
+        "comma-dangle": [
+          "error",
+          "always-multiline"
+        ],
+        "no-empty": [
+          "error",
+          {
+            "allowEmptyCatch": true
+          }
+        ],
         "no-underscore-dangle": 0,
         "prefer-arrow/prefer-arrow-functions": 0
       }

@@ -11,18 +11,17 @@ export class SearchBoardsPipe implements PipeTransform {
       case 0:
         return boards;
     }
-    return this.filter(boards, trimmed);
+    return this.filter(boards, new RegExp(trimmed, 'i'));
   }
 
-  filter(boards: Board[], text: string): Board[] {
-    const filterBoards = (board: Board): boolean => {
+  filter(boards: Board[], pattern: RegExp): Board[] {
+    const filter = (board: Board): boolean => {
       return (
-        !!board.description.match(pattern) ||
-        !!board.name.match(pattern) ||
-        !!board.path.match(pattern)
+        pattern.test(board.description) ||
+        pattern.test(board.name) ||
+        pattern.test(board.path)
       );
     };
-    const pattern = new RegExp(text, 'i');
-    return boards.filter(filterBoards);
+    return boards.filter(filter);
   }
 }

@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input } from '@angular/core';
+import { ViewWillEnter } from '@ionic/angular';
 import Mark from 'mark.js';
 import { Post, Thread } from '../../../models';
 
@@ -7,7 +8,7 @@ import { Post, Thread } from '../../../models';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent {
+export class SearchComponent implements ViewWillEnter {
   @Input() modal: HTMLIonModalElement;
   @Input() posts: Post[];
   @Input() thread: Thread;

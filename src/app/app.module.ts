@@ -58,7 +58,7 @@ const routes: Routes = [
     { provide: HTTP_INTERCEPTORS, useClass: CamelCase, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: SnakeCase, multi: true },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    { provide: HttpBackend, useClass: NativeHttpFallback, deps: [Platform, NativeHttpBackend, HttpXhrBackend] }
+    { provide: HttpBackend, useClass: NativeHttpFallback, deps: [Platform, NativeHttpBackend, HttpXhrBackend] },
   ],
 })
 export class AppModule {}

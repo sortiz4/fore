@@ -48,31 +48,31 @@ export class PageComponent implements OnInit, OnDestroy {
   didScrollDown = true;
 
   get canClose(): boolean {
-    return this.close.observers.length > 0;
+    return this.close.observed;
   }
 
   get canCopy(): boolean {
-    return this.copy.observers.length > 0;
+    return this.copy.observed;
   }
 
   get canDownload(): boolean {
-    return this.download.observers.length > 0;
+    return this.download.observed;
   }
 
   get canOpen(): boolean {
-    return this.open.observers.length > 0;
+    return this.open.observed;
   }
 
   get canRefresh(): boolean {
-    return this.refresh.observers.length > 0;
+    return this.refresh.observed;
   }
 
   get canSearch(): boolean {
-    return this.search.observers.length > 0;
+    return this.search.observed;
   }
 
   get canShare(): boolean {
-    return this.share.observers.length > 0;
+    return this.share.observed;
   }
 
   get hasFooter(): boolean {
