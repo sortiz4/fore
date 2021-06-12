@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { firstValueFrom } from 'rxjs';
-import { Notification } from './notification.service';
 import { FileSystem } from './file-system.service';
+import { Overlay } from './overlay.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class System {
   constructor(
     private clipboard: Clipboard,
     private fileSystem: FileSystem,
-    private notification: Notification,
+    private overlay: Overlay,
     private socialSharing: SocialSharing,
   ) {
   }
@@ -28,9 +28,9 @@ export class System {
     };
 
     return (
-      firstValueFrom(this.notification.openFooterToast({ message: 'Download started' }))
+      firstValueFrom(this.overlay.openFooterToast({ message: 'Download started' }))
         .then(t => onDownload(t))
-        .then(m => firstValueFrom(this.notification.openFooterToast({ message: m })))
+        .then(m => firstValueFrom(this.overlay.openFooterToast({ message: m })))
         .then(() => void 0)
     );
   }
@@ -50,7 +50,7 @@ export class System {
         .paste()
         .then(s => [s, 'Copied from clipboard'])
         .catch(s => [s, `Couldn't access clipboard`])
-        .then(a => firstValueFrom(this.notification.openFooterToast({ message: a[1] })).then(() => a[0]))
+        .then(a => firstValueFrom(this.overlay.openFooterToast({ message: a[1] })).then(() => a[0]))
     );
   }
 
@@ -60,7 +60,7 @@ export class System {
         .copy(text)
         .then(() => 'Copied to clipboard')
         .catch(() => `Couldn't access clipboard`)
-        .then(m => firstValueFrom(this.notification.openFooterToast({ message: m })))
+        .then(m => firstValueFrom(this.overlay.openFooterToast({ message: m })))
         .then(() => text)
     );
   }

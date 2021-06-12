@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { ModalOptions } from '@ionic/core';
+import { ModalController, ToastController } from '@ionic/angular';
+import { ModalOptions, ToastOptions } from '@ionic/core';
 import { defer, Observable, ObservableInput } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Overlay {
-  constructor(private modal: ModalController) {
+  constructor(private modal: ModalController, private toast: ToastController) {
   }
 
   openModal(options: ModalOptions): Observable<HTMLIonModalElement> {
@@ -45,5 +45,25 @@ export class Overlay {
 
   closeModal(): Observable<boolean> {
     return defer(() => this.modal.dismiss());
+  }
+
+  openToast(options?: ToastOptions): Observable<HTMLIonToastElement> {
+    const defaultOptions = {
+      duration: 1000,
+    };
+
+    const onSubscribe = (): ObservableInput<HTMLIonToastElement> => {
+      return (
+        this.toast
+          .create({ ...defaultOptions, ...options ?? {} })
+          .then(m => m.present().then(() => m))
+      );
+    };
+
+    return defer(onSubscribe);
+  }
+
+  openFooterToast(options?: ToastOptions): Observable<HTMLIonToastElement> {
+    return this.openToast({ cssClass: 'app-toast-footer', ...options });
   }
 }

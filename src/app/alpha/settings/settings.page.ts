@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Api } from '../../services/api.service';
 import { Database } from '../../services/database.service';
-import { Notification } from '../../services/notification.service';
 import { Overlay } from '../../services/overlay.service';
 import { State } from '../../services/state.service';
 import { System } from '../../services/system.service';
@@ -23,14 +22,7 @@ export class SettingsPage {
     return environment.version;
   }
 
-  constructor(
-    private api: Api,
-    private database: Database,
-    private notification: Notification,
-    private overlay: Overlay,
-    private state: State,
-    private system: System,
-  ) {
+  constructor(private api: Api, private database: Database, private overlay: Overlay, private state: State, private system: System) {
   }
 
   onGetHelp(): Promise<void> {
@@ -47,7 +39,7 @@ export class SettingsPage {
       };
       await firstValueFrom(this.overlay.openModal(options));
     } catch {
-      await firstValueFrom(this.notification.openFooterToast({ message: 'Licenses unavailable' }));
+      await firstValueFrom(this.overlay.openFooterToast({ message: 'Licenses unavailable' }));
     }
   }
 
@@ -75,7 +67,7 @@ export class SettingsPage {
     return (
       this.database
         .setState(this.state.set({ hidden }).get())
-        .then(() => firstValueFrom(this.notification.openFooterToast({ message: 'Boards hidden' })))
+        .then(() => firstValueFrom(this.overlay.openFooterToast({ message: 'Boards hidden' })))
         .then(() => void 0)
     );
   }
