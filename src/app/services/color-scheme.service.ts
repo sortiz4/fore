@@ -6,7 +6,7 @@ import { SystemView } from './system-view.service';
   providedIn: 'root',
 })
 export class ColorScheme {
-  private readonly color = globalThis.matchMedia('(prefers-color-scheme: dark)');
+  private readonly color = matchMedia('(prefers-color-scheme: dark)');
   private colorSchemeEvent: Subscription;
   private isMedia = false;
 

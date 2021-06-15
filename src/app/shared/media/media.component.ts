@@ -82,7 +82,7 @@ export class MediaComponent implements OnInit, OnDestroy {
 
     const options = {
       root: await firstValueFrom(timer(25)).then(getTarget),
-      rootMargin: `${globalThis.innerHeight}px`,
+      rootMargin: `${innerHeight}px`,
       threshold: 1,
     };
 

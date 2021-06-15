@@ -22,7 +22,6 @@ function createDefaultStore(): Store {
 })
 export class State {
   private readonly store$ = new BehaviorSubject<Store>(createDefaultStore());
-  readonly changes$ = this.store$.asObservable();
 
   get(): Store {
     return this.store$.getValue();

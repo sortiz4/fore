@@ -36,7 +36,7 @@ export class System {
   }
 
   openUrl(url: string): Promise<void> {
-    globalThis.open(url, '_blank');
+    open(url, '_blank');
     return Promise.resolve();
   }
 

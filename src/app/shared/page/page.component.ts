@@ -24,7 +24,7 @@ import { observeChildren } from '../../../utils';
     trigger(
       'fab',
       [
-        state('true', style({ transform: `translateY(${globalThis.innerHeight / 4}px)` })),
+        state('true', style({ transform: `translateY(${innerHeight / 4}px)` })),
         state('false', style({ transform: 'translateY(0)' })),
         transition('* <=> *', animate('250ms ease-in-out')),
       ],
