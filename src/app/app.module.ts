@@ -40,8 +40,8 @@ const routes: Routes = [
     AppComponent,
   ],
   imports: [
-    BrowserAnimationsModule,
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),

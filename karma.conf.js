@@ -20,19 +20,19 @@ module.exports = function (config) {
       suppressAll: true,
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/ngv'),
+      dir: require('path').join(__dirname, './coverage/app'),
       subdir: '.',
       reporters: [
         { type: 'html' },
         { type: 'text-summary' },
       ],
     },
-    browsers: [
-      'Chrome',
-    ],
     reporters: [
       'progress',
       'kjhtml',
+    ],
+    browsers: [
+      'Chrome',
     ],
     port: 9876,
     colors: true,
