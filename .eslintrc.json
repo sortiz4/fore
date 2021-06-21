@@ -1,8 +1,5 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
   "overrides": [
     {
       "files": [
@@ -10,8 +7,7 @@
       ],
       "parserOptions": {
         "project": [
-          "tsconfig.json",
-          "e2e/tsconfig.json"
+          "tsconfig.json"
         ],
         "createDefaultProgram": true
       },
@@ -109,8 +105,7 @@
       "env": {
         "es6": true,
         "jasmine": true,
-        "node": true,
-        "protractor": true
+        "node": true
       },
       "extends": [
         "eslint:recommended"
