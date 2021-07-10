@@ -35,7 +35,8 @@
         <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application/activity">
             <activity android:theme="@style/AppTheme" />
         </edit-config>
-        <resource-file src="resources/android/values/styles.xml" target="app/src/main/res/values/styles.xml" />
+        <resource-file src="resources/android/values/colors.xml" target="app/src/main/res/values/colors.xml" />
+        <resource-file src="resources/android/values/themes.xml" target="app/src/main/res/values/themes.xml" />
         <resource-file src="resources/android/xml/network_security_config.xml" target="app/src/main/res/xml/network_security_config.xml" />
         <icon background="@color/primary" density="ldpi" foreground="resources/android/icon/ldpi-foreground.png" />
         <icon background="@color/primary" density="mdpi" foreground="resources/android/icon/mdpi-foreground.png" />
