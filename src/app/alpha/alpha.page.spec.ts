@@ -16,9 +16,7 @@ describe('AlphaPage', () => {
       ],
     };
     TestBed.configureTestingModule(config).compileComponents();
-  }));
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(AlphaPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
