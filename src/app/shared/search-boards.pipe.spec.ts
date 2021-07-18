@@ -1,7 +1,7 @@
 import { SearchBoardsPipe } from './search-boards.pipe';
 
 describe('SearchBoardsPipe', () => {
-  it('create an instance', () => {
+  it('should create', () => {
     const pipe = new SearchBoardsPipe();
     expect(pipe).toBeTruthy();
   });

@@ -9,7 +9,7 @@ describe('Database', () => {
     service = TestBed.inject(Database);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

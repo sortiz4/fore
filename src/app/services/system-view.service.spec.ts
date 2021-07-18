@@ -9,7 +9,7 @@ describe('SystemView', () => {
     service = TestBed.inject(SystemView);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

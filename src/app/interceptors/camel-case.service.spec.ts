@@ -9,7 +9,7 @@ describe('CamelCase', () => {
     service = TestBed.inject(CamelCase);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

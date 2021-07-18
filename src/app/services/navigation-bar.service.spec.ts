@@ -9,7 +9,7 @@ describe('NavigationBar', () => {
     service = TestBed.inject(NavigationBar);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

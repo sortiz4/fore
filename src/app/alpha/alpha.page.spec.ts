@@ -20,7 +20,7 @@ describe('AlphaPage', () => {
     fixture = TestBed.createComponent(AlphaPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

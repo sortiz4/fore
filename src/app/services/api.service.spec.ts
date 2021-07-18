@@ -9,7 +9,7 @@ describe('Api', () => {
     service = TestBed.inject(Api);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

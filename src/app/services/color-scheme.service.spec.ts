@@ -9,7 +9,7 @@ describe('ColorScheme', () => {
     service = TestBed.inject(ColorScheme);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });
