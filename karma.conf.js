@@ -20,7 +20,7 @@ module.exports = function (config) {
       suppressAll: true,
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/app'),
+      dir: require('path').join(__dirname, 'coverage', 'app'),
       subdir: '.',
       reporters: [
         { type: 'html' },

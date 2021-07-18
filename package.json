@@ -94,7 +94,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "clean": "rm -rf node_modules platforms plugins www *-lock.json",
+    "clean": "rm -rf node_modules platforms plugins www package-lock.json",
     "start": "ng serve --hmr --proxy-config proxy.config.json",
     "build": "ng build",
     "test": "ng test",

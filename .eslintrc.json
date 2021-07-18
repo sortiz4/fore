@@ -6,9 +6,7 @@
         "*.ts"
       ],
       "parserOptions": {
-        "project": [
-          "tsconfig.json"
-        ],
+        "project": "tsconfig.json",
         "createDefaultProgram": true
       },
       "extends": [
@@ -127,7 +125,11 @@
           "error",
           "always"
         ],
-        "prefer-arrow/prefer-arrow-functions": 0
+        "prefer-arrow/prefer-arrow-functions": 0,
+        "semi": [
+          "error",
+          "always"
+        ]
       }
     },
     {
