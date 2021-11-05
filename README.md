@@ -7,7 +7,6 @@ boards, threads, and posts, and download and share images and videos.
 Those seeking to compile must have...
 
 - Node.js 16.2
-- NPM 7.15
 - Ionic 6.15
 - Cordova 10.0
 - Cordova Resources 0.15
