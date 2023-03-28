@@ -40,13 +40,21 @@
             "style": "camelCase"
           }
         ],
-        "@angular-eslint/no-output-native": 0,
+        "@angular-eslint/no-output-native": "off",
         "@typescript-eslint/ban-types": [
           "error",
           {
             "types": {
               "object": false
             }
+          }
+        ],
+        "@typescript-eslint/explicit-function-return-type": [
+          "error",
+          {
+            "allowExpressions": true,
+            "allowHigherOrderFunctions": false,
+            "allowDirectConstAssertionInArrowFunctions": false
           }
         ],
         "@typescript-eslint/member-ordering": [
@@ -74,7 +82,7 @@
             ]
           }
         ],
-        "arrow-body-style": 0,
+        "arrow-body-style": "off",
         "comma-dangle": [
           "error",
           "always-multiline"
@@ -85,12 +93,12 @@
             "allowEmptyCatch": true
           }
         ],
-        "no-underscore-dangle": 0,
+        "no-underscore-dangle": "off",
         "object-curly-spacing": [
           "error",
           "always"
         ],
-        "prefer-arrow/prefer-arrow-functions": 0
+        "prefer-arrow/prefer-arrow-functions": "off"
       }
     },
     {
@@ -109,7 +117,7 @@
         "eslint:recommended"
       ],
       "rules": {
-        "arrow-body-style": 0,
+        "arrow-body-style": "off",
         "comma-dangle": [
           "error",
           "always-multiline"
@@ -120,12 +128,12 @@
             "allowEmptyCatch": true
           }
         ],
-        "no-underscore-dangle": 0,
+        "no-underscore-dangle": "off",
         "object-curly-spacing": [
           "error",
           "always"
         ],
-        "prefer-arrow/prefer-arrow-functions": 0,
+        "prefer-arrow/prefer-arrow-functions": "off",
         "semi": [
           "error",
           "always"
