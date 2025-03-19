@@ -1,7 +1,8 @@
 # Fore
-Fore is a completely free and open source image board client for Android with a
-simple feature set and a modern user interface. Users can browse and search
-boards, threads, and posts, and download and share images and videos.
+Fore is a mobile image board client for Android featuring a streamlined feature
+set and a modern, intuitive user interface. Fore allows users to easily browse
+and search boards, threads, and posts, while also enabling them to download and
+share images and videos directly from within the app.
 
 ## Compilation
 Those seeking to compile must have...
